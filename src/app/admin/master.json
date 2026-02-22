@@ -1,0 +1,35 @@
+
+{
+    "categories": [
+        {
+            "key": "clothing",
+            "label": "Clothing",
+            "sizes": [{"key":"s", "label":"S"},{"key":"m", "label":"M"}, {"key":"l", "label":"L"}, {"key":"xl", "label":"XL"}]
+        },
+        {
+            "key": "footwear",
+            "label": "Footwear",
+            "sizes": [{"key":"7", "label":"7"},{"key":"8", "label":"8"}, {"key":"9", "label":"9"}, {"key":"10", "label":"10"}]
+        }
+    ],
+    "brands": [
+        { "key": "nike", "label": "Nike" },
+        { "key": "adidas", "label": "Adidas" }
+    ],
+    "colors": [
+        { "key": "#000000", "label": "Black" },
+        { "key": "#660000", "label": "Blood Red" },
+        { "key": "#FEE12B", "label": "Pineapple Yellow" },
+        { "key": "#006B3C", "label": "Cadmium Green" }
+        
+    ],
+    "stockStatus": [
+        { "key": "in_stock", "label": "In Stock" },
+        { "key": "out_of_stock", "label": "Out Of Stock" }
+    ],
+    "gender": [
+        { "key": "male", "label": "Male" },
+        { "key": "female", "label": "Female" }
+    ],
+    "version": "1.0.0"
+}
