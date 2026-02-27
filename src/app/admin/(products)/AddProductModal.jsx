@@ -99,11 +99,11 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
 
                                   const error = Boolean(touched.brandId && errors.brandId)
                                   return (
-                                    <FormControl required size="small" fullWidth>
+                                    <FormControl required fullWidth>
                                       <InputLabel>Brand</InputLabel>
 
                                       <Select
-                                        {...field}
+                                        // {...field}
                                         label="Brand"
                                         value={field.value || ''}
                                       >
@@ -130,16 +130,16 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
 
                                   const error = Boolean(touched.categoryId && errors.categoryId)
                                   return (
-                                    <FormControl required size="small" fullWidth>
+                                    <FormControl required fullWidth>
                                       <InputLabel>Category</InputLabel>
 
                                       <Select
-                                        {...field}
+                                        // {...field}
                                         label="Category"
                                         value={field.value || ''}
                                         onChange={(e) => {setFieldValue('categoryId', e.target.value); setFieldValue('sizeId', [])}}
                                       >
-                                        {master.categories.length > 0 ? (
+                                        {master?.categories?.length > 0 ? (
                                           master.categories.map((category, idx) => (
                                             <MenuItem value={category._id} key={idx}>
                                               {category.label}
@@ -164,11 +164,11 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
 
                                     const error = Boolean(touched.sizeId && errors.sizeId)
                                     return (
-                                      <FormControl required size="small" fullWidth>
+                                      <FormControl required fullWidth>
                                         <InputLabel>Sizes</InputLabel>
 
                                         <Select
-                                          {...field}
+                                          // {...field}
                                           label="Sizes"
                                           multiple
                                           value={field.value || []}
@@ -210,7 +210,7 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
                                       <InputLabel>Color</InputLabel>
 
                                       <Select
-                                        {...field}
+                                        // {...field}
                                         label="Colors"
                                         multiple
                                         value={field.value || []}

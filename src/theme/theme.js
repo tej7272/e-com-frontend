@@ -33,18 +33,20 @@ import FilledInput from './components/text-fields/FilledInput';
 import FormControl from './components/text-fields/FormControl';
 import FormControlLabel from './components/text-fields/FormControlLabel';
 import FormHelperText from './components/text-fields/FormHelperText';
-import Input, { InputBase } from './components/text-fields/Input';
+import Input from './components/text-fields/Input';
 import InputAdornment from './components/text-fields/InputAdornment';
+import InputBase from './components/text-fields/InputBase';
 import InputLabel from './components/text-fields/InputLabel';
 import OutlinedInput from './components/text-fields/OutlinedInput';
 import TextField from './components/text-fields/TextField';
 import { paletteOptions } from './palette';
-import shadows from './shadows';
-import sxConfig from './sxConfig';
+import { shadows } from './shadows';
+import { sxConfig } from './sxConfig';
 
 export const themeOverrides = {
   cssVariables: { colorSchemeSelector: 'data-aurora-color-scheme', cssVarPrefix: 'aurora' },
   shadows: ['none', ...shadows],
+  shape: { borderRadius: 8 },
   colorSchemes: {
     light: {
       palette: paletteOptions,
@@ -62,15 +64,15 @@ export const themeOverrides = {
     MuiButtonBase: ButtonBase,
     // input fields
     MuiTextField: TextField,
-    MuiFilledInput: FilledInput,
+    // MuiFilledInput: FilledInput,
     MuiOutlinedInput: OutlinedInput,
     MuiInputLabel: InputLabel,
-    MuiInputAdornment: InputAdornment,
-    MuiFormHelperText: FormHelperText,
+    // MuiInputAdornment: InputAdornment,
+    // MuiFormHelperText: FormHelperText,
     MuiInput: Input,
     MuiInputBase: InputBase,
     MuiFormControl: FormControl,
-    MuiFormControlLabel: FormControlLabel,
+    // MuiFormControlLabel: FormControlLabel,
     MuiAutocomplete: Autocomplete,
     // ----------
     MuiBreadcrumbs: Breadcrumbs,

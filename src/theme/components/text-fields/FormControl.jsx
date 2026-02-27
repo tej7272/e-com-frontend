@@ -1,6 +1,8 @@
+// ✅ no changes needed — already minimal
 const FormControl = {
   defaultProps: {
-    variant: 'filled',
+    size: "small",
+    variant: "outlined",
   },
 };
 

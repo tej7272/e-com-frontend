@@ -20,7 +20,7 @@ interface TopCampaignsChartProps {
   data: TopCampaignsData[];
 }
 
-const TopCampaignsChart = ({ sx, data }: TopCampaignsChartProps) => {
+const TopCampaignsChart = ({ sx, data }) => {
   const chartRef = useRef<null | EChartsReactCore>(null);
   const { vars, typography } = useTheme();
   const { getThemeColor } = useSettingsContext();

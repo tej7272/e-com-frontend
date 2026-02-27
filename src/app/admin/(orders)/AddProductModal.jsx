@@ -166,7 +166,7 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
                               <Field name='colors'>
                                 {({ field, form, meta }) => (
                                   <TextField
-                                    {...field}
+                                    // {...field}
                                     type="color"
                                     label='Color'
                                     fullWidth

@@ -9,7 +9,7 @@ interface TopCampaignsProps {
   data: TopCampaignsData[];
 }
 
-const TopCampaigns = ({ data }: TopCampaignsProps) => {
+const TopCampaigns = ({ data }) => {
   return (
     <Paper
       component={Stack}

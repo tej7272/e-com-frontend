@@ -31,8 +31,7 @@ const Paper = {
       props: { variant: 'default' },
       style: ({ theme }) => ({
         border: 'none',
-        outline: `1px solid ${theme.vars.palette.divider}`,
-        borderRadius: 0,
+        borderRadius: theme.spacing(1),
       }),
     },
     ...backgroundVariants,
@@ -43,7 +42,6 @@ const Paper = {
   },
   styleOverrides: {
     elevation: ({ theme }) => ({
-      backgroundColor: theme.vars.palette.background.menu,
       backgroundImage: 'none',
       borderWidth: 0,
       borderStyle: 'solid',
@@ -52,9 +50,9 @@ const Paper = {
         borderWidth: 1,
       }),
     }),
-    rounded: {
-      borderRadius: 8,
-    },
+    rounded: ({ theme }) => ({
+      borderRadius: theme.spacing(1),
+    }),
   },
 };
 

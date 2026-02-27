@@ -1,5 +1,5 @@
 import { Grid, TextField } from "@mui/material";
-import { Field } from "formik";
+import { FastField } from "formik";
 
 const RenderTextField = ({
     name, 
@@ -16,20 +16,20 @@ const RenderTextField = ({
     
     return (
         <Grid size={size} >
-            <Field name={name}>
+            <FastField name={name}>
                 {({ field, form, meta }) => {
                     const handleChange = (e) => {
                         let value = e.target.value;
 
-                        if(type === 'number'){
-                            value = value.replace(/\D/g, '')
+                        if (type === "number") {
+                            value = value.replace(/\D/g, "");
                         }
-                        form.setFieldValue(name, value);
-                        onChange?.(e);
-                    }
+
+                        form.setFieldValue(name, value, false);
+                    };
                     return (
                         <TextField 
-                            {...field}
+                            // {...field}
                             fullWidth
                             name= {name}
                             multiline = {rows > 1}
@@ -47,7 +47,7 @@ const RenderTextField = ({
                     )
                 }}
 
-            </Field>
+            </FastField>
         </Grid>
     )
 }

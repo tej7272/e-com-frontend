@@ -684,6 +684,7 @@ const subcategories = [
                                                 fullWidth
                                                 label="Product Name *"
                                                 name="name"
+                                                size='medium'
                                                 value={values.name}
                                                 onChange={(e) => {
                                                     setFieldValue('name', e.target.value);

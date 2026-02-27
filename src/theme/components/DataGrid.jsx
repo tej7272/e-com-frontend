@@ -1,25 +1,28 @@
-import { inputBaseClasses, tablePaginationClasses } from '@mui/material';
 import { cssVarRgba } from 'lib/utils';
 import IconifyIcon from 'components/base/IconifyIcon';
-import DataGridPagination from 'components/pagination/DataGridPagination';
 
 const DataGrid = {
   defaultProps: {
     disableRowSelectionOnClick: true,
-    disableColumnMenu: true,
     columnHeaderHeight: 48,
     slots: {
       columnSortedDescendingIcon: ({ onLoad, ...props }) => (
-        <IconifyIcon icon="material-symbols:sort-rounded" {...props} />
+        <IconifyIcon icon="solar:alt-arrow-down-bold-duotone" {...props} />
       ),
       columnSortedAscendingIcon: ({ onLoad, ...props }) => (
         <IconifyIcon
-          icon="material-symbols:sort-rounded"
+          icon="solar:alt-arrow-down-bold-duotone"
           {...props}
           sx={{ transform: 'rotateX(180deg)' }}
         />
       ),
-      basePagination: DataGridPagination,
+      columnMenuIcon: ({ onLoad, ...props }) => (
+        <IconifyIcon
+          icon="weui:more-outlined"
+          {...props}
+          sx={{ transform: 'rotateX(180deg)' }}
+        />
+      ),
     },
     slotProps: {
       filterPanel: {
@@ -46,55 +49,38 @@ const DataGrid = {
     root: ({ theme }) => ({
       border: 'none',
       overflow: 'unset',
-      ['& .MuiDataGrid-filler']: {
-        '--DataGrid-rowBorderColor': 'transparent',
-      },
       '--DataGrid-rowBorderColor': theme.vars.palette.dividerLight,
     }),
     panel: ({ theme }) => ({
-      ['& .MuiDataGrid-paper']: {
-        borderRadius: theme.spacing(2),
+      '& .MuiDataGrid-paper': {
+        borderRadius: theme.borderRadius,
         outline: 'none',
-        background: theme.vars.palette.background.menu,
+        background: theme.vars.palette.primary,
         border: '1px solid',
-        borderColor: theme.vars.palette.menuDivider,
-        boxShadow: theme.vars.shadows[3],
-        padding: 0,
+        borderColor: theme.vars.palette.background.menu,
+        boxShadow: theme.shadows[20],
+        padding: theme.spacing(0),
       },
     }),
     panelContent: {
       padding: 0,
     },
     filterForm: ({ theme }) => ({
-      gap: theme.spacing(1),
-      padding: theme.spacing(3),
-      flexDirection: 'column',
-      '& .MuiFormControl-root': {
-        width: '100%',
-        [`& .${inputBaseClasses.root}`]: {
-          width: '100%',
-        },
-      },
+      padding: theme.spacing(3, 2),
     }),
-    filterFormDeleteIcon: ({ theme }) => ({
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      '&::before': {
-        content: '"Filter"',
-        color: theme.vars.palette.text.primary,
-        fontWeight: 600,
-        fontSize: theme.typography.subtitle1.fontSize,
-      },
+    menu: ({theme}) => ({
+      '& .MuiPaper-root': {
+        borderRadius: theme.spacing,
+        boxShadow: theme.shadows[16],
+      }
     }),
     main: {
       overflow: 'unset',
     },
     columnHeaders: ({ theme }) => ({
-      '--DataGrid-t-header-background-base': theme.vars.palette.background.elevation1,
+      '--DataGrid-t-header-background-base': theme.palette.grey[100],
       overflow: 'hidden',
-      borderTopLeftRadius: 16,
-      borderTopRightRadius: 16,
+      borderRadius: theme.spacing(0)
     }),
     columnHeaderTitleContainer: {
       overflow: 'unset',
@@ -133,9 +119,10 @@ const DataGrid = {
         outline: 'none',
       },
     },
-    columnSeparator: {
-      display: 'none',
-    },
+    columnSeparator: ({ theme }) => ({
+      // display: 'none',
+      color: theme.vars.palette.divider,
+    }),
     cell: ({ theme }) => ({
       lineHeight: 'unset',
       display: 'flex',
@@ -143,6 +130,7 @@ const DataGrid = {
       color: theme.vars.palette.text.secondary,
       ...theme.typography.subtitle2,
       fontWeight: 400,
+      borderTop: `1px dashed ${theme.vars.palette.dividerLight}`,
       '&:focus': {
         outline: 'none',
       },

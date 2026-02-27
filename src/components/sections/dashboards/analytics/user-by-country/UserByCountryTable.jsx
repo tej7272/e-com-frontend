@@ -40,7 +40,7 @@ const getGrowthRateIcon = (rate: number) => {
   return 'material-symbols:trending-up-rounded';
 };
 
-const createRowSortComparator = <T,>(baseComparator: (a: T, b: T) => number): GridComparatorFn => {
+const createRowSortComparator = <T,>(baseComparator: (a: T, b: T) => number) => {
   return (v1: T, v2: T, param1, param2) => {
     const row1 = param1.api.getRow(param1.id);
     const row2 = param2.api.getRow(param2.id);
@@ -68,7 +68,7 @@ const UserByCountryTable = ({ data }: { data: UserByCountryData[] }) => {
     growthRate: averageGrowthRate,
   };
 
-  const columns: GridColDef<UserByCountryData>[] = useMemo(
+  const columns: GridColDef[] = useMemo(
     () => [
       {
         field: 'id',

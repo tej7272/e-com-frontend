@@ -270,9 +270,7 @@ const ProductTable = () => {
       <AddProductModal open ={open} onClose={handleClose} selectedData={selectedData}/>
       <Grid container spacing={1} alignItems="center" sx={{ px: 2, mt: 2 }}>
         <Grid size={6}>
-          <Typography variant="h5" fontWeight={700}>
-            Products
-          </Typography>
+          
         </Grid>
         <Grid size={6}>
           <Stack direction="row" spacing={1} justifyContent="flex-end">
@@ -286,12 +284,11 @@ const ProductTable = () => {
       <Box sx={{ mt: 3 }}>
         <Paper sx={{ width: "100%"}}>
           <DataGrid
-            autoHeight
             rows={filteredList}
             getRowId={(row) => row.id}
             columns={columns}
             initialState={{ pagination: { paginationModel } }}
-            pageSizeOptions={[5, 10]}
+            pageSizeOptions={[10, 20, 50]}
             disableRowSelectionOnClick
             checkboxSelection={false}
             sx={{ border: 0 }}

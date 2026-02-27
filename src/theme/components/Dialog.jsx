@@ -11,6 +11,7 @@ const Dialog = {
     paper: {
       fontSize: 9,
       overflow: 'hidden',
+      minHeight: 'fit-content',
     },
   },
 };
