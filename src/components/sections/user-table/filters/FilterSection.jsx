@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { Box, Button, Stack } from '@mui/material';
 import { users } from 'data/users';
 import { useBreakpoints } from 'providers/BreakpointsProvider';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 import FilterMenu from './FilterMenu';
 
 const statuses = Array.from(new Set(users.map((user) => user.status)));
@@ -61,10 +61,10 @@ const FilterSection = ({ apiRef, handleToggleFilterPanel }) => {
         onClick={handleToggleFilterPanel}
       >
         {upSm && (
-          <IconifyIcon icon="material-symbols:swap-vert-rounded" fontSize={'20px !important'} />
+          <Iconify icon="material-symbols:swap-vert-rounded" fontSize={'20px !important'} />
         )}
         {!upSm && (
-          <IconifyIcon icon="material-symbols:filter-alt-outline" fontSize={'20px !important'} />
+          <Iconify icon="material-symbols:filter-alt-outline" fontSize={'20px !important'} />
         )}
         {upSm && <Box component="span">More filters</Box>}
       </Button>

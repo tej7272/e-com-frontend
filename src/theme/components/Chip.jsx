@@ -1,6 +1,6 @@
 import { chipClasses } from '@mui/material';
 import { cssVarRgba } from 'lib/utils';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 
 const chipColors = [
   'primary',
@@ -127,7 +127,7 @@ const Chip = {
     })),
   ],
   defaultProps: {
-    deleteIcon: <IconifyIcon icon="material-symbols:cancel-rounded" />,
+    deleteIcon: <Iconify icon="material-symbols:cancel-rounded" />,
     color: 'neutral',
     variant: 'soft',
     size: 'small',

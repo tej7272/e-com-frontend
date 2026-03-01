@@ -1,5 +1,5 @@
 import { cssVarRgba } from 'lib/utils';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 
 const DataGrid = {
   defaultProps: {
@@ -7,17 +7,17 @@ const DataGrid = {
     columnHeaderHeight: 48,
     slots: {
       columnSortedDescendingIcon: ({ onLoad, ...props }) => (
-        <IconifyIcon icon="solar:alt-arrow-down-bold-duotone" {...props} />
+        <Iconify icon="solar:alt-arrow-down-bold-duotone" {...props} />
       ),
       columnSortedAscendingIcon: ({ onLoad, ...props }) => (
-        <IconifyIcon
+        <Iconify
           icon="solar:alt-arrow-down-bold-duotone"
           {...props}
           sx={{ transform: 'rotateX(180deg)' }}
         />
       ),
       columnMenuIcon: ({ onLoad, ...props }) => (
-        <IconifyIcon
+        <Iconify
           icon="weui:more-outlined"
           {...props}
           sx={{ transform: 'rotateX(180deg)' }}
@@ -55,7 +55,7 @@ const DataGrid = {
       '& .MuiDataGrid-paper': {
         borderRadius: theme.borderRadius,
         outline: 'none',
-        background: theme.vars.palette.primary,
+        background: theme.palette.primary,
         border: '1px solid',
         borderColor: theme.vars.palette.background.menu,
         boxShadow: theme.shadows[20],
@@ -94,7 +94,7 @@ const DataGrid = {
         backgroundColor: 'transparent',
       },
       '&.Mui-selected': {
-        backgroundColor: cssVarRgba(theme.vars.palette.primary.lightChannel, 0.08),
+        backgroundColor: cssVarRgba(theme.palette.primary.lightChannel, 0.08),
       },
       '& .MuiDataGrid-cell': {
         [`&:nth-of-type(2)`]: {

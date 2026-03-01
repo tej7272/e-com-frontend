@@ -1,6 +1,6 @@
 import { paginationItemClasses } from '@mui/material';
 import { cssVarRgba } from 'lib/utils';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 
 const paginationSolidColors = [
   'neutral',
@@ -13,14 +13,14 @@ const paginationSolidColors = [
 ];
 
 const FirstIcon = () => (
-  <IconifyIcon icon="material-symbols:keyboard-double-arrow-left-rounded" fontSize={20} />
+  <Iconify icon="material-symbols:keyboard-double-arrow-left-rounded" />
 );
 const LastIcon = () => (
-  <IconifyIcon icon="material-symbols:keyboard-double-arrow-right-rounded" fontSize={20} />
+  <Iconify icon="material-symbols:keyboard-double-arrow-right-rounded" />
 );
-const NextIcon = () => <IconifyIcon icon="material-symbols:chevron-right-rounded" fontSize={20} />;
+const NextIcon = () => <Iconify icon="material-symbols:chevron-right-rounded" />;
 const previousIcon = () => (
-  <IconifyIcon icon="material-symbols:chevron-left-rounded" fontSize={20} />
+  <Iconify icon="material-symbols:chevron-left-rounded" />
 );
 
 const paginationCustomVariants = paginationSolidColors.map(
@@ -82,9 +82,9 @@ export const PaginationItem = {
             },
           },
         ],
-        borderRadius: 8,
+        // borderRadius: 8,
         '&:hover': {
-          backgroundColor: theme.vars.palette.neutral.lighter,
+          // backgroundColor: theme.vars.palette.neutral.lighter,
         },
         [`&.${paginationItemClasses.selected}, &.${paginationItemClasses.selected}:hover`]: {
           backgroundColor: theme.vars.palette.action.focus,

@@ -1,7 +1,7 @@
 import { AvatarGroup, Badge, badgeClasses } from '@mui/material';
 import { Avatar } from '@mui/material';
 import { notificationBadge } from 'data/notifications';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 
 const NotificationListItemAvatar = ({ notification, variant }) => {
   return (
@@ -22,7 +22,7 @@ const NotificationListItemAvatar = ({ notification, variant }) => {
             },
           ]}
         >
-          <IconifyIcon
+          <Iconify
             icon={notificationBadge[notification.type].icon}
             sx={[
               { fontSize: notification.type === 'reaction_smile' ? 22 : 16 },

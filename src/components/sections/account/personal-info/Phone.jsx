@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, Stack, Typography } from '@mui/material';
 import { useAccounts } from 'providers/AccountsProvider';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 import PhoneTextfield from 'components/base/PhoneTextfield';
 import AccountDialog from '../common/AccountDialog';
 import InfoCard from '../common/InfoCard';
@@ -20,7 +20,7 @@ const Phone = () => {
         <Stack direction="column" spacing={{ xs: 2, sm: 1 }}>
           <InfoCardAttribute label="Number" value={personalInfo.phoneNumber} />
         </Stack>
-        <IconifyIcon
+        <Iconify
           icon="material-symbols-light:edit-outline"
           sx={{ fontSize: 20, color: 'neutral.dark', visibility: 'hidden' }}
         />
@@ -57,7 +57,7 @@ const Phone = () => {
           }}
         >
           Confirm your number{' '}
-          <IconifyIcon icon="material-symbols:chevron-right" sx={{ fontSize: 20 }} />
+          <Iconify icon="material-symbols:chevron-right" sx={{ fontSize: 20 }} />
         </Link>
       </Stack>
     </>

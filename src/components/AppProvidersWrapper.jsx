@@ -9,7 +9,7 @@ export const AppProvidersWrapper = ({ children}) => {
         typography: createTypography(),
         ...themeOverrides,
     })
-
+        console.log("theme", theme);
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

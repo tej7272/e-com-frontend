@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Stack, TextField } from '@mui/material';
 import { useAccounts } from 'providers/AccountsProvider';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 import AccountDialog from '../common/AccountDialog';
 import InfoCard from '../common/InfoCard';
 import InfoCardAttribute from '../common/InfoCardAttribute';
@@ -18,7 +18,7 @@ const UserName = () => {
         <Stack direction="column" spacing={{ xs: 2, sm: 1 }} justifyContent="center">
           <InfoCardAttribute label="User Name" value={personalInfo.userName} />
         </Stack>
-        <IconifyIcon
+        <Iconify
           icon="material-symbols-light:edit-outline"
           sx={{ fontSize: 20, color: 'neutral.dark', visibility: 'hidden' }}
         />

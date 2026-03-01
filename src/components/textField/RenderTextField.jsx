@@ -25,21 +25,32 @@ const RenderTextField = ({
                             value = value.replace(/\D/g, "");
                         }
 
+                        // Avoid redundant writes; writing the same value repeatedly can cause render loops.
+                        if (field.value === value) return;
+
+                        // If caller provides custom onChange, delegate to it; otherwise update Formik directly.
+                        if (onChange) {
+                            onChange(e);
+                            return;
+                        }
                         form.setFieldValue(name, value, false);
                     };
                     return (
                         <TextField 
-                            // {...field}
+                            {...field}
                             fullWidth
                             name= {name}
+                            value={field.value ?? ""}
                             multiline = {rows > 1}
                             rows = {rows}
                             type= {type}
                             label= {label}
+                            // size="medium"
                             disabled={disabled}
                             error={Boolean(meta.touched && meta.error)}
                             helperText={meta.touched && meta.error}
                             onChange = {handleChange}
+                            onBlur={field.onBlur}
                             variant="outlined"
                             required= {required}
                             InputProps={{readOnly}}

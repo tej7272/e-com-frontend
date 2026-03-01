@@ -3,7 +3,7 @@ import { InputAdornment, Stack } from '@mui/material';
 import { countries as countriesData } from 'data/countries';
 import CountrySelect from 'components/common/CountrySelect';
 import StyledTextField from 'components/styled/StyledTextField';
-import IconifyIcon from './IconifyIcon';
+import Iconify from './Iconify';
 import NumberTextField from './NumberTextField';
 
 const PhoneTextfield = ({
@@ -66,7 +66,7 @@ const PhoneTextfield = ({
                   ...params.InputProps,
                   startAdornment: country ? (
                     <InputAdornment position="start">
-                      <IconifyIcon icon={country?.flag} sx={{ width: 24 }} />
+                      <Iconify icon={country?.flag} sx={{ width: 24 }} />
                     </InputAdornment>
                   ) : undefined,
                 },

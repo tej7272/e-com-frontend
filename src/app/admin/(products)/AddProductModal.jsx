@@ -3,7 +3,6 @@ import {
   DialogActions,
   DialogTitle,
   DialogContent,
-  Divider,
   Button,
   Grid,
   Box,
@@ -23,9 +22,8 @@ import { LoadingButton } from "@mui/lab";
 import React from "react";
 import { Formik, Form, Field } from 'formik';
 import RenderTextField from "../../../components/textField/RenderTextField";
-import { X, Plus } from 'lucide-react';
-// import CustomIcon from "../../../components/Icons/Icon";
 import { useDispatch, useSelector } from 'react-redux';
+import Iconify from "components/base/Iconify";
 
 
 
@@ -42,22 +40,17 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
       maxWidth='md'
     >
       <DialogTitle >
-        <Stack direction='row' justifyContent="space-between" alignItems='center'>
-          <Box display="flex" flexDirection='row' alignItems= 'center' gap={.5}>
-            {/* <CustomIcon icon={Plus} size={18}/> */}+
+        <Stack direction='row' alignItems='center' gap={1}>
+            <Iconify icon="solar:add-circle-broken" />
             <Typography variant="h6" fontWeight='600' >
               {selectedData?.id ? 'Update Product' : 'Add new product'}
             </Typography>
-          </Box>
-          <IconButton onClick={onClose}>
-            {/* <CustomIcon icon ={X} size={18}/> */}X
-          </IconButton>
-
         </Stack>
-       
+        <IconButton onClick={onClose} sx={{position: 'absolute', top: 17, right: 13}}>
+          <Iconify icon="solar:close-circle-broken" />
+        </IconButton>
       </DialogTitle>
 
-      {/* <Divider /> */}
 
       <Formik
        initialValues={{ 
@@ -99,7 +92,7 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
 
                                   const error = Boolean(touched.brandId && errors.brandId)
                                   return (
-                                    <FormControl required fullWidth>
+                                    <FormControl required size="small" fullWidth>
                                       <InputLabel>Brand</InputLabel>
 
                                       <Select
@@ -206,7 +199,7 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
 
                                   const error = Boolean(touched.colorId && errors.colorId)
                                   return (
-                                    <FormControl required size="small" fullWidth>
+                                    <FormControl required fullWidth>
                                       <InputLabel>Color</InputLabel>
 
                                       <Select
@@ -264,7 +257,8 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
                                 control={
                                   <Switch 
                                     checked={values.inStock} 
-                                    onChange={handleChange} 
+                                    // Use explicit boolean write instead of Formik handleChange for MUI Switch stability.
+                                    onChange={(e) => setFieldValue('inStock', e.target.checked)} 
                                     name="inStock" />
                                   }
                                 label="In Stock"

@@ -1,28 +1,44 @@
-const InputLabel= {
-      styleOverrides: {
-        root:({theme}) => ({
-          fontWeight: theme.typography.fontWeightMedium,
-          color: theme.vars.palette.text.secondary,
-          '&.Mui-focused': {
-            color: theme.vars.palette.text.primary, 
-          },
-          '&.Mui-error': {
-            color: theme.vars.palette.error.main,
-          },
-          '&.Mui-disabled': {
-            color: theme.vars.palette.text.disabled,
-          },
-          '&.MuiInputLabel-shrink': {
-            fontSize: theme.typography.body1.fontSize,
-            fontWeight: theme.typography.fontWeightBold,
-            color: theme.vars.palette.text.secondary,
-          },
-        
+const InputLabel = {
+  styleOverrides: {
+    root: ({ theme, ownerState }) => ({
+      ...theme.typography.body2,
+      lineHeight: 1.2,
+      color: theme.palette.text.secondary,
+
+      ...(ownerState.variant === 'outlined' &&
+        ownerState.size === 'medium' && {
+          transform: 'translate(14px, 18px) scale(1)',
         }),
-        asterisk: ({ theme }) => ({
-          color: theme.vars.palette.error.main,
+
+      ...(ownerState.variant === 'outlined' &&
+        ownerState.size === 'small' && {
+          transform: 'translate(14px, 10px) scale(1)',
         }),
+
+      '&.Mui-focused': {
+        color: theme.palette.text.primary,
       },
-    };
+
+      '&.Mui-error': {
+        color: theme.palette.error.main,
+      },
+
+      '&.Mui-disabled': {
+        color: theme.palette.text.disabled,
+      },
+
+      '&.MuiInputLabel-shrink': {
+        ...theme.typography.body2,
+        fontWeight: 700,
+        transform: 'translate(14px, -10px) scale(0.8)',
+      },
+    }),
+
+    asterisk: ({ theme }) => ({
+      color: theme.palette.error.main,
+      fontSize: '1rem',
+    }),
+  },
+};
 
 export default InputLabel;

@@ -5,11 +5,11 @@ import {
   inputLabelClasses,
   outlinedInputClasses,
 } from '@mui/material';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 
 const Autocomplete = {
   defaultProps: {
-    popupIcon: <IconifyIcon icon="material-symbols:keyboard-arrow-down-rounded" fontSize="24" />,
+    popupIcon: <Iconify icon="material-symbols:keyboard-arrow-down-rounded" fontSize="24" />,
     slotProps: {
       paper: {
         variant: 'elevation',

@@ -8,7 +8,7 @@ import {
   IconButton,
   dialogClasses,
 } from '@mui/material';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 
 const AccountDialog = (props) => {
   const { title, subtitle, children, sx, open, handleDialogClose, handleConfirm, handleDiscard } =
@@ -41,7 +41,7 @@ const AccountDialog = (props) => {
       >
         {title}
         <IconButton onClick={handleDialogClose}>
-          <IconifyIcon icon="material-symbols:close" sx={{ fontSize: 20, color: 'neutral.dark' }} />
+          <Iconify icon="material-symbols:close" sx={{ fontSize: 20, color: 'neutral.dark' }} />
         </IconButton>
       </DialogTitle>
       <DialogContent sx={{ pb: 0 }}>

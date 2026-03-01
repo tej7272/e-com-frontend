@@ -8,7 +8,7 @@ import Checkbox from './components/Checkbox';
 import Chip from './components/Chip';
 import CssBaseline from './components/CssBaseline';
 import DataGrid from './components/DataGrid';
-import Dialog from './components/Dialog';
+import Dialog, { DialogActions, DialogContent, DialogTitle }from './components/Dialog';
 import Drawer from './components/Drawer';
 import Link from './components/Link';
 import List, { ListItemButton, ListItemIcon, ListItemText } from './components/List';
@@ -77,7 +77,13 @@ export const themeOverrides = {
     // ----------
     MuiBreadcrumbs: Breadcrumbs,
     MuiSelect: Select,
+
+    //-------- Dialog
     MuiDialog: Dialog,
+    MuiDialogTitle: DialogTitle,
+    MuiDialogContent: DialogContent,
+    MuiDialogActions: DialogActions,
+    //--------
     MuiStack: Stack,
     MuiCheckbox: Checkbox,
     MuiRadio: Radio,

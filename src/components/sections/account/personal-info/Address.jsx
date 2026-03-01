@@ -11,7 +11,7 @@ import {
 import { countries } from 'data/countries';
 import { useAccounts } from 'providers/AccountsProvider';
 import { useBreakpoints } from 'providers/BreakpointsProvider';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 import CountrySelect from 'components/common/CountrySelect';
 import AccountDialog from '../common/AccountDialog';
 import InfoCard from '../common/InfoCard';
@@ -35,7 +35,7 @@ const Address = () => {
           <InfoCardAttribute label="Street" value={personalInfo.street} />
           <InfoCardAttribute label="ZIP" value={personalInfo.zip} />
         </Stack>
-        <IconifyIcon
+        <Iconify
           icon="material-symbols-light:edit-outline"
           sx={{ fontSize: 20, color: 'neutral.dark', visibility: 'hidden' }}
         />

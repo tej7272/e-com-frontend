@@ -266,7 +266,8 @@ const ProductTable = () => {
         </MenuList>
       </CustomPropover>
 
-      <NewAddProduct open ={open} onClose={handleClose} selectedData={selectedData}/>
+      {/* Keep only one product modal mounted; two open dialogs can fight over focus/state. */}
+      {/* <NewAddProduct open ={open} onClose={handleClose} selectedData={selectedData}/> */}
       <AddProductModal open ={open} onClose={handleClose} selectedData={selectedData}/>
       <Grid container spacing={1} alignItems="center" sx={{ px: 2, mt: 2 }}>
         <Grid size={6}>

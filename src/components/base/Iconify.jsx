@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react';
 import Box from '@mui/material/Box';
 import { registerIcons } from 'lib/iconify/iconify-register';
 
-export const IconifyIcon = ({ icon, flipOnRTL = false, color, sx, ...rest }) => {
+const Iconify = ({ icon, width=20, flipOnRTL = false, color, sx, ...rest }) => {
   const uniqueId = useId();
 
   registerIcons();
@@ -12,6 +12,9 @@ export const IconifyIcon = ({ icon, flipOnRTL = false, color, sx, ...rest }) => 
     <Box
       component={Icon}
       className="iconify"
+      width={width}
+      display='inline-flex'
+      height={width}
       sx={[
         flipOnRTL && {
           transform: (theme) => (theme.direction === 'rtl' ? 'scaleX(-1)' : 'none'),
@@ -28,4 +31,4 @@ export const IconifyIcon = ({ icon, flipOnRTL = false, color, sx, ...rest }) => 
   );
 };
 
-export default IconifyIcon;
+export default Iconify;

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Card, Grid, Typography} from '@mui/material';
+import {Box, Card} from '@mui/material';
 import CustomBreadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import SettingTable from './SettingTable';
 

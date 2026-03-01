@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import { useGridApiRef } from '@mui/x-data-grid';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 import StyledTextField from 'components/styled/StyledTextField';
 import UsersTable from './UsersTable';
 import FilterSection from './filters/FilterSection';
@@ -56,7 +56,7 @@ const UserListContainer = () => {
           <Button
             variant="contained"
             color="primary"
-            startIcon={<IconifyIcon icon="material-symbols:add-rounded" />}
+            startIcon={<Iconify icon="material-symbols:add-rounded" />}
             sx={{ flexShrink: 0 }}
             onClick={handleOpen}
           >
@@ -73,7 +73,7 @@ const UserListContainer = () => {
               input: {
                 startAdornment: (
                   <InputAdornment position="start">
-                    <IconifyIcon
+                    <Iconify
                       icon="material-symbols:search-rounded"
                       sx={{
                         fontSize: 20,
