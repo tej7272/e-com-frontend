@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 
 const NotificationActionMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -20,7 +20,7 @@ const NotificationActionMenu = () => {
   return (
     <div>
       <Button shape="square" color="neutral" variant="text" onClick={handleClick}>
-        <IconifyIcon icon="material-symbols:more-horiz" />
+        <Iconify icon="material-symbols:more-horiz" />
       </Button>
       <Menu
         id="basic-menu"

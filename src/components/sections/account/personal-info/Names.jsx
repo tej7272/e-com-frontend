@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Stack, TextField } from '@mui/material';
 import { useAccounts } from 'providers/AccountsProvider';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 import AccountDialog from '../common/AccountDialog';
 import InfoCard from '../common/InfoCard';
 import InfoCardAttribute from '../common/InfoCardAttribute';
 
-const UserName = () => {
+const Names = () => {
   const { personalInfo } = useAccounts();
   const [open, setOpen] = useState(false);
 
@@ -15,30 +15,35 @@ const UserName = () => {
   return (
     <>
       <InfoCard setOpen={setOpen}>
-        <Stack direction="column" spacing={{ xs: 2, sm: 1 }} justifyContent="center">
-          <InfoCardAttribute label="User Name" value={personalInfo.userName} />
+        <Stack direction="column" spacing={{ xs: 2, sm: 1 }}>
+          <InfoCardAttribute label="First Name" value={personalInfo.firstName} />
+          <InfoCardAttribute label="Last Name" value={personalInfo.lastName} />
         </Stack>
-        <IconifyIcon
+        <Iconify
           icon="material-symbols-light:edit-outline"
           sx={{ fontSize: 20, color: 'neutral.dark', visibility: 'hidden' }}
         />
       </InfoCard>
       <AccountDialog
-        title="User Name"
-        subtitle="Update your username. This change will apply to your account and be visible to others in your interactions."
+        title="Name"
+        subtitle="Enter your updated first and last name below. Your name will be reflected across all your account settings."
         open={open}
         handleConfirm={handleClose}
         handleDialogClose={handleClose}
         handleDiscard={handleClose}
-        sx={{
-          maxWidth: 463,
-        }}
+        sx={{ maxWidth: 463 }}
       >
         <Stack direction="column" spacing={1} p={0.125}>
           <TextField
-            placeholder="User Name"
-            label="User Name"
-            defaultValue={personalInfo.userName}
+            placeholder="First Name"
+            label="First Name"
+            defaultValue={personalInfo.firstName}
+            fullWidth
+          />
+          <TextField
+            placeholder="Last Name"
+            label="Last Name"
+            defaultValue={personalInfo.lastName}
             fullWidth
           />
         </Stack>
@@ -47,4 +52,4 @@ const UserName = () => {
   );
 };
 
-export default UserName;
+export default Names;

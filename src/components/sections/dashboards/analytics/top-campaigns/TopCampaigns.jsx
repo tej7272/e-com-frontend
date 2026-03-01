@@ -1,6 +1,6 @@
 import { Button, Paper, Stack } from '@mui/material';
 import { TopCampaignsData } from 'types/dashboard';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 import DashboardSelectMenu from 'components/common/DashboardSelectMenu';
 import SectionHeader from 'components/common/SectionHeader';
 import TopCampaignsChart from './TopCampaignsChart';
@@ -9,7 +9,7 @@ interface TopCampaignsProps {
   data: TopCampaignsData[];
 }
 
-const TopCampaigns = ({ data }: TopCampaignsProps) => {
+const TopCampaigns = ({ data }) => {
   return (
     <Paper
       component={Stack}
@@ -51,7 +51,7 @@ const TopCampaigns = ({ data }: TopCampaignsProps) => {
           variant="text"
           size="small"
           endIcon={
-            <IconifyIcon
+            <Iconify
               icon="material-symbols:chevron-right-rounded"
               sx={{ fontSize: '18px !important' }}
             />
@@ -64,7 +64,7 @@ const TopCampaigns = ({ data }: TopCampaignsProps) => {
           variant="text"
           size="small"
           endIcon={
-            <IconifyIcon
+            <Iconify
               icon="material-symbols:open-in-new-rounded"
               sx={{ fontSize: '18px !important' }}
             />

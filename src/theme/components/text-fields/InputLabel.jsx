@@ -1,125 +1,43 @@
-import { inputLabelClasses } from '@mui/material';
-
-const getApplyShrink = (ownerState) => {
-  let applyShrink = ownerState.shrink;
-  if (ownerState.formControl.adornedStart) {
-    applyShrink = ownerState.focused || ownerState.formControl.filled;
-  }
-  return applyShrink;
-};
-
 const InputLabel = {
   styleOverrides: {
-    root: {
-      variants: [
-        {
-          props: { size: 'medium' },
-          style: {
-            transform: 'translate(16px,14px) scale(1)',
-          },
-        },
-        {
-          props: { size: 'small' },
-          style: {
-            transform: 'translate(12px, 11px) scale(1)',
-          },
-        },
-        {
-          props: { size: 'large' },
-          style: { fontSize: '16px', transform: 'translate(20px, 17px) scale(1)' },
-        },
-        {
-          props: { variant: 'standard' },
-          style: {
-            transform: 'translate(2px,14px) scale(1)',
-          },
-        },
-        // filled shrink
-        {
-          props: ({ variant, ownerState }) => variant === 'filled' && getApplyShrink(ownerState),
-          style: {
-            [`&.${inputLabelClasses.shrink}`]: {
-              transform: 'translate(16px, 6px) scale(.85)',
-              [`&.${inputLabelClasses.sizeSmall}`]: {
-                transform: 'translate(12px, 4px) scale(.85)',
-              },
-              [`&.MuiInputLabel-sizeLarge`]: {
-                transform: 'translate(20px, 6px) scale(.75)',
-              },
-            },
-          },
-        },
-        // filled shrink adornedStart
-        {
-          props: ({ variant, ownerState }) =>
-            variant === 'filled' &&
-            getApplyShrink(ownerState) &&
-            ownerState.formControl.adornedStart,
-          style: {
-            [`&.${inputLabelClasses.shrink}`]: {
-              transform: 'translate(44px, 6px) scale(.85)',
-              [`&.${inputLabelClasses.sizeSmall}`]: {
-                transform: 'translate(36px, 4px) scale(.85)',
-              },
-              [`&.MuiInputLabel-sizeLarge`]: {
-                transform: 'translate(52px, 6px) scale(.75)',
-              },
-            },
-          },
-        },
-        // filled default adornedStart
-        {
-          props: ({ variant, ownerState }) =>
-            variant === 'filled' &&
-            ownerState.formControl.adornedStart,
-          style: {
-            transform: 'translate(44px, 14px) scale(1)',
-            [`&.${inputLabelClasses.sizeSmall}`]: {
-              transform: 'translate(36px, 12px) scale(1)',
-            },
-            [`&.MuiInputLabel-sizeLarge`]: {
-              transform: 'translate(52px, 18px) scale(1)',
-            },
-          },
-        },
-      ],
-      fontSize: '14px',
-    },
+    root: ({ theme, ownerState }) => ({
+      ...theme.typography.body2,
+      lineHeight: 1.2,
+      color: theme.palette.text.secondary,
 
-    filled: () => {
-      return {
-        lineHeight: 1.3,
-      };
-    },
-    outlined: () => {
-      return {
-        lineHeight: 1.3,
-        transform: 'translate(16px, 14px) scale(1)',
-        [`&.${inputLabelClasses.shrink}`]: {
-          fontWeight: 500,
-          transform: 'translate(16px, -7px) scale(.85)',
-        },
-        [`&.${inputLabelClasses.sizeSmall}`]: {
-          transform: 'translate(12px, 12px) scale(1)',
-          [`&.${inputLabelClasses.shrink}`]: {
-            transform: 'translate(12px, -7px) scale(.85)',
-          },
-        },
-        '&.MuiInputLabel-sizeLarge': {
-          transform: 'translate(20px, 18px) scale(1)',
-          [`&.${inputLabelClasses.shrink}`]: {
-            transform: 'translate(20px, -7px) scale(.75)',
-          },
-        },
-      };
-    },
-    standard: () => {
-      return {
-        [`&.${inputLabelClasses.shrink}`]: {
-          transform: 'translate(0, 0) scale(.75)',
-        },
-      };
-    },
+      ...(ownerState.variant === 'outlined' &&
+        ownerState.size === 'medium' && {
+          transform: 'translate(14px, 18px) scale(1)',
+        }),
+
+      ...(ownerState.variant === 'outlined' &&
+        ownerState.size === 'small' && {
+          transform: 'translate(14px, 10px) scale(1)',
+        }),
+
+      '&.Mui-focused': {
+        color: theme.palette.text.primary,
+      },
+
+      '&.Mui-error': {
+        color: theme.palette.error.main,
+      },
+
+      '&.Mui-disabled': {
+        color: theme.palette.text.disabled,
+      },
+
+      '&.MuiInputLabel-shrink': {
+        ...theme.typography.body2,
+        fontWeight: 700,
+        transform: 'translate(14px, -10px) scale(0.8)',
+      },
+    }),
+
+    asterisk: ({ theme }) => ({
+      color: theme.palette.error.main,
+      fontSize: '1rem',
+    }),
   },
 };
 

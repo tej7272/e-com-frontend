@@ -3,7 +3,7 @@ import { Chip, Stack, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridComparatorFn } from '@mui/x-data-grid';
 import useNumberFormat from 'hooks/useNumberFormat';
 import { UserByCountryData } from 'types/dashboard';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 import DashboardMenu from 'components/common/DashboardMenu';
 import DataGridPagination from 'components/pagination/DataGridPagination';
 
@@ -40,7 +40,7 @@ const getGrowthRateIcon = (rate: number) => {
   return 'material-symbols:trending-up-rounded';
 };
 
-const createRowSortComparator = <T,>(baseComparator: (a: T, b: T) => number): GridComparatorFn => {
+const createRowSortComparator = <T,>(baseComparator: (a: T, b: T) => number) => {
   return (v1: T, v2: T, param1, param2) => {
     const row1 = param1.api.getRow(param1.id);
     const row2 = param2.api.getRow(param2.id);
@@ -68,7 +68,7 @@ const UserByCountryTable = ({ data }: { data: UserByCountryData[] }) => {
     growthRate: averageGrowthRate,
   };
 
-  const columns: GridColDef<UserByCountryData>[] = useMemo(
+  const columns: GridColDef[] = useMemo(
     () => [
       {
         field: 'id',
@@ -88,7 +88,7 @@ const UserByCountryTable = ({ data }: { data: UserByCountryData[] }) => {
         valueGetter: ({ name }) => name,
         renderCell: (params) => (
           <Stack spacing={1} sx={{ alignItems: 'center' }}>
-            <IconifyIcon icon={params.row.country.flag} sx={{ fontSize: 24 }} />
+            <Iconify icon={params.row.country.flag} sx={{ fontSize: 24 }} />
             <Typography variant="body2" sx={{ fontWeight: 400 }}>
               {params.row.country.name}
             </Typography>
@@ -125,7 +125,7 @@ const UserByCountryTable = ({ data }: { data: UserByCountryData[] }) => {
               color={getGrowthRateColor(rate)}
               variant="soft"
               size="small"
-              icon={<IconifyIcon icon={getGrowthRateIcon(rate)} />}
+              icon={<Iconify icon={getGrowthRateIcon(rate)} />}
               sx={{
                 width: 1,
                 maxWidth: 92,

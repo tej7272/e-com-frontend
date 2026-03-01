@@ -1,7 +1,7 @@
 import { Avatar, Link, Paper, Typography } from '@mui/material';
 import { formatNumber } from 'lib/utils';
 import { AnalyticKPIData } from 'types/dashboard';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 
 const AnalyticKPI = ({ kpi }: { kpi: AnalyticKPIData }) => {
   const { title, link, value, icon } = kpi;
@@ -35,7 +35,7 @@ const AnalyticKPI = ({ kpi }: { kpi: AnalyticKPIData }) => {
           mb: 1,
         }}
       >
-        <IconifyIcon
+        <Iconify
           icon={icon.name}
           sx={{
             fontSize: 32,

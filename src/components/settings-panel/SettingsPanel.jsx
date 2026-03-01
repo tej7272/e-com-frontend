@@ -5,7 +5,7 @@ import { useSettingsPanelContext } from 'providers/SettingsPanelProvider';
 import { useSettingsContext } from 'providers/SettingsProvider';
 import { RESET } from 'reducers/SettingsReducer';
 import { blue, green } from 'theme/palette/colors';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 import SimpleBar from 'components/base/SimpleBar';
 import PromoCard from 'components/common/PromoCard';
 import FontFamilyTab from './FontFamilyPanel';
@@ -64,7 +64,7 @@ const SettingsPanel = () => {
               bgcolor: cssVarRgba(vars.palette.common.whiteChannel, 0.1),
               color: vars.palette.common.white,
             })}
-            startIcon={<IconifyIcon icon="material-symbols:reset-settings-rounded" />}
+            startIcon={<Iconify icon="material-symbols:reset-settings-rounded" />}
             onClick={handleReset}
           >
             Reset
@@ -82,7 +82,7 @@ const SettingsPanel = () => {
               });
             }}
           >
-            <IconifyIcon icon="material-symbols:close-rounded" sx={{ fontSize: 20 }} />
+            <Iconify icon="material-symbols:close-rounded" sx={{ fontSize: 20 }} />
           </Button>
         </Toolbar>
         <Box
@@ -165,7 +165,7 @@ const Section = ({
       </Typography>
       {disable && (
         <Stack sx={{ alignItems: 'center', gap: 0.5, mb: 2, color: 'info.main' }}>
-          <IconifyIcon icon="material-symbols:info-outline" sx={{ fontSize: 16 }} />
+          <Iconify icon="material-symbols:info-outline" sx={{ fontSize: 16 }} />
           <Typography variant="subtitle2">Not available in this layout.</Typography>
         </Stack>
       )}

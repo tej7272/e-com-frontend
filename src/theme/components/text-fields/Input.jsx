@@ -1,19 +1,8 @@
 import { inputClasses } from '@mui/material';
 
 const Input = {
-  variants: [
-    {
-      props: { size: 'large' },
-      style: {
-        [`& .${inputClasses.input}`]: {
-          paddingTop: 6,
-          paddingBottom: 8,
-          height: '1.375rem',
-        },
-      },
-    },
-  ],
   styleOverrides: {
+    // ✅ only override border color — MUI handles size/padding
     underline: ({ theme }) => ({
       '&::before': {
         borderBottom: `1px solid ${theme.vars.palette.text.secondary}`,
@@ -26,31 +15,10 @@ const Input = {
         },
       },
     }),
-    sizeSmall: {
-      fontSize: '14px',
-    },
-    input: {
-      height: '1.375rem',
-      padding: '6px 0 8px',
-    },
-    inputSizeSmall: {
-      height: '1.125rem',
-      padding: '6px 0 8px',
-      lineHeight: 1.2,
-    },
   },
 };
 
-export const InputBase = {
-  defaultProps: {},
-  // styleOverrides: {
-  //   root: {
-  //     borderRadius: 8,
-  //   },
-  //   sizeSmall: {
-  //     borderRadius: 4,
-  //   },
-  // },
-};
+
+export const InputBase = {};
 
 export default Input;

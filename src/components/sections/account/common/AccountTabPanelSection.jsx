@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from '@mui/material';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 
 const AccountTabPanelSection = ({
   title,
@@ -14,7 +14,7 @@ const AccountTabPanelSection = ({
     <Box sx={{ ...(Array.isArray(sx) ? sx : [sx]) }}>
       <Stack sx={[{ mb: 1, justifyContent: 'space-between' }, !subtitle && { mb: 3 }]}>
         <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <IconifyIcon icon={icon} sx={{ fontSize: 24, mb: 0.25 }} />
+          <Iconify icon={icon} sx={{ fontSize: 24, mb: 0.25 }} />
           {title}
         </Typography>
         {actionComponent}

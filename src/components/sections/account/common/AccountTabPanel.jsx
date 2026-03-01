@@ -1,6 +1,6 @@
 import { TabPanel } from '@mui/lab';
 import { IconButton, Stack, Typography } from '@mui/material';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 
 const AccountTabPanel = ({
   title,
@@ -13,7 +13,7 @@ const AccountTabPanel = ({
     <TabPanel value={value} sx={{ p: 0 }}>
       <Stack sx={{ gap: 1, alignItems: 'center', mb: 5 }}>
         <IconButton onClick={() => setShowTabList(true)} sx={{ display: { md: 'none' }, ml: -1.5 }}>
-          <IconifyIcon
+          <Iconify
             flipOnRTL
             icon="material-symbols:chevron-left-rounded"
             sx={{ color: 'neutral.main', fontSize: 20 }}
@@ -32,7 +32,7 @@ const AccountTabPanel = ({
             },
           }}
         >
-          <IconifyIcon
+          <Iconify
             icon={panelIcon}
             sx={{ fontSize: 32, display: { xs: 'none', md: 'inline' } }}
           />

@@ -8,7 +8,7 @@ import {
   buttonClasses,
 } from '@mui/material';
 // import { useBreakpoints } from 'providers/BreakpointsProvider';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 
 const CustomTablePaginationAction = ({
   page,
@@ -65,7 +65,7 @@ const CustomTablePaginationAction = ({
             color="primary"
             size="small"
             startIcon={
-              <IconifyIcon
+              <Iconify
                 flipOnRTL
                 icon="material-symbols:chevron-left-rounded"
                 sx={{ fontSize: '18px !important' }}
@@ -92,7 +92,7 @@ const CustomTablePaginationAction = ({
             color="primary"
             size="small"
             endIcon={
-              <IconifyIcon
+              <Iconify
                 flipOnRTL
                 icon="material-symbols:chevron-right-rounded"
                 sx={{ fontSize: '18px !important' }}

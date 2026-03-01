@@ -20,8 +20,8 @@ import Label from "../../../../components/label/Label";
 // import CustomIcon from "../../../../components/Icons/Icon";
 import CustomPropover from "../../../../components/custom-popover/CustomPopover";
 import SearchBox from "../../../../components/searchBox/SearchBox";
-import IconifyIcon from "components/base/IconifyIcon";
-// import IconifyIcon from "../../../../components/base/IconifyIcon";
+import Iconify from "components/base/Iconify";
+// import Iconify from "../../../../components/base/Iconify";
 
 const CategoryView = () => {
 
@@ -137,11 +137,11 @@ const CategoryView = () => {
       >
         <MenuList sx={{ }}>
           <MenuItem onClick={() => setOpen(true)}>
-           <IconifyIcon icon="solar:pen-new-square-outline" sx={{ mr: 1, color: 'primary.main' }} />
+           <Iconify icon="solar:pen-new-square-outline" sx={{ mr: 1, color: 'primary.main' }} />
             Edit
           </MenuItem>
           <MenuItem onClick={() => setOpen(true)}>
-            <IconifyIcon icon="solar:trash-bin-trash-outline" sx={{ mr: 1, color: 'error.main' }} />
+            <Iconify icon="solar:trash-bin-trash-outline" sx={{ mr: 1, color: 'error.main' }} />
             Delete
           </MenuItem>
         </MenuList>

@@ -1,96 +1,42 @@
-import { inputBaseClasses, outlinedInputClasses } from '@mui/material';
+
 
 const OutlinedInput = {
   styleOverrides: {
-    root: ({ theme }) => ({
-      borderRadius: 8,
-      ':hover': {
-        [`&:not(&.${outlinedInputClasses.focused},.${outlinedInputClasses.disabled},.${outlinedInputClasses.error})`]:
-          {
-            [`& .${outlinedInputClasses.notchedOutline}`]: {
-              borderColor: theme.vars.palette.action.disabled,
-            },
-          },
+    root: ({theme, ownerState}) => ({
+      // borderRadius: theme.shape.borderRadius,
+      '& .MuiOutlinedInput-input': {
+        padding: ownerState.size === 'small'
+          ? theme.spacing(1.25, 1.5)
+          : theme.spacing(2, 1.75),
       },
-      [`&.${outlinedInputClasses.disabled}`]: {
-        [`& .${outlinedInputClasses.notchedOutline}`]: {
-          borderColor: theme.vars.palette.divider,
-        },
+
+      '& .MuiSelect-select': {
+        padding: ownerState.size === 'small'
+          ? theme.spacing(1.25, 1.5)
+          : theme.spacing(2, 1.75),
       },
-      variants: [
-        {
-          props: { size: 'large' },
-          style: {
-            [`& .${outlinedInputClasses.input}`]: {
-              padding: '7px 20px',
-              height: '2.5rem',
-              fontSize: '16px',
-            },
-            [`& .${outlinedInputClasses.notchedOutline}`]: {
-              padding: '0 14px',
-            },
-          },
-        },
-        {
-          props: { size: 'small' },
-          style: {
-            borderRadius: 4,
-          },
-        },
-      ],
-      [`&.${inputBaseClasses.multiline}`]: {
-        paddingLeft: 16,
-        paddingRight: 16,
+       
+      '& .MuiOutlinedInput-notchedOutline': {
+        borderColor: theme.palette.grey['500Channel'],
+        transition: theme.transitions.create(['border-color'],{
+          duration: theme.transitions.duration.shortest,
+        }),
       },
-    }),
-    adornedStart: {
-      paddingLeft: 16,
-      [`&.${inputBaseClasses.sizeSmall}`]: {
-        paddingLeft: 12,
+      '&:hover .MuiOutlinedInput-notchedOutline': {
+        borderColor: theme.palette.text.primary,
       },
-      [`&.MuiInputBase-sizeLarge`]: {
-        paddingLeft: 20,
+      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+        borderColor: theme.palette.text.primary,
       },
-      [`& .${outlinedInputClasses.input}`]: {
-        paddingLeft: 0,
+      '&.Mui-error .MuiOutlinedInput-notchedOutline': {
+        borderColor: theme.palette.error.main,
       },
-    },
-    input: () => ({
-      padding: '8px 16px',
-      height: '2rem',
-      fontSize: 14,
-    }),
-    sizeSmall: {
-      borderRadius: 4,
-      [`& .${outlinedInputClasses.notchedOutline}`]: {
-        padding: '0 6px',
+      '&.Mui-disabled .MuiOutlinedInput-notchedOutline': {
+        borderColor: theme.palette.action.disabledBackground,
       },
-    },
-    inputAdornedStart: {
-      paddingLeft: 0,
-    },
-    inputAdornedEnd: {
-      paddingRight: 0,
-    },
-    inputSizeSmall: {
-      padding: '8px 12px',
-      height: '1.625rem',
-    },
-    notchedOutline: ({ theme }) => ({
-      borderStyle: 'solid',
-      borderColor: theme.vars.palette.divider,
-      borderWidth: '1px !important',
-    }),
-    multiline: {
-      paddingTop: 13.5,
-      paddingBottom: 13.5,
-      paddingLeft: 11,
-      paddingRight: 11,
-      [`& .${outlinedInputClasses.input}`]: {
-        padding: 0,
-      },
-    },
-  },
-};
+    })
+  }
+
+}
 
 export default OutlinedInput;

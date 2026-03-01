@@ -1,11 +1,8 @@
-import { formHelperTextClasses } from '@mui/material';
-
 const FormHelperText = {
   styleOverrides: {
     root: ({ theme }) => ({
-      [`&.${formHelperTextClasses.error}`]: {
-        color: theme.vars.palette.error.light,
-      },
+      // ✅ only override font — MUI handles error color by default
+      ...theme.typography.caption,
     }),
   },
 };

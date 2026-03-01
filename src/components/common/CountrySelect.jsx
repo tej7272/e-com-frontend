@@ -4,7 +4,7 @@ import {
   TextField,
 } from '@mui/material';
 import { countries } from 'data/countries';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 
 const CountrySelect = ({
   options = countries,
@@ -30,7 +30,7 @@ const CountrySelect = ({
             sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
             {...optionProps}
           >
-            {fields?.flag && <IconifyIcon icon={option.flag} sx={{ mr: 1 }} />}
+            {fields?.flag && <Iconify icon={option.flag} sx={{ mr: 1 }} />}
             {fields?.name && option.label} {fields?.code && `(${option.code})`}{' '}
             {fields?.phone && '+' + option.phone}
           </Box>

@@ -25,9 +25,8 @@ import { LoadingButton } from "@mui/lab";
 import React from "react";
 import { Formik, Form, Field } from 'formik';
 import RenderTextField from "../../../components/textField/RenderTextField";
-import { X, Plus } from 'lucide-react';
-// import CustomIcon from "../../../components/Icons/Icon";
 import master from "../master.json";
+import Iconify from "components/base/Iconify";
 
 
 
@@ -43,13 +42,13 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
       <DialogTitle id="scroll-dialog-title">
         <Stack direction='row' justifyContent="space-between" alignItems='center'>
           <Box display="flex" flexDirection='row' alignItems= 'center' gap={.5}>
-            {/* <CustomIcon icon={Plus} size={18}/> */}X
+            <Iconify icon="solar:add-circle-broken" />
             <Typography variant="h6" fontWeight='600' >
               {selectedData?.id ? 'Update Product' : 'Add new product'}
             </Typography>
           </Box>
           <IconButton onClick={onClose}>
-            {/* <CustomIcon icon ={X} size={18}/> */}X
+            <Iconify icon="solar:close-circle-broken" />
           </IconButton>
 
         </Stack>
@@ -81,7 +80,8 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
          }, 400);
        }}
      >
-        {(values, isSubmitting, errors, touched, handleChange, setFieldValue ) => {
+        {({ values, isSubmitting, errors, touched, handleChange, setFieldValue }) => {
+            // Formik render-props must be destructured from a single object.
             return (
                 <Form>
                     <DialogContent sx={{maxHeight: '65vh'}}>
@@ -166,7 +166,7 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
                               <Field name='colors'>
                                 {({ field, form, meta }) => (
                                   <TextField
-                                    {...field}
+                                    // {...field}
                                     type="color"
                                     label='Color'
                                     fullWidth

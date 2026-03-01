@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { keyframes } from '@mui/material/styles';
 import { storeLink } from 'lib/constants';
 import { cssVarRgba } from 'lib/utils';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 import Image from 'components/base/Image';
 
 const proFeatures = [
@@ -113,7 +113,7 @@ const PromoCard = ({
             <Stack direction="column" gap={0.25} alignSelf="flex-start">
               {proFeatures.map((feature, index) => (
                 <Stack key={index} gap={0.4} alignItems="center">
-                  <IconifyIcon
+                  <Iconify
                     icon="material-symbols:check-rounded"
                     sx={{ fontSize: 16, color: 'success.main' }}
                   />

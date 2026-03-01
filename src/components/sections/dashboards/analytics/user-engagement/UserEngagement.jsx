@@ -17,7 +17,7 @@ interface LegendButtonProps {
   label: string;
 }
 
-const LegendButton = ({ active, onClick, icon, label }: LegendButtonProps) => (
+const LegendButton = ({ active, onClick, icon, label }) => (
   <ButtonBase
     disableRipple
     sx={{
@@ -35,12 +35,12 @@ const LegendButton = ({ active, onClick, icon, label }: LegendButtonProps) => (
   </ButtonBase>
 );
 
-const UserEngagement = ({ data }: UserEngagementProps) => {
+const UserEngagement = ({ data }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const chartRef = useRef<null | EChartsReactCore>(null);
   const { legendState, handleLegendToggle } = useToggleChartLegends(chartRef);
 
-  const handleChange = (event: SyntheticEvent, newValue: number) => {
+  const handleChange = (event, newValue: number) => {
     setTabIndex(newValue);
   };
 

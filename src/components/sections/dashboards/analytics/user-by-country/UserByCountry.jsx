@@ -7,7 +7,7 @@ import UserByCountryTable from './UserByCountryTable';
 const UserByCountry = ({ data }: { data: UserByCountryData[] }) => {
   const [period, setPeriod] = useState('weekly');
 
-  const handleChange = (event: MouseEvent<HTMLElement>, newPeriod: string) => {
+  const handleChange = (event, newPeriod: string) => {
     setPeriod(newPeriod);
   };
 

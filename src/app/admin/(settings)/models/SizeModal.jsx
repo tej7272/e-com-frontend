@@ -95,7 +95,7 @@ export default function SizeModal({ open, onClose, selectedData }){
                                 <InputLabel id="category-label">Category</InputLabel>
 
                                 <Select
-                                  {...field}
+                                  // {...field}
                                   labelId="category-label"
                                   label="Category"
                                   value={field.value || ''}

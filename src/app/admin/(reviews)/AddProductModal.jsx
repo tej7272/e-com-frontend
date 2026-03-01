@@ -81,7 +81,8 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
          }, 400);
        }}
      >
-        {(values, isSubmitting, errors, touched, handleChange, setFieldValue ) => {
+        {({ values, isSubmitting, errors, touched, handleChange, setFieldValue }) => {
+            // Formik render-props must be destructured from a single object.
             return (
                 <Form>
                     <DialogContent sx={{maxHeight: '65vh'}}>
@@ -166,7 +167,7 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
                               <Field name='colors'>
                                 {({ field, form, meta }) => (
                                   <TextField
-                                    {...field}
+                                    // // {...field}
                                     type="color"
                                     label='Color'
                                     fullWidth

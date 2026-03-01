@@ -23,7 +23,7 @@ interface UserEngagementChartProps {
   ref?: React.Ref<null | EChartsReactCore>;
 }
 
-const UserEngagementChart = ({ sx, data, activeTab, ref }: UserEngagementChartProps) => {
+const UserEngagementChart = ({ sx, data, activeTab, ref }) => {
   const { vars, typography } = useTheme();
   const { getThemeColor } = useSettingsContext();
   const getFormattedValue = (value: number, isTooltip = false) => {

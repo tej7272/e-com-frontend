@@ -10,11 +10,11 @@ const DataGrid = {
 
     // slots: {
     //   columnSortedDescendingIcon: (props) => (
-    //     <IconifyIcon icon="solar:arrow-down-outline" {...props} />
+    //     <Iconify icon="solar:arrow-down-outline" {...props} />
     //   ),
 
     //   columnSortedAscendingIcon: (props) => (
-    //     <IconifyIcon
+    //     <Iconify
     //       icon="solar:arrow-down-outline"
     //       {...props}
     //       sx={{ transform: "rotateX(180deg)" }}

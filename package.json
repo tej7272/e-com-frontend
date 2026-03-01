@@ -21,6 +21,7 @@
     "chart.js": "4.3.0",
     "chroma-js": "^2.4.2",
     "formik": "^2.4.9",
+    "framer-motion": "^12.34.3",
     "lodash": "^4.17.21",
     "lucide-react": "^0.556.0",
     "react": "^19.2.0",

@@ -684,11 +684,16 @@ const subcategories = [
                                                 fullWidth
                                                 label="Product Name *"
                                                 name="name"
+                                                size='medium'
                                                 value={values.name}
                                                 onChange={(e) => {
-                                                    setFieldValue('name', e.target.value);
-                                                    if (!values.metaTitle) {
-                                                        setFieldValue('metaTitle', e.target.value);
+                                                    const nextValue = e.target.value;
+                                                    // Skip redundant writes to reduce Formik churn while typing.
+                                                    if (values.name !== nextValue) {
+                                                        setFieldValue('name', nextValue);
+                                                    }
+                                                    if (!values.metaTitle && values.metaTitle !== nextValue) {
+                                                        setFieldValue('metaTitle', nextValue);
                                                     }
                                                 }}
                                                 error={touched.name && Boolean(errors.name)}
@@ -701,7 +706,11 @@ const subcategories = [
                                                 select
                                                 label="Category *"
                                                 value={values.category}
-                                                onChange={(e) => handleCategoryChange(e.target.value, setFieldValue)}
+                                                onChange={(e) => {
+                                                    if (values.category !== e.target.value) {
+                                                        handleCategoryChange(e.target.value, setFieldValue);
+                                                    }
+                                                }}
                                                 error={touched.category && Boolean(errors.category)}
                                                 helperText={touched.category && errors.category}
                                             >
@@ -709,7 +718,7 @@ const subcategories = [
                                                     <em>Select Category</em>
                                                 </MenuItem>
                                                 {categories.map((cat) => (
-                                                    <MenuItem key={cat._id} value={cat._id}>
+                                                    <MenuItem key={cat._id ?? cat.name} value={cat._id ?? cat.name}>
                                                         {cat.name}
                                                     </MenuItem>
                                                 ))}
@@ -721,7 +730,11 @@ const subcategories = [
                                                 select
                                                 label="Subcategory *"
                                                 value={values.subcategory}
-                                                onChange={(e) => setFieldValue('subcategory', e.target.value)}
+                                                onChange={(e) => {
+                                                    if (values.subcategory !== e.target.value) {
+                                                        setFieldValue('subcategory', e.target.value);
+                                                    }
+                                                }}
                                                 disabled={!values.category}
                                                 error={touched.subcategory && Boolean(errors.subcategory)}
                                                 helperText={touched.subcategory && errors.subcategory}
@@ -730,7 +743,7 @@ const subcategories = [
                                                     <em>Select Subcategory</em>
                                                 </MenuItem>
                                                 {subcategories.map((subcat) => (
-                                                    <MenuItem key={subcat._id} value={subcat._id}>
+                                                    <MenuItem key={subcat._id ?? subcat.name} value={subcat._id ?? subcat.name}>
                                                         {subcat.name}
                                                     </MenuItem>
                                                 ))}
@@ -743,7 +756,11 @@ const subcategories = [
                                                 rows={3}
                                                 label="Description"
                                                 value={values.description}
-                                                onChange={(e) => setFieldValue('description', e.target.value)}
+                                                onChange={(e) => {
+                                                    if (values.description !== e.target.value) {
+                                                        setFieldValue('description', e.target.value);
+                                                    }
+                                                }}
                                                 error={touched.description && Boolean(errors.description)}
                                                 helperText={touched.description && errors.description}
                                             />
@@ -967,7 +984,11 @@ const subcategories = [
                                                     fullWidth
                                                     label="Brand"
                                                     value={values.brand}
-                                                    onChange={(e) => setFieldValue('brand', e.target.value)}
+                                                    onChange={(e) => {
+                                                        if (values.brand !== e.target.value) {
+                                                            setFieldValue('brand', e.target.value);
+                                                        }
+                                                    }}
                                                 />
                                             </Grid>
                                             <Grid size={6}>
@@ -989,7 +1010,11 @@ const subcategories = [
                                                     fullWidth
                                                     label="Meta Title (SEO)"
                                                     value={values.metaTitle}
-                                                    onChange={(e) => setFieldValue('metaTitle', e.target.value)}
+                                                    onChange={(e) => {
+                                                        if (values.metaTitle !== e.target.value) {
+                                                            setFieldValue('metaTitle', e.target.value);
+                                                        }
+                                                    }}
                                                     inputProps={{ maxLength: 60 }}
                                                     helperText={`${values.metaTitle.length}/60 characters`}
                                                 />
@@ -999,7 +1024,11 @@ const subcategories = [
                                                     fullWidth
                                                     label="Meta Description (SEO)"
                                                     value={values.metaDescription}
-                                                    onChange={(e) => setFieldValue('metaDescription', e.target.value)}
+                                                    onChange={(e) => {
+                                                        if (values.metaDescription !== e.target.value) {
+                                                            setFieldValue('metaDescription', e.target.value);
+                                                        }
+                                                    }}
                                                     inputProps={{ maxLength: 160 }}
                                                     helperText={`${values.metaDescription.length}/160 characters`}
                                                 />

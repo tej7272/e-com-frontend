@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Menu, MenuItem, menuClasses } from '@mui/material';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 
 const FilterMenu = ({ label, field, handleFilter, menuItems }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -38,7 +38,7 @@ const FilterMenu = ({ label, field, handleFilter, menuItems }) => {
         disableElevation
         onClick={handleMenuOpen}
         endIcon={
-          <IconifyIcon icon="material-symbols:expand-more-rounded" fontSize="20px !important" />
+          <Iconify icon="material-symbols:expand-more-rounded" fontSize="20px !important" />
         }
       >
         {label}

@@ -1,83 +1,146 @@
-import React from 'react';
-import { Box, Divider, Grid, Typography } from '@mui/material';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
-import StarBorderPurple500OutlinedIcon from '@mui/icons-material/StarBorderPurple500Outlined';
-import ProductionQuantityLimitsOutlinedIcon from '@mui/icons-material/ProductionQuantityLimitsOutlined';
-import { Link, useLocation } from 'react-router-dom';
+import React from "react";
+import {
+  Box,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+  Tooltip,
+  IconButton,
+  useTheme,
+} from "@mui/material";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import {
+  DashboardOutlined,
+  Inventory2Outlined,
+  ProductionQuantityLimitsOutlined,
+  PeopleAltOutlined,
+  StarBorderPurple500Outlined,
+  SettingsOutlined,
+} from "@mui/icons-material";
+import { NavLink } from "react-router-dom";
+import { ChevronLeftIcon } from "lucide-react";
 
-const Navbar = () => {
+const navItems = [
+  { path: "/admin", label: "Dashboard", icon: <DashboardOutlined /> },
+  { path: "/admin/products", label: "Products", icon: <Inventory2Outlined /> },
+  { path: "/admin/orders", label: "Orders", icon: <ProductionQuantityLimitsOutlined /> },
+  { path: "/admin/customers", label: "Customers", icon: <PeopleAltOutlined /> },
+  { path: "/admin/reviews", label: "Reviews", icon: <StarBorderPurple500Outlined /> },
+  { path: "/admin/settings", label: "Settings", icon: <SettingsOutlined /> },
+];
 
-    const pathname = useLocation().pathname;
+const Navbar = ({ collapsed, onCollapse }) => {
+  const theme = useTheme();
 
-    const nav_items = [
-        {
-            path: '/admin/',
-            element: 'Dashboard',
-            icon: <DashboardOutlinedIcon  fontSize='small'/>
-        },
-        {
-            path: '/admin/products',
-            element: 'Products',
-            icon: <Inventory2OutlinedIcon fontSize='small'/>
-        },
-        {
-            path: '/admin/orders',
-            element: 'Orders',
-            icon: <ProductionQuantityLimitsOutlinedIcon fontSize='small'/>
-        },
-        {
-            path: '/admin/customers',
-            element: 'Customers',
-            icon: <PeopleAltOutlinedIcon fontSize='small'/>
-        },
-        {
-            path: '/admin/reviews',
-            element: 'Reviews',
-            icon: <StarBorderPurple500OutlinedIcon fontSize='small'/>
-        },
-        {
-            path: '/admin/settings',
-            element: 'Settings',
-            icon: <SettingsOutlinedIcon fontSize='small'/>
-        },
-    ]
+  return (
+    <Box
+      sx={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        width: "100%",
+      }}
+    >
+      {/* Header */}
+      <Box
+        sx={{
+          px: 2,
+          py: 2,
+          display: "flex",
+          alignItems: "center",
+           position: "relative",
+          justifyContent: collapsed ? "center" : "space-between",
+        }}
+      >
+        {/* {!collapsed && ( */}
+          <Typography variant="h6" fontWeight={600}>
+            Admin
+          </Typography>
+        {/* )} */}
 
-    return (
-        
-    <Box bgcolor='initial' sx={{ px: 2 }}>
-        <Box textAlign='center' sx={{mt: 3, mb: 4}}>
-            <Typography variant='h5' fontWeight='bold' color='inherit'>Admin</Typography>
-        </Box>
-        <Grid container spacing={1}>
-            {nav_items.map((item, index) => {
-                return(
-                    <Grid size={12} key={index}>
-                        <Link to={item.path} style={{textDecoration: 'none', color: 'inherit'}}>
-                            <Box 
-                                display='flex'
-                                bgcolor = { pathname === item.path ? 'grey.300' : '' }
-                                gap={1}
-                                alignItems='center'
-                                color="inherit.main"
-                                sx={{ borderRadius: 1, p: 2, "&:hover": { bgcolor: "grey.200" } }}
-                            >
-                                {item.icon}
-                                <Typography variant='body2'>{item.element}</Typography>
-                            </Box>
-                        </Link>
-                    </Grid>
-                )
-            })}
-        </Grid>
+        {onCollapse && (
+          
+            <IconButton 
+              onClick={onCollapse} 
+              sx={{
+                position: "absolute",
+                right: -16,          // ✅ half outside the sidebar border
+                top: "50%",
+                transform: "translateY(-30%)",
+                zIndex: theme.zIndex.drawer + 1,
+                width: 28,
+                height: 28,
+                backgroundColor: theme.palette.grey[50],
+                border: `1px solid ${theme.palette.divider}`,
+                boxShadow: 2,
+                "&:hover": {
+                  backgroundColor: "background.paper",
+                },
+              }}
+            >
+              {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+        )}
+      </Box>
 
-        <Divider sx={{my: 4}}/>
+      {/* <Divider /> */}
+
+      {/* Scrollable Nav Items */}
+      <Box
+        sx={{
+          flexGrow: 1,
+          overflowY: "auto",
+          overflowX: "hidden",
+          px: 1,
+          py: 2,
+        }}
+      >
+        <List disablePadding>
+          {navItems.map((item) => (
+            <Tooltip
+              key={item.path}
+              title={collapsed ? item.label : ""}
+              placement="right"
+            >
+              <ListItemButton
+                component={NavLink}
+                to={item.path}
+                sx={{
+                  borderRadius: 2,
+                  mb: 1,
+                  justifyContent: collapsed ? "center" : "flex-start",
+                  "&.active": {
+                    backgroundColor: theme.palette.action.selected,
+                    color: theme.palette.primary.main,
+                  },
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: collapsed ? 0 : 2,
+                    justifyContent: "center",
+                    color: "inherit",
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+
+                {!collapsed && (
+                  <ListItemText
+                    primary={item.label}
+                    primaryTypographyProps={{ variant: "body2" }}
+                  />
+                )}
+              </ListItemButton>
+            </Tooltip>
+          ))}
+        </List>
+      </Box>
     </Box>
+  );
+};
 
-
-    )
-}
-
-export default Navbar
+export default Navbar;

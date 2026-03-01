@@ -1,4 +1,4 @@
-export default {
+export const sxConfig = {
   lineClamp: {
     style: (props) => ({
       display: '-webkit-box',

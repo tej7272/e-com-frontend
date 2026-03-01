@@ -1,17 +1,9 @@
 import { useId } from 'react';
-import { Icon, IconProps } from '@iconify/react';
+import { Icon } from '@iconify/react';
 import Box from '@mui/material/Box';
-import { SxProps, Theme } from '@mui/material/styles';
 import { registerIcons } from 'lib/iconify/iconify-register';
 
-interface IconifyProps extends Omit<IconProps, 'color'> {
-  sx?: SxProps<Theme>;
-  flipOnRTL?: boolean;
-  icon: string;
-  color?: string;
-}
-
-export const IconifyIcon = ({ icon, flipOnRTL = false, color, sx, ...rest }: IconifyProps) => {
+const Iconify = ({ icon, width=20, flipOnRTL = false, color, sx, ...rest }) => {
   const uniqueId = useId();
 
   registerIcons();
@@ -20,6 +12,9 @@ export const IconifyIcon = ({ icon, flipOnRTL = false, color, sx, ...rest }: Ico
     <Box
       component={Icon}
       className="iconify"
+      width={width}
+      display='inline-flex'
+      height={width}
       sx={[
         flipOnRTL && {
           transform: (theme) => (theme.direction === 'rtl' ? 'scaleX(-1)' : 'none'),
@@ -27,7 +22,7 @@ export const IconifyIcon = ({ icon, flipOnRTL = false, color, sx, ...rest }: Ico
         { verticalAlign: 'baseline' },
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
-      {...(rest as any)}
+      {...(rest)}
       icon={icon}
       id={uniqueId}
       color={color}
@@ -36,4 +31,4 @@ export const IconifyIcon = ({ icon, flipOnRTL = false, color, sx, ...rest }: Ico
   );
 };
 
-export default IconifyIcon;
+export default Iconify;

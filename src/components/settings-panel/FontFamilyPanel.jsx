@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { FontFamily, fontFamilies } from 'config';
 import { kebabCase } from 'lib/utils';
 import { useSettingsContext } from 'providers/SettingsProvider';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 
 const FontFamilyTab = () => {
   const {
@@ -49,7 +49,7 @@ const FontFamilyTab = () => {
               onChange={() => handleChange(font)}
               value={font}
               checkedIcon={
-                <IconifyIcon
+                <Iconify
                   fontSize={24}
                   icon="material-symbols-light:check-circle"
                   sx={{ color: 'primary.main', fontSize: '24px !important' }}

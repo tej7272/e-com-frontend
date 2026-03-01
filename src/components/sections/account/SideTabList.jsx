@@ -3,7 +3,7 @@ import { TabList } from '@mui/lab';
 import { InputAdornment, Stack, Typography, tabsClasses } from '@mui/material';
 import { accountTabs } from 'data/account/account-tabs';
 import { useBreakpoints } from 'providers/BreakpointsProvider';
-import IconifyIcon from 'components/base/IconifyIcon';
+import Iconify from 'components/base/Iconify';
 import StyledTextField from 'components/styled/StyledTextField';
 import AccountTab from './common/AccountTab';
 
@@ -33,7 +33,7 @@ const SideTabList = ({ setShowTabList, handleChange, sx }) => {
           },
         }}
       >
-        <IconifyIcon
+        <Iconify
           icon="material-symbols:settings-outline"
           sx={{ fontSize: { xs: 20, lg: 24 } }}
         />
@@ -50,7 +50,7 @@ const SideTabList = ({ setShowTabList, handleChange, sx }) => {
             input: {
               startAdornment: (
                 <InputAdornment position="start">
-                  <IconifyIcon icon="material-symbols:search-rounded" />
+                  <Iconify icon="material-symbols:search-rounded" />
                 </InputAdornment>
               ),
             },
@@ -79,7 +79,7 @@ const SideTabList = ({ setShowTabList, handleChange, sx }) => {
               key={tab.id}
               value={tab.value}
               icon={
-                <IconifyIcon
+                <Iconify
                   icon={tab.icon}
                   sx={{ fontSize: 24, color: 'primary.dark', flexShrink: 0 }}
                 />

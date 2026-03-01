@@ -1,5 +1,5 @@
 import { Grid, TextField } from "@mui/material";
-import { Field } from "formik";
+import { FastField } from "formik";
 
 const RenderTextField = ({
     name, 
@@ -16,30 +16,41 @@ const RenderTextField = ({
     
     return (
         <Grid size={size} >
-            <Field name={name}>
+            <FastField name={name}>
                 {({ field, form, meta }) => {
                     const handleChange = (e) => {
                         let value = e.target.value;
 
-                        if(type === 'number'){
-                            value = value.replace(/\D/g, '')
+                        if (type === "number") {
+                            value = value.replace(/\D/g, "");
                         }
-                        form.setFieldValue(name, value);
-                        onChange?.(e);
-                    }
+
+                        // Avoid redundant writes; writing the same value repeatedly can cause render loops.
+                        if (field.value === value) return;
+
+                        // If caller provides custom onChange, delegate to it; otherwise update Formik directly.
+                        if (onChange) {
+                            onChange(e);
+                            return;
+                        }
+                        form.setFieldValue(name, value, false);
+                    };
                     return (
                         <TextField 
                             {...field}
                             fullWidth
                             name= {name}
+                            value={field.value ?? ""}
                             multiline = {rows > 1}
                             rows = {rows}
                             type= {type}
                             label= {label}
+                            // size="medium"
                             disabled={disabled}
                             error={Boolean(meta.touched && meta.error)}
                             helperText={meta.touched && meta.error}
                             onChange = {handleChange}
+                            onBlur={field.onBlur}
                             variant="outlined"
                             required= {required}
                             InputProps={{readOnly}}
@@ -47,7 +58,7 @@ const RenderTextField = ({
                     )
                 }}
 
-            </Field>
+            </FastField>
         </Grid>
     )
 }

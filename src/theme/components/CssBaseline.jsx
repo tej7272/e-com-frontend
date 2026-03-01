@@ -17,6 +17,7 @@ const CssBaseline = {
       [`[id]`]: {
         scrollMarginTop: 82,
       },
+      backgroundColor: theme.palette.grey[100],
     },
     ...simplebar(theme),
     ...keyFrames(),
