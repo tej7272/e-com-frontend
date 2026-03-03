@@ -1,19 +1,29 @@
-import { checkboxClasses, formControlLabelClasses, radioClasses } from '@mui/material';
+import { formControlLabelClasses } from '@mui/material';
 
-const FormControlLabel = {
+const MuiFormControlLabel = {
+  defaultProps: {
+    labelPlacement: 'start',
+  },
   styleOverrides: {
-    // ✅ fixed — was a function returning object, should be object with slot keys
-    root: {
-      marginLeft: -9,
-      [`& .${checkboxClasses.root}, & .${radioClasses.root}, & .${formControlLabelClasses.label}`]: {
-        alignSelf: 'flex-start',
-      },
-    },
+    root: ({ theme }) => ({
+      display: 'inline-flex',
+      alignItems: 'center',
+      verticalAlign: 'middle',
+
+      margin: 0,
+      paddingTop: theme.spacing(.5),
+    }),
+
     label: ({ theme }) => ({
-      // ✅ inherit from typography — no hardcoding
       ...theme.typography.body2,
+      lineHeight: 1.2, // critical
+      color: theme.palette.text.secondary,
+
+      [`&.${formControlLabelClasses.disabled}`]: {
+        color: theme.palette.text.disabled,
+      },
     }),
   },
 };
 
-export default FormControlLabel;
+export default MuiFormControlLabel;

@@ -5,15 +5,13 @@ const OutlinedInput = {
     root: ({theme, ownerState}) => ({
       // borderRadius: theme.shape.borderRadius,
       '& .MuiOutlinedInput-input': {
-        padding: ownerState.size === 'small'
-          ? theme.spacing(1.25, 1.5)
-          : theme.spacing(2, 1.75),
+        paddingTop: theme.spacing(1.5),
+        paddingBottom: theme.spacing(1.5)
       },
 
       '& .MuiSelect-select': {
-        padding: ownerState.size === 'small'
-          ? theme.spacing(1.25, 1.5)
-          : theme.spacing(2, 1.75),
+        paddingTop: theme.spacing(1.5),
+        paddingBottom: theme.spacing(1.5)
       },
        
       '& .MuiOutlinedInput-notchedOutline': {

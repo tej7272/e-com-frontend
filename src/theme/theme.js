@@ -68,11 +68,11 @@ export const themeOverrides = {
     MuiOutlinedInput: OutlinedInput,
     MuiInputLabel: InputLabel,
     // MuiInputAdornment: InputAdornment,
-    // MuiFormHelperText: FormHelperText,
+    MuiFormHelperText: FormHelperText,
     MuiInput: Input,
     MuiInputBase: InputBase,
     MuiFormControl: FormControl,
-    // MuiFormControlLabel: FormControlLabel,
+    MuiFormControlLabel: FormControlLabel,
     MuiAutocomplete: Autocomplete,
     // ----------
     MuiBreadcrumbs: Breadcrumbs,

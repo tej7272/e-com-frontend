@@ -120,32 +120,24 @@ const Button = {
       fontSize: '14px',
       fontWeight: 600,
       borderRadius: '8px',
-      padding: theme.spacing(1, 2),
+      padding: theme.spacing(1, 1.5),
       lineHeight: 1.429,
       ...outlineStyles(theme),
       ...textBtnStyles(theme),
     }),
-    sizeLarge: {
+    sizeLarge: ({theme}) => ({
       fontSize: '16px',
-      padding: '10px 22px',
+      padding: theme.spacing(1.5, 2),
       lineHeight: 1.375,
-    },
-    sizeSmall: {
-      padding: '6px 10px',
+    }),
+    sizeMedium: ({theme}) =>  ({
+      padding: theme.spacing(1.25, 1.75),
       lineHeight: 1.286,
-    },
-    outlinedSizeLarge: {
-      paddingTop: '9px',
-      paddingBottom: '9px',
-    },
-    outlinedSizeMedium: {
-      paddingTop: '7px',
-      paddingBottom: '7px',
-    },
-    outlinedSizeSmall: {
-      paddingTop: '5px',
-      paddingBottom: '5px',
-    },
+    }),
+    sizeSmall: ({theme}) =>  ({
+      padding: theme.spacing(1, 1.5),
+      lineHeight: 1,
+    }),
     outlinedError: {},
 
     startIcon: {

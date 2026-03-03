@@ -1,18 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   Box,
-  Grid,
-  Typography,
-  Divider,
 } from "@mui/material";
-import GenderCard from "./cards/GenderCard";
-import BrandCard from "./cards/BrandCard";
-import CategoryCard from "./cards/CategoryCard";
-import ColorCard from "./cards/ColorCard";
-import StockStatusCard from "./cards/OrderStatusCard";
-import SizeCard from "./cards/SizeCard";
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchMaster } from '../../../redux/admin/settings/masterSlice';
+// import GenderCard from "./cards/GenderCard";
+// import BrandCard from "./cards/BrandCard";
+// import CategoryCard from "./cards/CategoryCard";
+// import ColorCard from "./cards/ColorCard";
+// import StockStatusCard from "./cards/OrderStatusCard";
+// import SizeCard from "./cards/SizeCard";
+// import { useDispatch, useSelector } from 'react-redux';
+// import { fetchMaster } from '../../../redux/admin/configuration/masterSlice';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -20,24 +17,12 @@ import TabPanel from '@mui/lab/TabPanel';
 import CategoryView from './category/Category-view';
 
 const SettingTable = () => {
-  const dispatch = useDispatch()
- 
-  const loading = useSelector((state) => state.master.loading);
-  const master = useSelector((state) => state.master.data);
 
   const [value, setValue] = useState('1');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  useEffect(() => {
-      dispatch(fetchMaster());
-  },[dispatch])
-
-  if(loading && !master){
-    return <Box>Loading...</Box>
-  }
 
   return (
     <Box sx={{}}>

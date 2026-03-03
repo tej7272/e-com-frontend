@@ -257,7 +257,6 @@ const AddProductModal = ({ open, onClose, selectedData }) => {
                                 control={
                                   <Switch 
                                     checked={values.inStock} 
-                                    // Use explicit boolean write instead of Formik handleChange for MUI Switch stability.
                                     onChange={(e) => setFieldValue('inStock', e.target.checked)} 
                                     name="inStock" />
                                   }

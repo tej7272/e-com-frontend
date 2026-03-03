@@ -18,7 +18,7 @@ import RenderTextField from "../../../../components/textField/RenderTextField";
 import { X, Plus } from 'lucide-react';
 // import CustomIcon from "../../../../components/Icons/Icon";
 import { useDispatch } from "react-redux";
-import { addNewColor, updateColor } from "../../../../redux/admin/settings/masterSlice";
+import { addNewColor, updateColor } from "../../../../redux/admin/configuration/masterSlice";
 import { SketchPicker } from 'react-color'; // npm install react-color
 
 

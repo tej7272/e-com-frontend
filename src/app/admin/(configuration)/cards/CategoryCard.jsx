@@ -1,24 +1,24 @@
 import { Box, Grid, Button, Stack, Typography, Divider, Chip } from "@mui/material";
 import React, { useState } from "react";
 // import CustomIcon from "../../../../components/Icons/Icon";
-import { ShoppingBag, SquarePen, Plus } from 'lucide-react'
-import BrandModal from "../models/BrandModal";
+import { Shirt, SquarePen, Plus } from 'lucide-react'
+import CategoryModal from "../models/CategoryModal";
 import { useSelector, useDispatch } from "react-redux";
+import { deleteCategory } from "../../../../redux/admin/configuration/masterSlice";
 import ConfirmDialog from "../../../../components/confirm-dialog/ConfirmDialog";
-import { deleteBrand } from "../../../../redux/admin/settings/masterSlice";
 
-export default function BrandCard(){
-    
-    const master = useSelector((state) => state.master.data);
-    const dispatch = useDispatch()
+export default function CategoryCard(){
+
+     const master = useSelector((state) => state.master.data);
+     const dispatch = useDispatch()
 
     const [selectedData, setSelectedData] = useState(null)
-    const [brandId, setBrandId] = useState("")
-    const [openConfirm, setOpenConfirm] = useState(false);
     const [open, setOpen] = useState(false);
+    const [categoryId, setCategoryId] = useState("")
+    const [openConfirm, setOpenConfirm] = useState(false);
 
     const handleSelect = (row) => {
-        if(!selectedData || selectedData._id !== row._id){
+        if(!selectedData || selectedData.key !== row.key){
             setSelectedData(row)
         }else{
             setSelectedData(null);
@@ -31,11 +31,11 @@ export default function BrandCard(){
     }
 
     const handleDelete = async () => {
-        const res = await dispatch(deleteBrand(brandId)).unwrap();
-        if(res.status){
-            setOpenConfirm(false);
+            const res = await dispatch(deleteCategory(categoryId)).unwrap();
+            if(res.status){
+                setOpenConfirm(false);
+            }
         }
-    }
 
     return (
         <>
@@ -48,7 +48,6 @@ export default function BrandCard(){
                     <Button variant="contained" color="success" size="large" onClick={handleDelete}>Confirm</Button>
                 }
             />
-
             <Grid 
                 size={4} 
                 sx={{
@@ -59,12 +58,12 @@ export default function BrandCard(){
                     minHeight: 300
                 }}
             >
-                <BrandModal open={open} onClose={() => setOpen(false)} selectedData={selectedData}/>
+                <CategoryModal open={open} onClose={() => setOpen(false)} selectedData={selectedData}/>
                 <Box width="100%" sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                     {/* <Box> */}
-                        <Typography variant="h6"> 
-                            {/* <CustomIcon icon={ShoppingBag} style={{marginRight: '5px'}} strokeWidth={2}/> */}
-                            Brand
+                        <Typography variant="h6" sx={{alignItems: 'center'}}> 
+                            {/* <CustomIcon icon={Shirt} style={{marginRight: '5px'}} strokeWidth={2}/> */}
+                            Category
                         </Typography>
                     <Stack direction="row" spacing={1} >
                         <Button variant="contained" type="button" color="success" onClick={handleOpen}>
@@ -87,7 +86,7 @@ export default function BrandCard(){
                         gap: 1.5,
                     }}
                 >
-                    {master?.brands.map((row) => 
+                    {master?.categories.map((row, idx) => 
                         <Chip 
                             label={row.label} 
                             key={row._id} 
@@ -95,7 +94,7 @@ export default function BrandCard(){
                             clickable
                             sx={{ minWidth: 80, display: 'flex', justifyContent: 'space-between' }}
                             onClick={() => handleSelect(row)} 
-                            onDelete={() => { setOpenConfirm(true); setBrandId(row._id) }}
+                            onDelete={() => { setOpenConfirm(true); setCategoryId(row._id) }}
                         />
                     )}
                 </Stack>

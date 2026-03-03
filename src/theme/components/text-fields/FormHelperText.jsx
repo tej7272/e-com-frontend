@@ -1,8 +1,8 @@
 const FormHelperText = {
   styleOverrides: {
     root: ({ theme }) => ({
-      // ✅ only override font — MUI handles error color by default
       ...theme.typography.caption,
+      margin: theme.spacing(.5, 0.6),
     }),
   },
 };

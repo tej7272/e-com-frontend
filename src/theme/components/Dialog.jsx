@@ -20,7 +20,7 @@ export const DialogTitle = {
   styleOverrides: {
     root: ({ theme }) => ({
       padding: theme.spacing(3),
-      fontSize: theme.typography.body2.fontSize,
+      fontSize: theme.typography.body1.fontSize,
     }),
   },
 };

@@ -17,29 +17,29 @@ import RenderTextField from "../../../../components/textField/RenderTextField";
 import { X, Plus } from 'lucide-react';
 // import CustomIcon from "../../../../components/Icons/Icon";
 import { useDispatch } from "react-redux";
-import { addNewOrderStatus, updateOrderStatus } from "../../../../redux/admin/settings/masterSlice";
+import { addNewGender, updateGender } from "../../../../redux/admin/configuration/masterSlice";
 
 
 
-export default function OrderStatusModal({ open, onClose, selectedData }){
+export default function GenderModal({ open, onClose, selectedData }){
 
   const dispatch = useDispatch();
 
   const handleSubmit = async (values, {setSubmitting}) => {
-      setSubmitting(true)
-      if(selectedData?._id){
-        const res = await dispatch(updateOrderStatus(values)).unwrap();
-        if(res.status){
-          onClose();
-        }
-      }else{
-        const res = await dispatch(addNewOrderStatus(values)).unwrap();
-        if(res.status){
-          onClose();
-        }
+    setSubmitting(true)
+    if(selectedData?._id){
+      const res = await dispatch(updateGender(values)).unwrap();
+      if(res.status){
+        onClose();
       }
-      setSubmitting(false);
+    }else{
+      const res = await dispatch(addNewGender(values)).unwrap();
+      if(res.status){
+        onClose();
+      }
     }
+    setSubmitting(false);
+  }
 
   return (
     <Dialog
@@ -53,7 +53,7 @@ export default function OrderStatusModal({ open, onClose, selectedData }){
           <Box display="flex" flexDirection='row' alignItems= 'center' gap={.5}>
             {/* <CustomIcon icon={Plus} size={18}/> */}
             <Typography variant="h6" fontWeight='600' fontSize={16}>
-              {selectedData?._id ? 'Update Order Status' : 'Add New Order Status'}
+              {selectedData?._id ? 'Update Gender' : 'Add New Gender'}
             </Typography>
           </Box>
           <IconButton onClick={onClose}>
@@ -85,12 +85,14 @@ export default function OrderStatusModal({ open, onClose, selectedData }){
                               label = "Key"
                               size={6}
                               disabled={selectedData?._id}
+                              required
                             />
 
                             <RenderTextField 
                               name= 'label'
                               label = "Label"
                               size={6}
+                              required
                             />
                             
                         </Grid>
@@ -108,7 +110,7 @@ export default function OrderStatusModal({ open, onClose, selectedData }){
                           disabled={isSubmitting} 
                           sx={{mr: 2}}
                         >
-                          {selectedData?._id ? "Update" : "Save"}
+                          {selectedData?.key ? "Update" : "Save"}
                         </LoadingButton>
                       </Stack>
                     </DialogActions>

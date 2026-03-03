@@ -19,7 +19,7 @@ import SearchBox from "../../../components/searchBox/SearchBox";
 import usePopover from "../../../components/custom-popover/usePopover";
 import CustomPropover from "../../../components/custom-popover/CustomPopover";
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMaster } from '../../../redux/admin/settings/masterSlice';
+import { fetchMaster } from '../../../redux/admin/configuration/masterSlice';
 import Label from "../../../components/label/Label";
 import AddProductModal from "./AddProductModal";
 

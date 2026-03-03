@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Users, SquarePen, Plus } from 'lucide-react'
 import ColorModal from "../models/ColorModal";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteColor } from "../../../../redux/admin/settings/masterSlice";
+import { deleteColor } from "../../../../redux/admin/configuration/masterSlice";
 import ConfirmDialog from "../../../../components/confirm-dialog/ConfirmDialog";
 
 export default function ColorCard(){

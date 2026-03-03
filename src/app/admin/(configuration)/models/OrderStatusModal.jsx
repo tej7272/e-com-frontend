@@ -15,26 +15,25 @@ import { LoadingButton } from "@mui/lab";
 import { Formik, Form } from 'formik';
 import RenderTextField from "../../../../components/textField/RenderTextField";
 import { X, Plus } from 'lucide-react';
-import { useDispatch } from "react-redux";
 // import CustomIcon from "../../../../components/Icons/Icon";
-import { addNewCategory, updateCategory } from "../../../../redux/admin/settings/masterSlice";
+import { useDispatch } from "react-redux";
+import { addNewOrderStatus, updateOrderStatus } from "../../../../redux/admin/configuration/masterSlice";
 
 
 
-export default function CategoryModal({ open, onClose, selectedData }){
+export default function OrderStatusModal({ open, onClose, selectedData }){
 
   const dispatch = useDispatch();
-  
-    const handleSubmit = async (values, {setSubmitting}) => {
+
+  const handleSubmit = async (values, {setSubmitting}) => {
       setSubmitting(true)
       if(selectedData?._id){
-        const res = await dispatch(updateCategory(values)).unwrap();
+        const res = await dispatch(updateOrderStatus(values)).unwrap();
         if(res.status){
           onClose();
         }
-  
       }else{
-        const res = await dispatch(addNewCategory(values)).unwrap();
+        const res = await dispatch(addNewOrderStatus(values)).unwrap();
         if(res.status){
           onClose();
         }
@@ -49,12 +48,12 @@ export default function CategoryModal({ open, onClose, selectedData }){
       onClose={onClose}
       maxWidth='xs'
     >
-      <DialogTitle>
+      <DialogTitle id="scroll-dialog-title">
         <Stack direction='row' justifyContent="space-between" alignItems='center'>
           <Box display="flex" flexDirection='row' alignItems= 'center' gap={.5}>
             {/* <CustomIcon icon={Plus} size={18}/> */}
             <Typography variant="h6" fontWeight='600' fontSize={16}>
-              {selectedData?._id ? 'Update Category' : 'Add New Category'}
+              {selectedData?._id ? 'Update Order Status' : 'Add New Order Status'}
             </Typography>
           </Box>
           <IconButton onClick={onClose}>
@@ -102,7 +101,15 @@ export default function CategoryModal({ open, onClose, selectedData }){
                     <DialogActions>
                       <Stack direction='row' spacing= {1} justifyContent= 'flex-end' sx={{p: 2}}>
                         <Button type="button" variant="outlined" onClick={onClose}>Cancel</Button>
-                        <LoadingButton type="submit" variant="contained" loading={isSubmitting} disabled={isSubmitting} sx={{mr: 2}}>{selectedData?.key ? "Update" : "Save"}</LoadingButton>
+                        <LoadingButton 
+                          type="submit" 
+                          variant="contained" 
+                          loading={isSubmitting} 
+                          disabled={isSubmitting} 
+                          sx={{mr: 2}}
+                        >
+                          {selectedData?._id ? "Update" : "Save"}
+                        </LoadingButton>
                       </Stack>
                     </DialogActions>
                 </Form>

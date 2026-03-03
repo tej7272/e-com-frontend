@@ -1,24 +1,24 @@
 import { Box, Grid, Button, Stack, Typography, Divider, Chip } from "@mui/material";
 import React, { useState } from "react";
 // import CustomIcon from "../../../../components/Icons/Icon";
-import { Shirt, SquarePen, Plus } from 'lucide-react'
-import CategoryModal from "../models/CategoryModal";
+import { Users, SquarePen, Plus } from 'lucide-react'
+import GenderModal from "../models/GenderModal";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteCategory } from "../../../../redux/admin/settings/masterSlice";
+import { deleteGender } from "../../../../redux/admin/configuration/masterSlice";
 import ConfirmDialog from "../../../../components/confirm-dialog/ConfirmDialog";
 
-export default function CategoryCard(){
+export default function GenderCard(){
 
      const master = useSelector((state) => state.master.data);
      const dispatch = useDispatch()
 
     const [selectedData, setSelectedData] = useState(null)
     const [open, setOpen] = useState(false);
-    const [categoryId, setCategoryId] = useState("")
-    const [openConfirm, setOpenConfirm] = useState(false);
+    const [genderId, setGenderId] = useState("")
+        const [openConfirm, setOpenConfirm] = useState(false);
 
     const handleSelect = (row) => {
-        if(!selectedData || selectedData.key !== row.key){
+        if(!selectedData || selectedData._id !== row._id){
             setSelectedData(row)
         }else{
             setSelectedData(null);
@@ -31,7 +31,7 @@ export default function CategoryCard(){
     }
 
     const handleDelete = async () => {
-            const res = await dispatch(deleteCategory(categoryId)).unwrap();
+            const res = await dispatch(deleteGender(genderId)).unwrap();
             if(res.status){
                 setOpenConfirm(false);
             }
@@ -58,13 +58,14 @@ export default function CategoryCard(){
                     minHeight: 300
                 }}
             >
-                <CategoryModal open={open} onClose={() => setOpen(false)} selectedData={selectedData}/>
-                <Box width="100%" sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                    {/* <Box> */}
-                        <Typography variant="h6" sx={{alignItems: 'center'}}> 
-                            {/* <CustomIcon icon={Shirt} style={{marginRight: '5px'}} strokeWidth={2}/> */}
-                            Category
-                        </Typography>
+
+                <GenderModal open={open} onClose={() => setOpen(false)} selectedData={selectedData}/>
+
+                <Box width="100%" sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}> 
+                    <Typography variant="h6"> 
+                        {/* <CustomIcon icon={Users} style={{marginRight: '5px'}} strokeWidth={2}/> */}
+                        Gender
+                    </Typography>
                     <Stack direction="row" spacing={1} >
                         <Button variant="contained" type="button" color="success" onClick={handleOpen}>
                             {/* <CustomIcon icon={Plus} size={11} strokeWidth={2} style={{marginRight: '3px'}}/> */}
@@ -86,7 +87,7 @@ export default function CategoryCard(){
                         gap: 1.5,
                     }}
                 >
-                    {master?.categories.map((row, idx) => 
+                    {master?.gender?.map((row) => 
                         <Chip 
                             label={row.label} 
                             key={row._id} 
@@ -94,7 +95,7 @@ export default function CategoryCard(){
                             clickable
                             sx={{ minWidth: 80, display: 'flex', justifyContent: 'space-between' }}
                             onClick={() => handleSelect(row)} 
-                            onDelete={() => { setOpenConfirm(true); setCategoryId(row._id) }}
+                            onDelete={() => { setOpenConfirm(true); setGenderId(row._id) }}
                         />
                     )}
                 </Stack>

@@ -15,31 +15,32 @@ import { LoadingButton } from "@mui/lab";
 import { Formik, Form } from 'formik';
 import RenderTextField from "../../../../components/textField/RenderTextField";
 import { X, Plus } from 'lucide-react';
-// import CustomIcon from "../../../../components/Icons/Icon";
 import { useDispatch } from "react-redux";
-import { addNewGender, updateGender } from "../../../../redux/admin/settings/masterSlice";
+// import CustomIcon from "../../../../components/Icons/Icon";
+import { addNewCategory, updateCategory } from "../../../../redux/admin/configuration/masterSlice";
 
 
 
-export default function GenderModal({ open, onClose, selectedData }){
+export default function CategoryModal({ open, onClose, selectedData }){
 
   const dispatch = useDispatch();
-
-  const handleSubmit = async (values, {setSubmitting}) => {
-    setSubmitting(true)
-    if(selectedData?._id){
-      const res = await dispatch(updateGender(values)).unwrap();
-      if(res.status){
-        onClose();
+  
+    const handleSubmit = async (values, {setSubmitting}) => {
+      setSubmitting(true)
+      if(selectedData?._id){
+        const res = await dispatch(updateCategory(values)).unwrap();
+        if(res.status){
+          onClose();
+        }
+  
+      }else{
+        const res = await dispatch(addNewCategory(values)).unwrap();
+        if(res.status){
+          onClose();
+        }
       }
-    }else{
-      const res = await dispatch(addNewGender(values)).unwrap();
-      if(res.status){
-        onClose();
-      }
+      setSubmitting(false);
     }
-    setSubmitting(false);
-  }
 
   return (
     <Dialog
@@ -48,12 +49,12 @@ export default function GenderModal({ open, onClose, selectedData }){
       onClose={onClose}
       maxWidth='xs'
     >
-      <DialogTitle id="scroll-dialog-title">
+      <DialogTitle>
         <Stack direction='row' justifyContent="space-between" alignItems='center'>
           <Box display="flex" flexDirection='row' alignItems= 'center' gap={.5}>
             {/* <CustomIcon icon={Plus} size={18}/> */}
             <Typography variant="h6" fontWeight='600' fontSize={16}>
-              {selectedData?._id ? 'Update Gender' : 'Add New Gender'}
+              {selectedData?._id ? 'Update Category' : 'Add New Category'}
             </Typography>
           </Box>
           <IconButton onClick={onClose}>
@@ -85,14 +86,12 @@ export default function GenderModal({ open, onClose, selectedData }){
                               label = "Key"
                               size={6}
                               disabled={selectedData?._id}
-                              required
                             />
 
                             <RenderTextField 
                               name= 'label'
                               label = "Label"
                               size={6}
-                              required
                             />
                             
                         </Grid>
@@ -103,15 +102,7 @@ export default function GenderModal({ open, onClose, selectedData }){
                     <DialogActions>
                       <Stack direction='row' spacing= {1} justifyContent= 'flex-end' sx={{p: 2}}>
                         <Button type="button" variant="outlined" onClick={onClose}>Cancel</Button>
-                        <LoadingButton 
-                          type="submit" 
-                          variant="contained" 
-                          loading={isSubmitting} 
-                          disabled={isSubmitting} 
-                          sx={{mr: 2}}
-                        >
-                          {selectedData?.key ? "Update" : "Save"}
-                        </LoadingButton>
+                        <LoadingButton type="submit" variant="contained" loading={isSubmitting} disabled={isSubmitting} sx={{mr: 2}}>{selectedData?.key ? "Update" : "Save"}</LoadingButton>
                       </Stack>
                     </DialogActions>
                 </Form>

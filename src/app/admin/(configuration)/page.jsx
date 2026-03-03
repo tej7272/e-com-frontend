@@ -1,20 +1,20 @@
 import React from 'react'
 import {Box, Card} from '@mui/material';
 import CustomBreadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
-import SettingTable from './SettingTable';
+import ConfigurationTable from './ConfigurationTable';
 
-const SettingsPage = () => {
+const ConfigurationPage = () => {
 
     const breadcrumbs ={
-        heading: "Settings",
+        heading: "Configuration",
         links: [
             {
                 title: "Admin",
                 path: "/admin/"
             },
             {
-                title: "Settings",
-                path: "/admin/settings"
+                title: "Configuration",
+                path: "/admin/configuration"
             },
         ]
     } 
@@ -24,10 +24,10 @@ const SettingsPage = () => {
             <CustomBreadcrumbs breadcrumb={breadcrumbs}/>  
 
             <Card component={Card}>
-                <SettingTable />
+                <ConfigurationTable />
             </Card>
         </Box>
     )
 }
 
-export default SettingsPage;
+export default ConfigurationPage;

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Users, SquarePen, Plus } from 'lucide-react'
 import SizeModal from "../models/SizeModal";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteSize } from "../../../../redux/admin/settings/masterSlice";
+import { deleteSize } from "../../../../redux/admin/configuration/masterSlice";
 import ConfirmDialog from "../../../../components/confirm-dialog/ConfirmDialog";
 
 export default function SizeCard(){

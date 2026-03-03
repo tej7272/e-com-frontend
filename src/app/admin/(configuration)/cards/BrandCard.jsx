@@ -1,21 +1,21 @@
 import { Box, Grid, Button, Stack, Typography, Divider, Chip } from "@mui/material";
 import React, { useState } from "react";
 // import CustomIcon from "../../../../components/Icons/Icon";
-import { Users, SquarePen, Plus } from 'lucide-react'
-import GenderModal from "../models/GenderModal";
+import { ShoppingBag, SquarePen, Plus } from 'lucide-react'
+import BrandModal from "../models/BrandModal";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteGender } from "../../../../redux/admin/settings/masterSlice";
 import ConfirmDialog from "../../../../components/confirm-dialog/ConfirmDialog";
+import { deleteBrand } from "../../../../redux/admin/configuration/masterSlice";
 
-export default function GenderCard(){
-
-     const master = useSelector((state) => state.master.data);
-     const dispatch = useDispatch()
+export default function BrandCard(){
+    
+    const master = useSelector((state) => state.master.data);
+    const dispatch = useDispatch()
 
     const [selectedData, setSelectedData] = useState(null)
+    const [brandId, setBrandId] = useState("")
+    const [openConfirm, setOpenConfirm] = useState(false);
     const [open, setOpen] = useState(false);
-    const [genderId, setGenderId] = useState("")
-        const [openConfirm, setOpenConfirm] = useState(false);
 
     const handleSelect = (row) => {
         if(!selectedData || selectedData._id !== row._id){
@@ -31,11 +31,11 @@ export default function GenderCard(){
     }
 
     const handleDelete = async () => {
-            const res = await dispatch(deleteGender(genderId)).unwrap();
-            if(res.status){
-                setOpenConfirm(false);
-            }
+        const res = await dispatch(deleteBrand(brandId)).unwrap();
+        if(res.status){
+            setOpenConfirm(false);
         }
+    }
 
     return (
         <>
@@ -48,6 +48,7 @@ export default function GenderCard(){
                     <Button variant="contained" color="success" size="large" onClick={handleDelete}>Confirm</Button>
                 }
             />
+
             <Grid 
                 size={4} 
                 sx={{
@@ -58,14 +59,13 @@ export default function GenderCard(){
                     minHeight: 300
                 }}
             >
-
-                <GenderModal open={open} onClose={() => setOpen(false)} selectedData={selectedData}/>
-
-                <Box width="100%" sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}> 
-                    <Typography variant="h6"> 
-                        {/* <CustomIcon icon={Users} style={{marginRight: '5px'}} strokeWidth={2}/> */}
-                        Gender
-                    </Typography>
+                <BrandModal open={open} onClose={() => setOpen(false)} selectedData={selectedData}/>
+                <Box width="100%" sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    {/* <Box> */}
+                        <Typography variant="h6"> 
+                            {/* <CustomIcon icon={ShoppingBag} style={{marginRight: '5px'}} strokeWidth={2}/> */}
+                            Brand
+                        </Typography>
                     <Stack direction="row" spacing={1} >
                         <Button variant="contained" type="button" color="success" onClick={handleOpen}>
                             {/* <CustomIcon icon={Plus} size={11} strokeWidth={2} style={{marginRight: '3px'}}/> */}
@@ -87,7 +87,7 @@ export default function GenderCard(){
                         gap: 1.5,
                     }}
                 >
-                    {master?.gender?.map((row) => 
+                    {master?.brands.map((row) => 
                         <Chip 
                             label={row.label} 
                             key={row._id} 
@@ -95,7 +95,7 @@ export default function GenderCard(){
                             clickable
                             sx={{ minWidth: 80, display: 'flex', justifyContent: 'space-between' }}
                             onClick={() => handleSelect(row)} 
-                            onDelete={() => { setOpenConfirm(true); setGenderId(row._id) }}
+                            onDelete={() => { setOpenConfirm(true); setBrandId(row._id) }}
                         />
                     )}
                 </Stack>

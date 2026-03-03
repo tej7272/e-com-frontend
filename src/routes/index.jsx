@@ -5,7 +5,7 @@ const Products = lazy(() => import ('../app/admin/(products)/page'));
 const Orders = lazy(() => import ('../app/admin/(orders)/page'));
 const Customers = lazy(() => import ('../app/admin/(customers)/page'));
 const Reviews = lazy(() => import ('../app/admin/(reviews)/page'));
-const Settings = lazy(() => import ('../app/admin/(settings)/page'));
+const Configuration = lazy(() => import ('../app/admin/(configuration)/page'));
 
 
 const adminRoutes = [
@@ -13,6 +13,11 @@ const adminRoutes = [
         path: "/admin/",
         name: 'Dashboard',
         element: <Dashboard />
+    },
+    {
+        path: "/admin/configuration",
+        name: 'Configuration',
+        element: <Configuration />
     },
     {
         path: "/admin/products",
@@ -33,11 +38,6 @@ const adminRoutes = [
         path: "/admin/reviews",
         name: 'Reviews',
         element: <Reviews />
-    },
-    {
-        path: "/admin/settings",
-        name: 'Settings',
-        element: <Settings />
     },
 ]
 

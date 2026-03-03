@@ -11,8 +11,6 @@ export const initialConfig = {
 };
 
 
-console.log("initiacacadli", initialConfig)
-
 export const defaultAuthCredentials = {
   email: 'demo@aurora.com',
   password: 'password123',

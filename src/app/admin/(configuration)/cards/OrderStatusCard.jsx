@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Users, SquarePen, Plus } from 'lucide-react';
 import { useSelector, useDispatch } from "react-redux";
 import OrderStatusModal from "../models/OrderStatusModal";
-import { deleteOrderStatus } from "../../../../redux/admin/settings/masterSlice";
+import { deleteOrderStatus } from "../../../../redux/admin/configuration/masterSlice";
 import ConfirmDialog from "../../../../components/confirm-dialog/ConfirmDialog";
 
 export default function OrderStatusCard(){
