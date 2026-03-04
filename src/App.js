@@ -1,3 +1,4 @@
+import BreakpointsProvider from 'components/BreakPointProvider';
 import './App.css';
 import { AppProvidersWrapper } from './components/AppProvidersWrapper';
 import { ReduxProviderWrapper } from './components/ReduxProviderWrapper';
@@ -8,9 +9,11 @@ function App() {
   return (
     <ReduxProviderWrapper>
       <AppProvidersWrapper>
-        <ToastContainer />
-        <AllRoutes />
+        <BreakpointsProvider>
+          <ToastContainer />
+          <AllRoutes />
 
+        </BreakpointsProvider>
       </AppProvidersWrapper>
     </ReduxProviderWrapper>
   );

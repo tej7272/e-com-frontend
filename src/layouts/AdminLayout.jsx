@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import {
   Box,
   Drawer,
@@ -9,17 +9,17 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import Navbar from "components/layouts/admin/Navbar";
 import HeaderBar from "components/common/HeaderBar";
+import { Outlet } from "react-router-dom";
+import PageLoader from "components/loading/PageLoader";
 
 const DRAWER_WIDTH = 240;
 const COLLAPSED_WIDTH = 80;
 
-const AdminLayout = ({ children }) => {
+const AdminLayout = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  // const scrollRef = useRef(null);
   const [scrollTarget, setScrollTarget] = useState(null);
 
-// ✅ callback ref — fires when element mounts, no useEffect needed
   const scrollRef = React.useCallback((node) => {
     if (node !== null) {
       setScrollTarget(node);
@@ -51,7 +51,7 @@ const AdminLayout = ({ children }) => {
         </Box>
       )}
 
-      {/* ✅ Mobile Drawer */}
+    
       {isMobile && (
         <>
           <IconButton
@@ -78,7 +78,7 @@ const AdminLayout = ({ children }) => {
         </>
       )}
 
-      {/* ✅ Main Area — flex column, scrolls internally */}
+
       <Box
         ref={scrollRef}
         sx={{
@@ -90,12 +90,12 @@ const AdminLayout = ({ children }) => {
           transition: theme.transitions.create("flex", { duration: 200 }),
         }}
       >
-        {/* ✅ HeaderBar gets scrollRef to detect scroll */}
         <HeaderBar isMobile={isMobile} scrollTarget={scrollTarget} />
 
-        {/* Page Content */}
         <Box sx={{ flexGrow: 1, px: 3, pt: 2, pb: 8 }}>
-          {children}
+          <Suspense fallback={<PageLoader />}>
+            <Outlet />   
+          </Suspense>
         </Box>
       </Box>
     </>

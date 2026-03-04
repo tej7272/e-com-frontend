@@ -1,44 +1,20 @@
+// routes/admin.routes.jsx
 import { lazy } from 'react';
 
-const Dashboard = lazy(() => import ('../app/admin/(dashboard)/page'));
-const Products = lazy(() => import ('../app/admin/(products)/page'));
-const Orders = lazy(() => import ('../app/admin/(orders)/page'));
-const Customers = lazy(() => import ('../app/admin/(customers)/page'));
-const Reviews = lazy(() => import ('../app/admin/(reviews)/page'));
-const Configuration = lazy(() => import ('../app/admin/(configuration)/page'));
-
+const Dashboard     = lazy(() => import('pages/admin/dashboard/Page'));
+const Configuration = lazy(() => import('pages/admin/configuration/Page'));
+const Products      = lazy(() => import('pages/admin/products/Page'));
+const Orders        = lazy(() => import('pages/admin/orders/Page'));
+const Customers     = lazy(() => import('pages/admin/customers/Page'));
+const Reviews       = lazy(() => import('pages/admin/reviews/Page'));
 
 const adminRoutes = [
-    {
-        path: "/admin/",
-        name: 'Dashboard',
-        element: <Dashboard />
-    },
-    {
-        path: "/admin/configuration",
-        name: 'Configuration',
-        element: <Configuration />
-    },
-    {
-        path: "/admin/products",
-        name: 'Products',
-        element: <Products />
-    },
-    {
-        path: "/admin/orders",
-        name: 'Orders',
-        element: <Orders />
-    },
-    {
-        path: "/admin/customers",
-        name: 'Customers',
-        element: <Customers />
-    },
-    {
-        path: "/admin/reviews",
-        name: 'Reviews',
-        element: <Reviews />
-    },
-]
+    { path: "/admin/",              element: <Dashboard />,     name: "Dashboard"     },
+    { path: "/admin/configuration", element: <Configuration />, name: "Configuration" },
+    { path: "/admin/products",      element: <Products />,      name: "Products"      },
+    { path: "/admin/orders",        element: <Orders />,        name: "Orders"        },
+    { path: "/admin/customers",     element: <Customers />,     name: "Customers"     },
+    { path: "/admin/reviews",       element: <Reviews />,       name: "Reviews"       },
+];
 
-export { adminRoutes }
+export { adminRoutes };
