@@ -26,7 +26,6 @@ export default function HeaderBar({ isMobile, scrollTarget }) {
 
   const handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
-  const menuId = 'primary-search-account-menu';
 
   return (
     <AppBar
@@ -65,8 +64,6 @@ export default function HeaderBar({ isMobile, scrollTarget }) {
 
         <IconButton
           color="inherit"
-          aria-controls={menuId}
-          aria-haspopup="true"
           onClick={handleProfileMenuOpen}
         >
           <AccountCircle />
@@ -75,8 +72,7 @@ export default function HeaderBar({ isMobile, scrollTarget }) {
 
       <Menu
         anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        id={menuId}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         keepMounted
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={Boolean(anchorEl)}

@@ -1,7 +1,4 @@
-import { initialConfig } from "../config";
 
-
-console.log("initiali", initialConfig)
 
 const createTypography = () => ({
   fontFamily: ['Plus Jakarta Sans', 'sans-serif', 'Spline Sans Mono', 'monospace'].join(','),

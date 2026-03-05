@@ -24,11 +24,11 @@ import { ChevronLeftIcon } from "lucide-react";
 
 const navItems = [
   { path: "/admin", label: "Dashboard", icon: <DashboardOutlined /> },
+  { path: "/admin/configuration", label: "Configuration", icon: <SettingsOutlined /> },
   { path: "/admin/products", label: "Products", icon: <Inventory2Outlined /> },
   { path: "/admin/orders", label: "Orders", icon: <ProductionQuantityLimitsOutlined /> },
   { path: "/admin/customers", label: "Customers", icon: <PeopleAltOutlined /> },
   { path: "/admin/reviews", label: "Reviews", icon: <StarBorderPurple500Outlined /> },
-  { path: "/admin/settings", label: "Settings", icon: <SettingsOutlined /> },
 ];
 
 const Navbar = ({ collapsed, onCollapse }) => {

@@ -1,27 +1,22 @@
-import React from "react";
-import AdminLayout from "../layouts/AdminLayout";
-import { adminRoutes } from "./index";
-import { Route, Routes } from "react-router-dom";
+// routes/Routes.jsx
+import { Routes, Route } from 'react-router-dom';
+import AdminLayout from '../layouts/AdminLayout';
+import { adminRoutes } from './index';
+import Page404 from 'components/not-found/Page404';
 
-
-const AllRoutes = (props) => {
-    return(
+const AllRoutes = () => {
+    return (
         <Routes>
-            <Route>
-                {
-                    adminRoutes.map((adminRoute, index) => <Route 
-                        key={index}
-                        path={adminRoute.path}
-                        element={<AdminLayout {...props}>{adminRoute.element}</AdminLayout>}
-                    />
-                )}
+            {/* ✅ AdminLayout is the parent, each page is a child */}
+            <Route element={<AdminLayout />}>
+                {adminRoutes.map(({ path, element }) => (
+                    <Route key={path} path={path} element={element} />
+                ))}
             </Route>
-            <Route path="*" element={<div>404 Not Found</div>} />
+
+            <Route path="*" element={<Page404 />} />
         </Routes>
-        
-    )
-    
+    );
+};
 
-}
-
-export default AllRoutes
+export default AllRoutes;

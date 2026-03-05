@@ -1,41 +1,74 @@
-import { switchClasses } from '@mui/material';
+import { switchClasses } from '@mui/material/Switch';
+
+// ----------------------------------------------------------------------
 
 const Switch = {
-  defaultProps: {},
   styleOverrides: {
-    root: ({ theme }) => ({
-      padding: 0,
-      [`& .${switchClasses.switchBase}`]: {
-        padding: 0,
-        margin: 2,
-        [`&.${switchClasses.checked}`]: {
-          transform: 'translateX(12px)',
+    root: {
+      alignItems: 'center',
+    },
+
+    switchBase: ({ ownerState, theme }) => ({
+      top: 'unset',
+      transform: 'translateX(6px)',
+
+      [`&.${switchClasses.checked}`]: {
+        [`& .${switchClasses.thumb}`]: {
+          ...(ownerState.color === 'default' && {
+            color: theme.palette.grey[800],
+          }),
         },
-        [`&.${switchClasses.disabled}`]: {
-          backgroundColor: 'transparent',
-          boxShadow: theme.vars.shadows[2],
+
+        [`& + .${switchClasses.track}`]: {
+          opacity: 1,
+          ...(ownerState.color === 'default' && {
+            backgroundColor: theme.palette.text.primary,
+          }),
+        },
+      },
+
+      [`&.${switchClasses.disabled}`]: {
+        [`& .${switchClasses.thumb}`]: {
+          opacity: 1,
+        },
+        [`& + .${switchClasses.track}`]: {
+          opacity: 0.48,
         },
       },
     }),
-    sizeMedium: {
-      height: 24,
-      width: 36,
-    },
-    sizeSmall: {
-      height: 20,
-      width: 32,
-    },
-    thumb: ({ theme }) => ({
-      boxShadow: 'none',
-      backgroundColor: theme.vars.palette.background.elevation1,
-    }),
 
     track: ({ theme }) => ({
-      backgroundColor: theme.vars.palette.background.elevation4,
-      opacity: '1 !important',
-      borderRadius: 12,
+      opacity: 1,
+      borderRadius: 10,
+      backgroundColor: theme.palette.grey[500],
     }),
+
+    thumb: ({ theme }) => ({
+      color: theme.palette.common.white,
+    }),
+
+    sizeMedium: {
+      [`& .${switchClasses.track}`]: {
+        height: 20,
+      },
+      [`& .${switchClasses.thumb}`]: {
+        width: 14,
+        height: 14,
+      },
+    },
+
+    sizeSmall: {
+      [`& .${switchClasses.track}`]: {
+        height: 16,
+      },
+      [`& .${switchClasses.thumb}`]: {
+        width: 10,
+        height: 10,
+      },
+    },
   },
 };
+
+// ----------------------------------------------------------------------
 
 export default Switch;

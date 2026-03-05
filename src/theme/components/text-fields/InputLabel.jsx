@@ -12,7 +12,7 @@ const InputLabel = {
 
       ...(ownerState.variant === 'outlined' &&
         ownerState.size === 'small' && {
-          transform: 'translate(14px, 10px) scale(1)',
+          transform: 'translate(14px, 15px) scale(1)',
         }),
 
       '&.Mui-focused': {
