@@ -1,7 +1,6 @@
 import {
   chipClasses,
   filledInputClasses,
-  inputBaseClasses,
   inputLabelClasses,
   outlinedInputClasses,
 } from '@mui/material';
@@ -45,52 +44,38 @@ const Autocomplete = {
         },
       },
     },
-    inputRoot: {
-      paddingBottom: 5,
+    inputRoot: ({theme}) => ({
+      // paddingBottom: 5,
       columnGap: 4,
-      [`&.${filledInputClasses.root}`]: {
-        paddingLeft: 16,
-        paddingTop: 19,
-        [`&.${inputBaseClasses.sizeSmall}`]: {
-          paddingLeft: 12,
-          paddingTop: 17,
-        },
-        [`&.MuiInputBase-sizeLarge`]: {
-          paddingLeft: 20,
-          paddingTop: 24,
-          paddingBottom: 8,
-        },
-      },
+      // [`&.${filledInputClasses.root}`]: {
+      //   paddingLeft: 16,
+      //   paddingTop: 19,
+      //   [`&.${inputBaseClasses.sizeSmall}`]: {
+      //     paddingLeft: 12,
+      //     paddingTop: 17,
+      //   },
+      //   [`&.MuiInputBase-sizeLarge`]: {
+      //     paddingLeft: 20,
+      //     paddingTop: 24,
+      //     paddingBottom: 8,
+      //   },
+      // },
       [`&.${outlinedInputClasses.root}`]: {
-        paddingLeft: 16,
-        paddingTop: 8,
-        paddingBottom: 8,
-        [`&.${inputBaseClasses.sizeSmall}`]: {
-          paddingLeft: 12,
-          // paddingTop: 17,
-        },
-        [`&.MuiInputBase-sizeLarge`]: {
-          paddingLeft: 20,
-          // paddingTop: 24,
-          paddingBottom: 8,
-        },
+        paddingTop: theme.spacing(1.5),
+        paddingBottom: theme.spacing(1.5),
       },
-    },
-    input: {
-      // padding: '4px !important',
-      padding: '0px !important',
-    },
-    tag: {
+    }),
+    tag: ({theme}) => ({
       margin: 0,
       fontSize: 14,
-      marginTop: 6,
+      marginTop: theme.spacing(1),
       [`& .${chipClasses.label}`]: {
         lineHeight: 1.2,
       },
-    },
-    option: {
-      padding: '8px 16px',
-    },
+    }),
+    option: ({theme}) => ({
+      padding: theme.spacing(1, 2),
+    }),
   },
 };
 

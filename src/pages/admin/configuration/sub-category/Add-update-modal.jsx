@@ -3,12 +3,9 @@ import React from 'react'
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { Form, Formik } from 'formik';
-// import RenderTextField from '../../../../components/textField/RenderTextField';
+import RenderTextField from '../../../../components/textField/RenderTextField';
 import Iconify from 'components/base/Iconify';
-import { updateCategory } from 'store/slices/admin/configuration/categorySlice';
-import { addNewCategory } from 'store/slices/admin/configuration/categorySlice';
-import RenderTextField from 'components/textField/RenderTextField';
-// import { addNewCategory, updateCategory } from '../../../../redux/admin/configuration/categorySlice';
+import { addNewCategory, updateCategory } from '../../../../redux/admin/configuration/categorySlice';
 
 const validationSchema = yup.object({
   name: yup.string().required('Name is required'),
@@ -23,10 +20,15 @@ function AddUpdateModel({ open, onClose, selectedData }) {
     const handleSubmit = async (values, {setSubmitting, setErrors}) => {
       try{
         setSubmitting(true)
-        const res = selectedData 
-          ? await dispatch(updateCategory({id: selectedData?._id, payload: values})).unwrap()
-          : await dispatch(addNewCategory(values)).unwrap();
-        if(res.status) onClose();
+        if(selectedData?._id){
+          const id = selectedData?._id;
+          const res = await dispatch(updateCategory({id, payload: values})).unwrap();
+          if(res.status) onClose();
+          
+        }else{
+          const res = await dispatch(addNewCategory(values)).unwrap();
+          if(res.status) onClose();
+        }
       } catch(err) {
         if(err.errors) {
           const serverErrors = Object.fromEntries(

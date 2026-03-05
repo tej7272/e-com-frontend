@@ -12,12 +12,7 @@ import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from 'react-redux';
 import AddUpdateModel from "./Add-update-modal";
-// import usePopover from "../../../../components/custom-popover/usePopover";
-// import Label from "../../../../components/label/Label";
-// import CustomPropover from "../../../../components/custom-popover/CustomPopover";
-// import SearchBox from "../../../../components/searchBox/SearchBox";
 import Iconify from "components/base/Iconify";
-// import { deleteCategory, getCategories } from "../../../../redux/admin/configuration/categorySlice";
 import ConfirmDialog from "components/confirm-dialog/ConfirmDialog";
 import usePopover from "components/custom-popover/usePopover";
 import { getCategories } from "store/slices/admin/configuration/categorySlice";
@@ -26,7 +21,7 @@ import Label from "components/label/Label";
 import CustomPropover from "components/custom-popover/CustomPopover";
 import SearchBox from "components/searchBox/SearchBox";
 
-const CategoryView = () => {
+const SizeGroupView = () => {
   const [open, setOpen]               = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [selectedData, setSelectedData] = useState(null);
@@ -60,7 +55,7 @@ const CategoryView = () => {
     }
   };
 
-  const filteredList = (category ?? []).filter((v) => { // ✅ safe fallback
+  const filteredList = (category ?? []).filter((v) => {
     const normalizedSearch = searchValue.replace(/\s+/g, '').toLowerCase();
     const normalizedName   = v.name.replace(/\s+/g, '').toLowerCase();
     return normalizedSearch ? normalizedName.includes(normalizedSearch) : true;
@@ -69,6 +64,7 @@ const CategoryView = () => {
   const columns = [
     { field: "name",        headerName: "Name",        width: 200 },
     { field: "description", headerName: "Description", flex: 1 },
+    { field: "sizes", headerName: "Sizes", flex: 1 },
     {
       field: "isActive",
       headerName: "Active",
@@ -127,9 +123,9 @@ const CategoryView = () => {
 
       <Stack direction="row" spacing={1} justifyContent="flex-end" sx={{ mb: 2, pr: 3 }}>
         <Button type="button" variant="contained" onClick={handleOpen}>
-          Add Category
+          Add Size Group
         </Button>
-        <SearchBox searchValue={searchValue} onSearch={(val) => setSearchValue(val)} name="Search category" />
+        <SearchBox searchValue={searchValue} onSearch={(val) => setSearchValue(val)} name="Serach size-group" />
       </Stack>
 
       <Box sx={{ mt: 3 }}>
@@ -150,4 +146,4 @@ const CategoryView = () => {
   );
 };
 
-export default CategoryView;
+export default SizeGroupView;

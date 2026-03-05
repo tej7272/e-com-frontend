@@ -1,11 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import masterReducer from './admin/configuration/masterSlice'
+import formConfigRootReducer from './admin/formConfigSlice'
 import configurationRootReducer from './admin/configuration';
 
 
 const rootReducer = combineReducers({
+    formConfig: formConfigRootReducer,
     configuration: configurationRootReducer,
-    master: masterReducer,
   
 })
 

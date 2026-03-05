@@ -1,14 +1,15 @@
 import { toast } from "react-toastify";
 
 
-
 export const handlePending = (state) => {
     state.loading = true;
-    state.error = null
-}
+    state.error   = null;
+};
 
-
-export const handleReject = (state, action) => {
+export const handleRejected = (state, action) => {
     state.loading = false;
-    toast.error(action.payload?.message || "Something went wrong");
-}
+    state.error   = action.payload?.message;
+    if (!action.payload?.errors) {
+        toast.error(action.payload?.message || "Something went wrong");
+    }
+};

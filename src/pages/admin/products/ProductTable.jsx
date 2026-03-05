@@ -19,7 +19,6 @@ import SearchBox from "../../../components/searchBox/SearchBox";
 import usePopover from "../../../components/custom-popover/usePopover";
 import CustomPropover from "../../../components/custom-popover/CustomPopover";
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMaster } from '../../../redux/admin/configuration/masterSlice';
 import Label from "../../../components/label/Label";
 import AddProductModal from "./AddProductModal";
 
@@ -32,17 +31,6 @@ const ProductTable = () => {
   const popover = usePopover();
 
   const dispatch = useDispatch()
- 
-  const loading = useSelector((state) => state.master.loading);
-  const master = useSelector((state) => state.master.data);
-
-  useEffect(() => {
-      dispatch(fetchMaster());
-  },[dispatch])
-
-  if(loading && !master){
-    return <Box>Loading...</Box>
-  }
 
 
 
