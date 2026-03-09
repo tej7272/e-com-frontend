@@ -19,7 +19,7 @@ export const getFormConfig = createAsyncThunk(
         } catch(err) {
             return rejectWithValue({
                 message: err.response?.data?.message || "Failed to fetch master data",
-                errors:  err.response?.data?.errors  || null  // ✅ optional chaining
+                errors:  err.response?.data?.errors  || null
             });
         }
     }

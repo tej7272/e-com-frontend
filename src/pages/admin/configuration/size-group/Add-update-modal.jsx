@@ -6,6 +6,8 @@ import { Form, Formik } from 'formik';
 import RenderTextField from '../../../../components/textField/RenderTextField';
 import Iconify from 'components/base/Iconify';
 import ChipInput from 'components/form/ChipInput';
+import { addSizeGroup } from 'store/slices/admin/configuration/sizeGroupSlice';
+import { updateSizeGroup } from 'store/slices/admin/configuration/sizeGroupSlice';
 
 const validationSchema = yup.object({
   name: yup.string().required('Name is required'),
@@ -20,8 +22,9 @@ function AddUpdateModel({ open, onClose, selectedData }) {
     const handleSubmit = async (values, {setSubmitting, setErrors}) => {
       try{
         setSubmitting(true)
-        const res = {}
-        
+        const res = selectedData 
+          ? await dispatch(updateSizeGroup({id: selectedData._id, payload: values})).unwrap()
+          : await dispatch(addSizeGroup(values)).unwrap();        
           if(res.status) onClose();
       } catch(err) {
         if(err.errors) {
@@ -59,7 +62,7 @@ function AddUpdateModel({ open, onClose, selectedData }) {
            initialValues={{ 
             name: selectedData?.name ?? "",
             description: selectedData?.description ?? "",
-            Sizes: selectedData?.sizes ?? [],
+            sizes: selectedData?.sizes ?? [],
             isActive: selectedData?.isActive ?? true
           }}
            validationSchema={validationSchema}

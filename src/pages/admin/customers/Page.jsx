@@ -7,7 +7,7 @@ import CustomerTable from './CustomerTable';
 const CustomersPage = () => {
 
     const breadcrumbs ={
-        heading: "Settings",
+        heading: "Customers",
         links: [
             {
                 title: "Admin",

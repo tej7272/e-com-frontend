@@ -30,7 +30,7 @@ import Iconify from "components/base/Iconify";
 const AddProductModal = ({ open, onClose, selectedData }) => {
   const dispatch = useDispatch()
 
-  const master = useSelector((state) => state.master.data);
+  const master = {};
 
   return (
     <Dialog

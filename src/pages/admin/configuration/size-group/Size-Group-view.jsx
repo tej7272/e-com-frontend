@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Stack,
   IconButton,
   Paper,
   Tooltip,
@@ -15,11 +14,10 @@ import AddUpdateModel from "./Add-update-modal";
 import Iconify from "components/base/Iconify";
 import ConfirmDialog from "components/confirm-dialog/ConfirmDialog";
 import usePopover from "components/custom-popover/usePopover";
-import { getCategories } from "store/slices/admin/configuration/categorySlice";
-import { deleteCategory } from "store/slices/admin/configuration/categorySlice";
 import Label from "components/label/Label";
 import CustomPropover from "components/custom-popover/CustomPopover";
-import SearchBox from "components/searchBox/SearchBox";
+import { getSizeGroups } from "store/slices/admin/configuration/sizeGroupSlice";
+import { deleteSizeGroup } from "store/slices/admin/configuration/sizeGroupSlice";
 
 const SizeGroupView = () => {
   const [open, setOpen]               = useState(false);
@@ -30,23 +28,18 @@ const SizeGroupView = () => {
   const popover  = usePopover();
   const dispatch = useDispatch();
 
-  const loading  = useSelector((state) => state.configuration.category.loading);
-  const category = useSelector((state) => state.configuration.category.data);
+  const loading  = useSelector((state) => state.configuration.sizeGroup.loading);
+  const sizeGroup = useSelector((state) => state.configuration.sizeGroup.data);
 
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(getSizeGroups());
   }, [dispatch]);
-
-  const handleOpen = () => {
-    setSelectedData(null);
-    setOpen(true);
-  };
 
   const handleClose = () => setOpen(false);
 
   const handleDelete = async () => {
     try{
-      const res = await dispatch(deleteCategory(selectedData._id)).unwrap();
+      const res = await dispatch(deleteSizeGroup(selectedData._id)).unwrap();
       if (res.status) {
         setOpenConfirm(false);
       }
@@ -55,7 +48,7 @@ const SizeGroupView = () => {
     }
   };
 
-  const filteredList = (category ?? []).filter((v) => {
+  const filteredList = (sizeGroup ?? []).filter((v) => {
     const normalizedSearch = searchValue.replace(/\s+/g, '').toLowerCase();
     const normalizedName   = v.name.replace(/\s+/g, '').toLowerCase();
     return normalizedSearch ? normalizedName.includes(normalizedSearch) : true;
@@ -64,7 +57,21 @@ const SizeGroupView = () => {
   const columns = [
     { field: "name",        headerName: "Name",        width: 200 },
     { field: "description", headerName: "Description", flex: 1 },
-    { field: "sizes", headerName: "Sizes", flex: 1 },
+    { 
+      field: "sizes", 
+      headerName: "Sizes", 
+      flex: 1,
+    //   valueFormatter: (value) => {
+    //     // ✅ valueFormatter converts array to string
+    //     // DataGrid handles truncation automatically on plain strings
+    //     return (value || []).join(', ');  // "XS, S, M, L, XL"
+    // }
+      renderCell: (params) => (
+        (params?.value || []).map((val) => (
+          <Label key={val}>{val}</Label>
+        ))
+      )
+    },
     {
       field: "isActive",
       headerName: "Active",
@@ -121,13 +128,6 @@ const SizeGroupView = () => {
 
       <AddUpdateModel open={open} onClose={handleClose} selectedData={selectedData} />
 
-      <Stack direction="row" spacing={1} justifyContent="flex-end" sx={{ mb: 2, pr: 3 }}>
-        <Button type="button" variant="contained" onClick={handleOpen}>
-          Add Size Group
-        </Button>
-        <SearchBox searchValue={searchValue} onSearch={(val) => setSearchValue(val)} name="Serach size-group" />
-      </Stack>
-
       <Box sx={{ mt: 3 }}>
         <Paper sx={{ width: "100%", minHeight: 400 }}>
           <DataGrid
@@ -138,7 +138,19 @@ const SizeGroupView = () => {
             initialState={{ pagination: { paginationModel: { page: 0, pageSize: 10 } } }}
             pageSizeOptions={[10, 20, 50, 100]}
             disableRowSelectionOnClick
+            showToolbar
             sx={{ border: 0 }}
+            slotProps={{
+              toolbar: {
+                searchValue,
+                onSearch:  (val) => setSearchValue(val),
+                searchName: "Search size-group",
+                exportData: filteredList,
+                exportFileName: "size-group",
+                title:  "Add size-group",
+                handleOpen : () => { setOpen(true); setSelectedData(null)},
+              }
+            }}
           />
         </Paper>
       </Box>

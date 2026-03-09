@@ -25,12 +25,13 @@ import { LoadingButton } from "@mui/lab";
 import React from "react";
 import { Formik, Form, Field } from 'formik';
 import RenderTextField from "../../../components/textField/RenderTextField";
-import master from "../master.json";
 import Iconify from "components/base/Iconify";
 
 
 
 const AddProductModal = ({ open, onClose, selectedData }) => {
+
+  const master = {}
 
   return (
     <Dialog
