@@ -1,11 +1,11 @@
 import {
   Box,
-  Button,
-  IconButton,
   Paper,
+  Button,
   Tooltip,
   MenuItem,
   MenuList,
+  IconButton,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
@@ -16,11 +16,11 @@ import ConfirmDialog from "components/confirm-dialog/ConfirmDialog";
 import usePopover from "components/custom-popover/usePopover";
 import Label from "components/label/Label";
 import CustomPropover from "components/custom-popover/CustomPopover";
-import { getSizeGroups } from "store/slices/admin/configuration/sizeGroupSlice";
-import { deleteSizeGroup } from "store/slices/admin/configuration/sizeGroupSlice";
+import { getSubCategories, deleteSubCategory } from "store/slices/admin/configuration/subCategory";
 
-const SizeGroupView = () => {
-  const [open, setOpen]               = useState(false);
+
+const SubCategoryView = () => {
+  const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [selectedData, setSelectedData] = useState(null);
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -28,18 +28,18 @@ const SizeGroupView = () => {
   const popover  = usePopover();
   const dispatch = useDispatch();
 
-  const loading  = useSelector((state) => state.configuration.sizeGroup.loading);
-  const sizeGroup = useSelector((state) => state.configuration.sizeGroup.data);
+  const loading  = useSelector((state) => state.configuration.subCategory.loading);
+  const subCategory = useSelector((state) => state.configuration.subCategory.data);
 
   useEffect(() => {
-    dispatch(getSizeGroups());
+    dispatch(getSubCategories());
   }, [dispatch]);
 
   const handleClose = () => setOpen(false);
 
   const handleDelete = async () => {
     try{
-      const res = await dispatch(deleteSizeGroup(selectedData._id)).unwrap();
+      const res = await dispatch(deleteSubCategory(selectedData._id)).unwrap();
       if (res.status) {
         setOpenConfirm(false);
       }
@@ -48,24 +48,31 @@ const SizeGroupView = () => {
     }
   };
 
-  const filteredList = (sizeGroup ?? []).filter((v) => {
+  const filteredList = (subCategory ?? []).filter((v) => { 
     const normalizedSearch = searchValue.replace(/\s+/g, '').toLowerCase();
     const normalizedName   = v.name.replace(/\s+/g, '').toLowerCase();
     return normalizedSearch ? normalizedName.includes(normalizedSearch) : true;
   });
 
   const columns = [
-    { field: "name",        headerName: "Name",        width: 200 },
-    { field: "description", headerName: "Description", flex: 1 },
+    { field: "name", headerName: "Name", width: 160 },
     { 
-      field: "sizes", 
-      headerName: "Sizes", 
-      flex: 1,
-      renderCell: (params) => (
-        (params?.value || []).map((val) => (
-          <Label key={val}>{val}</Label>
-        ))
-      )
+      field: "category", 
+      headerName: "Category", 
+      width: 180,
+      valueGetter: (value) => value?.name ?? ''
+    },
+    { 
+      field: "sizeGroup", 
+      headerName: "Size Group", 
+      flex: 1, 
+      valueGetter: (value) => value.sizes.join(', ') ?? ''
+    },
+    { 
+      field: "description", 
+      headerName: "Description", 
+      flex: 1, 
+      valueGetter: (value) => value || '-'
     },
     {
       field: "isActive",
@@ -136,13 +143,13 @@ const SizeGroupView = () => {
             sx={{ border: 0 }}
             slotProps={{
               toolbar: {
-                searchValue,
-                onSearch:  (val) => setSearchValue(val),
-                searchName: "Search size-group",
-                exportData: filteredList,
-                exportFileName: "size-group",
-                title:  "Add size-group",
-                handleOpen : () => { setOpen(true); setSelectedData(null)},
+                  searchValue,
+                  onSearch:       (val) => setSearchValue(val),
+                  searchName:     "Search sub category",
+                  exportData:     filteredList,
+                  exportFileName: "sub-category",
+                  title:  "Add sub-category",
+                  handleOpen : () => {setOpen(true); setSelectedData(null)},
               }
             }}
           />
@@ -152,4 +159,4 @@ const SizeGroupView = () => {
   );
 };
 
-export default SizeGroupView;
+export default SubCategoryView;

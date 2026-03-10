@@ -17,6 +17,9 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import CategoryView from './category/Category-view';
 import SizeGroupView from './size-group/Size-Group-view';
+import BrandView from './brand/Brand-view';
+import ColorView from './color/Color-view';
+import SubCategoryView from './sub-category/Sub-category-view';
 
 const SettingTable = () => {
 
@@ -46,22 +49,17 @@ const SettingTable = () => {
           <TabPanel value="2">
             <SizeGroupView />
           </TabPanel>
-          <TabPanel value="3">Item Three</TabPanel>
-          <TabPanel value="4">Item Three</TabPanel>
-          <TabPanel value="5">Item Three</TabPanel>
+          <TabPanel value="3">
+            <SubCategoryView />
+          </TabPanel>
+          <TabPanel value="4">
+            <BrandView />
+          </TabPanel>
+          <TabPanel value="5">
+            <ColorView />
+          </TabPanel>
         </TabContext>
       </Box>
-      {/* <Divider /> */}
-
-      {/* <Grid container spacing={1.5} sx={{ px: 2, my: 2 }}>
-
-        <GenderCard />
-        <BrandCard />
-        <CategoryCard />
-        <ColorCard />
-        <StockStatusCard />
-        <SizeCard />
-      </Grid> */}
     </Card>
   );
 };

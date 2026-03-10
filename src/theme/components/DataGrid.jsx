@@ -4,10 +4,10 @@ import CustomToolbar from 'components/table/CustomToolbar';
 
 const DataGrid = {
   defaultProps: {
+    showToolbar: true, 
     slots: {
-            toolbar: CustomToolbar,  // ✅ global — no need to set per view
-            // ... your existing slots
-        }
+      toolbar: CustomToolbar,  // ✅ global — no need to set per view
+    }
     // disableRowSelectionOnClick: true,
     // disableColumnMenu: true,
     // columnHeaderHeight: 40,

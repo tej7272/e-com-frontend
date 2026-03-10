@@ -14,10 +14,9 @@ import AddUpdateModel from "./Add-update-modal";
 import Iconify from "components/base/Iconify";
 import ConfirmDialog from "components/confirm-dialog/ConfirmDialog";
 import usePopover from "components/custom-popover/usePopover";
-import { getCategories } from "store/slices/admin/configuration/categorySlice";
-import { deleteCategory } from "store/slices/admin/configuration/categorySlice";
 import Label from "components/label/Label";
 import CustomPropover from "components/custom-popover/CustomPopover";
+import { deleteCategory, getCategories } from "store/slices/admin/configuration/categorySlice";
 
 
 const CategoryView = () => {
@@ -49,7 +48,7 @@ const CategoryView = () => {
     }
   };
 
-  const filteredList = (category ?? []).filter((v) => { // ✅ safe fallback
+  const filteredList = (category ?? []).filter((v) => {
     const normalizedSearch = searchValue.replace(/\s+/g, '').toLowerCase();
     const normalizedName   = v.name.replace(/\s+/g, '').toLowerCase();
     return normalizedSearch ? normalizedName.includes(normalizedSearch) : true;
@@ -57,12 +56,11 @@ const CategoryView = () => {
 
   const columns = [
     { field: "name",        headerName: "Name",        width: 200 },
-    { field: "description", headerName: "Description", width: 200 },
+    { field: "description", headerName: "Description", flex: 1 },
     {
       field: "isActive",
       headerName: "Active",
-      // width: 120,
-      flex: 1,
+      width: 120,
       renderCell: (params) => (
         <Label>{params.value ? 'Yes' : 'No'}</Label>
       ),
@@ -118,7 +116,6 @@ const CategoryView = () => {
       <Box sx={{ mt: 3 }}>
         <Paper sx={{ width: "100%", minHeight: 400 }}>
           <DataGrid
-            showToolbar
             rows={filteredList}
             getRowId={(row) => row._id}
             columns={columns}
@@ -134,7 +131,7 @@ const CategoryView = () => {
                   searchName:     "Search category",
                   exportData:     filteredList,
                   exportFileName: "categories",
-                  title:  "Add Category",
+                  title:  "Add category",
                   handleOpen : () => {setOpen(true); setSelectedData(null)},
               }
             }}

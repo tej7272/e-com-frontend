@@ -15,5 +15,10 @@ export const apiEndPoints = {
         addSizeGroup: `${baseUrl}/configuration/size-group`,
         updateSizeGroup: `${baseUrl}/configuration/size-group`,
         deleteSizeGroup: `${baseUrl}/configuration/size-group`,
+
+        getSubCategories: `${baseUrl}/configuration/sub-category`,
+        addSubCategory: `${baseUrl}/configuration/sub-category`,
+        updateSubCategory: `${baseUrl}/configuration/sub-category`,
+        deleteSubCategory: `${baseUrl}/configuration/sub-category`,
     },
 }

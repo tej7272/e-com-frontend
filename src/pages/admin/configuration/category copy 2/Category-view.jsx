@@ -1,24 +1,24 @@
 import {
   Box,
-  Button,
-  Stack,
-  IconButton,
   Paper,
+  Button,
   Tooltip,
   MenuItem,
   MenuList,
+  IconButton,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from 'react-redux';
 import AddUpdateModel from "./Add-update-modal";
-import usePopover from "../../../../components/custom-popover/usePopover";
-import Label from "../../../../components/label/Label";
-import CustomPropover from "../../../../components/custom-popover/CustomPopover";
-import SearchBox from "../../../../components/searchBox/SearchBox";
 import Iconify from "components/base/Iconify";
-import { deleteCategory, getCategories } from "../../../../redux/admin/configuration/categorySlice";
 import ConfirmDialog from "components/confirm-dialog/ConfirmDialog";
+import usePopover from "components/custom-popover/usePopover";
+import { getCategories } from "store/slices/admin/configuration/categorySlice";
+import { deleteCategory } from "store/slices/admin/configuration/categorySlice";
+import Label from "components/label/Label";
+import CustomPropover from "components/custom-popover/CustomPopover";
+
 
 const CategoryView = () => {
   const [open, setOpen]               = useState(false);
@@ -36,11 +36,6 @@ const CategoryView = () => {
     dispatch(getCategories());
   }, [dispatch]);
 
-  const handleOpen = () => {
-    setSelectedData(null);
-    setOpen(true);
-  };
-
   const handleClose = () => setOpen(false);
 
   const handleDelete = async () => {
@@ -54,7 +49,7 @@ const CategoryView = () => {
     }
   };
 
-  const filteredList = (category?.data ?? []).filter((v) => { // ✅ safe fallback
+  const filteredList = (category ?? []).filter((v) => { // ✅ safe fallback
     const normalizedSearch = searchValue.replace(/\s+/g, '').toLowerCase();
     const normalizedName   = v.name.replace(/\s+/g, '').toLowerCase();
     return normalizedSearch ? normalizedName.includes(normalizedSearch) : true;
@@ -62,11 +57,12 @@ const CategoryView = () => {
 
   const columns = [
     { field: "name",        headerName: "Name",        width: 200 },
-    { field: "description", headerName: "Description", flex: 1 },
+    { field: "description", headerName: "Description", width: 200 },
     {
       field: "isActive",
       headerName: "Active",
-      width: 120,
+      // width: 120,
+      flex: 1,
       renderCell: (params) => (
         <Label>{params.value ? 'Yes' : 'No'}</Label>
       ),
@@ -119,16 +115,10 @@ const CategoryView = () => {
 
       <AddUpdateModel open={open} onClose={handleClose} selectedData={selectedData} />
 
-      <Stack direction="row" spacing={1} justifyContent="flex-end" sx={{ mb: 2, pr: 3 }}>
-        <Button type="button" variant="contained" onClick={handleOpen}>
-          Add Category
-        </Button>
-        <SearchBox searchValue={searchValue} onSearch={(val) => setSearchValue(val)} name="Category" />
-      </Stack>
-
       <Box sx={{ mt: 3 }}>
         <Paper sx={{ width: "100%", minHeight: 400 }}>
           <DataGrid
+            showToolbar
             rows={filteredList}
             getRowId={(row) => row._id}
             columns={columns}
@@ -137,6 +127,17 @@ const CategoryView = () => {
             pageSizeOptions={[10, 20, 50, 100]}
             disableRowSelectionOnClick
             sx={{ border: 0 }}
+            slotProps={{
+              toolbar: {
+                  searchValue,
+                  onSearch:       (val) => setSearchValue(val),
+                  searchName:     "Search category",
+                  exportData:     filteredList,
+                  exportFileName: "categories",
+                  title:  "Add category",
+                  handleOpen : () => {setOpen(true); setSelectedData(null)},
+              }
+            }}
           />
         </Paper>
       </Box>

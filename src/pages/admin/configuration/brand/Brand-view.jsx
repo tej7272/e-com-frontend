@@ -1,11 +1,11 @@
 import {
   Box,
-  Button,
-  IconButton,
   Paper,
+  Button,
   Tooltip,
   MenuItem,
   MenuList,
+  IconButton,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
@@ -14,12 +14,13 @@ import AddUpdateModel from "./Add-update-modal";
 import Iconify from "components/base/Iconify";
 import ConfirmDialog from "components/confirm-dialog/ConfirmDialog";
 import usePopover from "components/custom-popover/usePopover";
+import { getCategories } from "store/slices/admin/configuration/categorySlice";
+import { deleteCategory } from "store/slices/admin/configuration/categorySlice";
 import Label from "components/label/Label";
 import CustomPropover from "components/custom-popover/CustomPopover";
-import { getSizeGroups } from "store/slices/admin/configuration/sizeGroupSlice";
-import { deleteSizeGroup } from "store/slices/admin/configuration/sizeGroupSlice";
 
-const SizeGroupView = () => {
+
+const BrandView = () => {
   const [open, setOpen]               = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [selectedData, setSelectedData] = useState(null);
@@ -28,18 +29,18 @@ const SizeGroupView = () => {
   const popover  = usePopover();
   const dispatch = useDispatch();
 
-  const loading  = useSelector((state) => state.configuration.sizeGroup.loading);
-  const sizeGroup = useSelector((state) => state.configuration.sizeGroup.data);
+  const loading  = useSelector((state) => state.configuration.category.loading);
+  const category = useSelector((state) => state.configuration.category.data);
 
   useEffect(() => {
-    dispatch(getSizeGroups());
+    dispatch(getCategories());
   }, [dispatch]);
 
   const handleClose = () => setOpen(false);
 
   const handleDelete = async () => {
     try{
-      const res = await dispatch(deleteSizeGroup(selectedData._id)).unwrap();
+      const res = await dispatch(deleteCategory(selectedData._id)).unwrap();
       if (res.status) {
         setOpenConfirm(false);
       }
@@ -48,7 +49,7 @@ const SizeGroupView = () => {
     }
   };
 
-  const filteredList = (sizeGroup ?? []).filter((v) => {
+  const filteredList = (category ?? []).filter((v) => { // ✅ safe fallback
     const normalizedSearch = searchValue.replace(/\s+/g, '').toLowerCase();
     const normalizedName   = v.name.replace(/\s+/g, '').toLowerCase();
     return normalizedSearch ? normalizedName.includes(normalizedSearch) : true;
@@ -56,21 +57,12 @@ const SizeGroupView = () => {
 
   const columns = [
     { field: "name",        headerName: "Name",        width: 200 },
-    { field: "description", headerName: "Description", flex: 1 },
-    { 
-      field: "sizes", 
-      headerName: "Sizes", 
-      flex: 1,
-      renderCell: (params) => (
-        (params?.value || []).map((val) => (
-          <Label key={val}>{val}</Label>
-        ))
-      )
-    },
+    { field: "description", headerName: "Description", width: 200 },
     {
       field: "isActive",
       headerName: "Active",
-      width: 120,
+      // width: 120,
+      flex: 1,
       renderCell: (params) => (
         <Label>{params.value ? 'Yes' : 'No'}</Label>
       ),
@@ -126,6 +118,7 @@ const SizeGroupView = () => {
       <Box sx={{ mt: 3 }}>
         <Paper sx={{ width: "100%", minHeight: 400 }}>
           <DataGrid
+            showToolbar
             rows={filteredList}
             getRowId={(row) => row._id}
             columns={columns}
@@ -136,13 +129,13 @@ const SizeGroupView = () => {
             sx={{ border: 0 }}
             slotProps={{
               toolbar: {
-                searchValue,
-                onSearch:  (val) => setSearchValue(val),
-                searchName: "Search size-group",
-                exportData: filteredList,
-                exportFileName: "size-group",
-                title:  "Add size-group",
-                handleOpen : () => { setOpen(true); setSelectedData(null)},
+                  searchValue,
+                  onSearch:       (val) => setSearchValue(val),
+                  searchName:     "Search category",
+                  exportData:     filteredList,
+                  exportFileName: "categories",
+                  title:  "Add category",
+                  handleOpen : () => {setOpen(true); setSelectedData(null)},
               }
             }}
           />
@@ -152,4 +145,4 @@ const SizeGroupView = () => {
   );
 };
 
-export default SizeGroupView;
+export default BrandView;
