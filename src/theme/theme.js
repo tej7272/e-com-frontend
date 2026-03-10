@@ -23,7 +23,7 @@ import Select from './components/Select';
 import { SnackbarContent } from './components/Snackbar';
 import Stack from './components/Stack';
 import Switch from './components/Switch';
-import { Tab, Tabs } from './components/Tab';
+import { Tab, TabPanel, Tabs } from './components/Tab';
 import TablePagination from './components/TablePagination';
 import ToggleButton, { ToggleButtonGroup } from './components/ToggleButton';
 import Toolbar from './components/Toolbar';
@@ -101,6 +101,7 @@ export const themeOverrides = {
     MuiTooltip: Tooltip,
     MuiTabs: Tabs,
     MuiTab: Tab,
+    MuiTabPanel: TabPanel,
     MuiTypography: Typography,
     MuiCircularProgress: CircularProgress,
     MuiLinearProgress: LinearProgress,

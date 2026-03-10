@@ -1,21 +1,21 @@
-import BreakpointsProvider from 'components/BreakPointProvider';
 import './App.css';
-import { AppProvidersWrapper } from './components/AppProvidersWrapper';
-import { ReduxProviderWrapper } from './components/ReduxProviderWrapper';
 import AllRoutes from './routes/Routes';
 import { ToastContainer } from "react-toastify";
+import BreakpointsProvider from 'providers/BreakPointProvider';
+import { ThemeProvider } from 'providers/ThemeProvider';
+import { ReduxProvider } from 'providers/ReduxProvider';
 
 function App() {
   return (
-    <ReduxProviderWrapper>
-      <AppProvidersWrapper>
+    <ReduxProvider>
+      <ThemeProvider>
         <BreakpointsProvider>
           <ToastContainer />
           <AllRoutes />
 
         </BreakpointsProvider>
-      </AppProvidersWrapper>
-    </ReduxProviderWrapper>
+      </ThemeProvider>
+    </ReduxProvider>
   );
 }
 

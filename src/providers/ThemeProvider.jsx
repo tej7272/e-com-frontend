@@ -1,18 +1,18 @@
 import React from 'react';
-import { ThemeProvider, CssBaseline, createTheme } from "@mui/material";
+import { ThemeProvider as MuiThemeProvider, CssBaseline, createTheme } from "@mui/material";
 import createTypography from 'theme/typography';
 import { themeOverrides } from 'theme/theme';
 
-export const AppProvidersWrapper = ({ children}) => {
+export const ThemeProvider = ({ children}) => {
     const theme = createTheme({
         typography: createTypography(),
         ...themeOverrides,
     })
 
     return (
-        <ThemeProvider theme={theme}>
+        <MuiThemeProvider theme={theme}>
             <CssBaseline />
             {children}
-        </ThemeProvider>
+        </MuiThemeProvider>
     )
 }

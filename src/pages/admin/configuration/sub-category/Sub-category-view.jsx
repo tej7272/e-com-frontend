@@ -16,11 +16,11 @@ import ConfirmDialog from "components/confirm-dialog/ConfirmDialog";
 import usePopover from "components/custom-popover/usePopover";
 import Label from "components/label/Label";
 import CustomPropover from "components/custom-popover/CustomPopover";
-import { deleteCategory, getCategories } from "store/slices/admin/configuration/categorySlice";
+import { getSubCategories, deleteSubCategory } from "store/slices/admin/configuration/subCategory";
 
 
-const CategoryView = () => {
-  const [open, setOpen]               = useState(false);
+const SubCategoryView = () => {
+  const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [selectedData, setSelectedData] = useState(null);
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -28,18 +28,18 @@ const CategoryView = () => {
   const popover  = usePopover();
   const dispatch = useDispatch();
 
-  const loading  = useSelector((state) => state.configuration.category.loading);
-  const category = useSelector((state) => state.configuration.category.data);
+  const loading  = useSelector((state) => state.configuration.subCategory.loading);
+  const subCategory = useSelector((state) => state.configuration.subCategory.data);
 
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(getSubCategories());
   }, [dispatch]);
 
   const handleClose = () => setOpen(false);
 
   const handleDelete = async () => {
     try{
-      const res = await dispatch(deleteCategory(selectedData._id)).unwrap();
+      const res = await dispatch(deleteSubCategory(selectedData._id)).unwrap();
       if (res.status) {
         setOpenConfirm(false);
       }
@@ -48,15 +48,32 @@ const CategoryView = () => {
     }
   };
 
-  const filteredList = (category ?? []).filter((v) => {
+  const filteredList = (subCategory ?? []).filter((v) => { 
     const normalizedSearch = searchValue.replace(/\s+/g, '').toLowerCase();
     const normalizedName   = v.name.replace(/\s+/g, '').toLowerCase();
     return normalizedSearch ? normalizedName.includes(normalizedSearch) : true;
   });
 
   const columns = [
-    { field: "name",        headerName: "Name",        width: 200 },
-    { field: "description", headerName: "Description", flex: 1 },
+    { field: "name", headerName: "Name", width: 160 },
+    { 
+      field: "category", 
+      headerName: "Category", 
+      width: 180,
+      valueGetter: (value) => value?.name ?? ''
+    },
+    { 
+      field: "sizeGroup", 
+      headerName: "Size Group", 
+      flex: 1, 
+      valueGetter: (value) => value.sizes.join(', ') ?? ''
+    },
+    { 
+      field: "description", 
+      headerName: "Description", 
+      flex: 1, 
+      valueGetter: (value) => value || '-'
+    },
     {
       field: "isActive",
       headerName: "Active",
@@ -128,10 +145,10 @@ const CategoryView = () => {
               toolbar: {
                   searchValue,
                   onSearch:       (val) => setSearchValue(val),
-                  searchName:     "Search category",
+                  searchName:     "Search sub category",
                   exportData:     filteredList,
-                  exportFileName: "categories",
-                  title:  "Add category",
+                  exportFileName: "sub-category",
+                  title:  "Add sub-category",
                   handleOpen : () => {setOpen(true); setSelectedData(null)},
               }
             }}
@@ -142,4 +159,4 @@ const CategoryView = () => {
   );
 };
 
-export default CategoryView;
+export default SubCategoryView;

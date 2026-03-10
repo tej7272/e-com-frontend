@@ -1,5 +1,4 @@
 import React from 'react'
-import {Box, Card} from '@mui/material';
 import CustomBreadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import ConfigurationTable from './ConfigurationTable';
 
@@ -22,10 +21,7 @@ const ConfigurationPage = () => {
     return (
         <>
             <CustomBreadcrumbs breadcrumb={breadcrumbs}/>  
-
-            <Card component={Card}>
-                <ConfigurationTable />
-            </Card>
+            <ConfigurationTable />
         </>
     )
 }

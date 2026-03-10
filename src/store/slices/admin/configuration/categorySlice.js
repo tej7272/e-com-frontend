@@ -1,14 +1,14 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { apiEndPoints } from "utils/api-endpoints";
-import { handlePending, handleReject } from "utils/sliceHelper";
+import { handlePending, handleRejected } from "utils/sliceHelper";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 
 
 const initialState = {
-    data: null,
+    data: [],
     loading: false,
     error: null
 }
@@ -85,35 +85,35 @@ const categorySlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(getCategories.pending, handlePending)
+        .addCase(getCategories.rejected, handleRejected)
         .addCase(getCategories.fulfilled, (state, action) => {
             state.loading = false;
-            state.data = action.payload;
+            state.data = action.payload?.data;
         })
-        .addCase(getCategories.rejected, handleReject)
 
 
         .addCase(addNewCategory.pending, handlePending)
+        .addCase(addNewCategory.rejected, handleRejected)
         .addCase(addNewCategory.fulfilled, (state, action) => {
             state.loading = false;
             toast.success(action.payload.message || "Category added successfully!")
         })
-        .addCase(addNewCategory.rejected, handleReject)
 
         
         .addCase(updateCategory.pending, handlePending)
+        .addCase(updateCategory.rejected, handleRejected)
         .addCase(updateCategory.fulfilled, (state, action) => {
             state.loading = false;
             toast.success(action.payload?.message || "Category updated successfully!")
         })
-        .addCase(updateCategory.rejected, handleReject)
 
 
         .addCase(deleteCategory.pending, handlePending)
+        .addCase(deleteCategory.rejected, handleRejected)
         .addCase(deleteCategory.fulfilled, (state, action) => {
             state.loading = false;
             toast.success(action.payload?.message || "Category deleted successfully!")
         })
-        .addCase(deleteCategory.rejected, handleReject);
 
     }
 })

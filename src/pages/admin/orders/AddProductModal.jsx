@@ -25,13 +25,11 @@ import { LoadingButton } from "@mui/lab";
 import React from "react";
 import { Formik, Form, Field } from 'formik';
 import RenderTextField from "../../../components/textField/RenderTextField";
-import { X, Plus } from 'lucide-react';
-// import CustomIcon from "../../../components/Icons/Icon";
-import master from "../master.json";
 
 
 
 const AddProductModal = ({ open, onClose, selectedData }) => {
+  const master = {}
 
   return (
     <Dialog

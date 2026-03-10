@@ -1,7 +1,7 @@
 import { Box, Button, Stack, Typography } from '@mui/material';
 import Image from 'components/base/Image';
+import { useBreakpoints } from 'providers/BreakPointProvider';
 // import image from '/assets/images/illustrations/1.webp';
-import { useBreakpoints } from 'components/BreakPointProvider';
 
 const Page404 = () => {
   const { up } = useBreakpoints();

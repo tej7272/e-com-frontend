@@ -3,9 +3,12 @@ import React from 'react'
 import * as yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { Form, Formik } from 'formik';
+// import RenderTextField from '../../../../components/textField/RenderTextField';
 import Iconify from 'components/base/Iconify';
+import { updateCategory } from 'store/slices/admin/configuration/categorySlice';
+import { addNewCategory } from 'store/slices/admin/configuration/categorySlice';
 import RenderTextField from 'components/textField/RenderTextField';
-import { addNewCategory, updateCategory } from 'store/slices/admin/configuration/categorySlice';
+// import { addNewCategory, updateCategory } from '../../../../redux/admin/configuration/categorySlice';
 
 const validationSchema = yup.object({
   name: yup.string().required('Name is required'),
@@ -42,13 +45,13 @@ function AddUpdateModel({ open, onClose, selectedData }) {
           fullWidth
           open={open}
           onClose={onClose}
-          maxWidth='sm'
+          maxWidth='xs'
         >
           <DialogTitle >
             <Stack direction='row' alignItems='center' gap={1}>
-                <Iconify icon="eva:plus-fill" />
+                <Iconify icon="solar:add-circle-broken" />
                 <Typography variant="h6" fontWeight='600' >
-                  {selectedData?._id ? 'Update' : 'Add'} category
+                  {selectedData?.id ? 'Update category' : 'Add new category'}
                 </Typography>
             </Stack>
             <IconButton onClick={onClose} sx={{position: 'absolute', top: 17, right: 13}}>
@@ -101,22 +104,10 @@ function AddUpdateModel({ open, onClose, selectedData }) {
   
     
                         <DialogActions>
-                          <Stack direction='row' spacing={1} justifyContent='flex-end'>
-                                <Button variant="outlined" onClick={onClose}>
-                                  <Iconify icon='solar:undo-left-round-linear' sx={{ mr: .5 }} />
-                                  Cancel
-                                </Button>
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    loading={isSubmitting}
-                                    disabled={isSubmitting}
-                                    sx={{ mr: 2 }}
-                                >
-                                  <Iconify icon='eva:save-outline' sx={{mr: .5}}/>
-                                    {selectedData?._id ? 'Update' : 'Save'}
-                                </Button>
-                            </Stack>
+                          <Stack direction='row' spacing= {1} justifyContent= 'flex-end'>
+                            <Button type="button" variant="outlined" onClick={onClose}>Cancel</Button>
+                            <Button type="submit" variant="contained" loading={isSubmitting} disabled={isSubmitting} sx={{mr: 2}}>{selectedData?._id ? 'Update':'Save'}</Button>
+                          </Stack>
                         </DialogActions>
                     </Form>
                     )} 

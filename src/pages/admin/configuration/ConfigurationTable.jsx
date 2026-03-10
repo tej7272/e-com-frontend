@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   Box,
+  Card,
 } from "@mui/material";
 // import GenderCard from "./cards/GenderCard";
 // import BrandCard from "./cards/BrandCard";
@@ -15,6 +16,10 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import CategoryView from './category/Category-view';
+import SizeGroupView from './size-group/Size-Group-view';
+import BrandView from './brand/Brand-view';
+import ColorView from './color/Color-view';
+import SubCategoryView from './sub-category/Sub-category-view';
 
 const SettingTable = () => {
 
@@ -25,37 +30,37 @@ const SettingTable = () => {
   };
 
   return (
-    <Box sx={{}}>
+    <Card>
 
       <Box sx={{ width: '100%', typography: 'body1' }}>
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange}>
               <Tab label="Category" value="1" />
-              <Tab label="Sub-category" value="2" />
-              <Tab label="Brand" value="3" />
-              <Tab label="Color" value="4" />
+              <Tab label="Size-group" value="2" />
+              <Tab label="Sub-category" value="3" />
+              <Tab label="Brand" value="4" />
+              <Tab label="Color" value="5" />
             </TabList>
           </Box>
-          <TabPanel value="1" sx={{px: 0}}>
+          <TabPanel value="1">
             <CategoryView />
           </TabPanel>
-          <TabPanel value="2">Item Two</TabPanel>
-          <TabPanel value="3">Item Three</TabPanel>
+          <TabPanel value="2">
+            <SizeGroupView />
+          </TabPanel>
+          <TabPanel value="3">
+            <SubCategoryView />
+          </TabPanel>
+          <TabPanel value="4">
+            <BrandView />
+          </TabPanel>
+          <TabPanel value="5">
+            <ColorView />
+          </TabPanel>
         </TabContext>
       </Box>
-      {/* <Divider /> */}
-
-      {/* <Grid container spacing={1.5} sx={{ px: 2, my: 2 }}>
-
-        <GenderCard />
-        <BrandCard />
-        <CategoryCard />
-        <ColorCard />
-        <StockStatusCard />
-        <SizeCard />
-      </Grid> */}
-    </Box>
+    </Card>
   );
 };
 

@@ -24,3 +24,13 @@ export const Tabs = {
     },
   },
 };
+
+export const TabPanel = {
+  defaultProps: {},
+  styleOverrides: {
+    root: ({theme}) => ({
+      padding: theme.spacing(3, 0),
+      // paddingRight: theme.spacing(0)
+    }),
+  },
+};
