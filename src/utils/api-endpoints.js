@@ -1,7 +1,6 @@
 
-// const baseUrl = "http://192.168.1.15:8080/api/v1/admin"
-const baseUrl = "https://b-nexora.onrender.com/api/v1/admin"
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
 export const apiEndPoints = {
