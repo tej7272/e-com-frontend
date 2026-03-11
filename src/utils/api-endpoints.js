@@ -1,5 +1,8 @@
 
-const baseUrl = "http://192.168.1.15:5000/api/v1/admin"
+// const baseUrl = "http://192.168.1.15:8080/api/v1/admin"
+const baseUrl = "https://b-nexora.onrender.com/api/v1/admin"
+
+
 
 export const apiEndPoints = {
 
