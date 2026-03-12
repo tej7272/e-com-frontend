@@ -1,7 +1,6 @@
 
 
-// const baseUrl = process.env.REACT_APP_BASE_URL;
-const baseUrl = "https://b-nexora.onrender.com/api/v1/admin";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 
 export const apiEndPoints = {
