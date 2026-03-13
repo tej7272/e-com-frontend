@@ -55,12 +55,23 @@ const CategoryView = () => {
   });
 
   const columns = [
-    { field: "name",        headerName: "Name",        width: 200 },
-    { field: "description", headerName: "Description", flex: 1 },
+    { 
+      field: "name", 
+      headerName: "Name", 
+      minWidth: 100,
+      flex: 1
+
+    },
+    { 
+      field: "description", 
+      headerName: "Description", 
+      minWidth: 180,
+      flex: 4,
+    },
     {
       field: "isActive",
       headerName: "Active",
-      width: 120,
+      minWidth: 100,
       renderCell: (params) => (
         <Label>{params.value ? 'Yes' : 'No'}</Label>
       ),
@@ -68,7 +79,7 @@ const CategoryView = () => {
     {
       field: "actions",
       headerName: "Actions",
-      width: 100,
+      minWidth: 80,
       renderCell: (params) => (
         <Tooltip title="Actions">
           <IconButton onClick={(e) => { setSelectedData(params.row); popover.onOpen(e); }}>
@@ -128,7 +139,6 @@ const CategoryView = () => {
               toolbar: {
                   searchValue,
                   onSearch:       (val) => setSearchValue(val),
-                  searchName:     "Search category",
                   exportData:     filteredList,
                   exportFileName: "categories",
                   title:  "Add category",

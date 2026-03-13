@@ -55,12 +55,23 @@ const SizeGroupView = () => {
   });
 
   const columns = [
-    { field: "name",        headerName: "Name",        width: 200 },
-    { field: "description", headerName: "Description", flex: 1 },
+    { 
+      field: "name",
+      headerName: "Name", 
+      minWidth: 100,
+      flex: 1
+    },
+    { 
+      field: "description", 
+      headerName: "Description", 
+      minWidth: 150,
+      flex: 2
+    },
     { 
       field: "sizes", 
-      headerName: "Sizes", 
-      flex: 1,
+      headerName: "Sizes",
+      minWidth: 150, 
+      flex: 2,
       renderCell: (params) => (
         (params?.value || []).map((val) => (
           <Label key={val}>{val}</Label>
@@ -70,7 +81,7 @@ const SizeGroupView = () => {
     {
       field: "isActive",
       headerName: "Active",
-      width: 120,
+      minWidth: 100,
       renderCell: (params) => (
         <Label>{params.value ? 'Yes' : 'No'}</Label>
       ),
@@ -78,7 +89,7 @@ const SizeGroupView = () => {
     {
       field: "actions",
       headerName: "Actions",
-      width: 100,
+      minWidth: 80,
       renderCell: (params) => (
         <Tooltip title="Actions">
           <IconButton onClick={(e) => { setSelectedData(params.row); popover.onOpen(e); }}>
@@ -138,7 +149,6 @@ const SizeGroupView = () => {
               toolbar: {
                 searchValue,
                 onSearch:  (val) => setSearchValue(val),
-                searchName: "Search size-group",
                 exportData: filteredList,
                 exportFileName: "size-group",
                 title:  "Add size-group",

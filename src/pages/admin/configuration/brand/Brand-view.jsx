@@ -14,10 +14,9 @@ import AddUpdateModel from "./Add-update-modal";
 import Iconify from "components/base/Iconify";
 import ConfirmDialog from "components/confirm-dialog/ConfirmDialog";
 import usePopover from "components/custom-popover/usePopover";
-import { getCategories } from "store/slices/admin/configuration/categorySlice";
-import { deleteCategory } from "store/slices/admin/configuration/categorySlice";
 import Label from "components/label/Label";
 import CustomPropover from "components/custom-popover/CustomPopover";
+import { deleteBrand, getBrands } from "store/slices/admin/configuration/brand";
 
 
 const BrandView = () => {
@@ -29,18 +28,18 @@ const BrandView = () => {
   const popover  = usePopover();
   const dispatch = useDispatch();
 
-  const loading  = useSelector((state) => state.configuration.category.loading);
-  const category = useSelector((state) => state.configuration.category.data);
+  const loading  = useSelector((state) => state.configuration.brand.loading);
+  const brand = useSelector((state) => state.configuration.brand.data);
 
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(getBrands());
   }, [dispatch]);
 
   const handleClose = () => setOpen(false);
 
   const handleDelete = async () => {
     try{
-      const res = await dispatch(deleteCategory(selectedData._id)).unwrap();
+      const res = await dispatch(deleteBrand(selectedData._id)).unwrap();
       if (res.status) {
         setOpenConfirm(false);
       }
@@ -49,28 +48,39 @@ const BrandView = () => {
     }
   };
 
-  const filteredList = (category ?? []).filter((v) => { // ✅ safe fallback
+  const filteredList = (brand ?? []).filter((v) => {
     const normalizedSearch = searchValue.replace(/\s+/g, '').toLowerCase();
     const normalizedName   = v.name.replace(/\s+/g, '').toLowerCase();
     return normalizedSearch ? normalizedName.includes(normalizedSearch) : true;
   });
 
   const columns = [
-    { field: "name",        headerName: "Name",        width: 200 },
-    { field: "description", headerName: "Description", width: 200 },
+   { 
+      field:     "name", 
+      headerName: "Name", 
+      flex: 1, 
+      minWidth: 120,
+    },
+    { 
+      field: "description", 
+      headerName: "Description", 
+      flex: 3, 
+      minWidth: 150,
+    },
     {
       field: "isActive",
       headerName: "Active",
-      // width: 120,
-      flex: 1,
+      width: 100,
+      minWidth: 80,
       renderCell: (params) => (
         <Label>{params.value ? 'Yes' : 'No'}</Label>
       ),
     },
     {
-      field: "actions",
+      field:      "actions",
       headerName: "Actions",
-      width: 100,
+      width:      80,
+      minWidth:   60,
       renderCell: (params) => (
         <Tooltip title="Actions">
           <IconButton onClick={(e) => { setSelectedData(params.row); popover.onOpen(e); }}>
@@ -131,10 +141,9 @@ const BrandView = () => {
               toolbar: {
                   searchValue,
                   onSearch:       (val) => setSearchValue(val),
-                  searchName:     "Search category",
                   exportData:     filteredList,
-                  exportFileName: "categories",
-                  title:  "Add category",
+                  exportFileName: "brands",
+                  title:  "Add brand",
                   handleOpen : () => {setOpen(true); setSelectedData(null)},
               }
             }}
