@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { apiEndPoints } from "utils/api-endpoints";
 import { handleRejected } from "utils/sliceHelper";
 import { handlePending } from "utils/sliceHelper";
+import { getFormConfig } from "../formConfigSlice";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -28,6 +29,7 @@ export const addSizeGroup = createAsyncThunk(
     async (payload, {dispatch, rejectWithValue}) => {
         try{
             const res = await axios.post(apiEndPoints.configuration.addSizeGroup, payload);
+            dispatch(getFormConfig())
             dispatch(getSizeGroups())
             return res.data;
         }catch(err){
@@ -46,6 +48,7 @@ export const updateSizeGroup = createAsyncThunk(
     async ({id, payload}, {dispatch, rejectWithValue}) => {
         try{
             const res = await axios.patch(`${apiEndPoints.configuration.updateSizeGroup}/${id}`, payload);
+            dispatch(getFormConfig())
             dispatch(getSizeGroups())
             return res.data;
         }catch(err){
@@ -64,6 +67,7 @@ export const deleteSizeGroup = createAsyncThunk(
     async (id, {dispatch, rejectWithValue}) => {
         try{
             const res = await axios.delete(`${apiEndPoints.configuration.addSizeGroup}/${id}`);
+            dispatch(getFormConfig())
             dispatch(getSizeGroups())
             return res.data;
         }catch(err){
