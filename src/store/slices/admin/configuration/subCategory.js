@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { apiEndPoints } from "utils/api-endpoints";
 import { handleRejected } from "utils/sliceHelper";
 import { handlePending } from "utils/sliceHelper";
+import { getFormConfig } from "../formConfigSlice";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -34,6 +35,7 @@ export const addSubCategory = createAsyncThunk(
     async (payload, {dispatch, rejectWithValue}) => {
         try{
             const res = await axios.post(apiEndPoints.configuration.addSubCategory, payload);
+            dispatch(getFormConfig())
             dispatch(getSubCategories());
             return res.data;
         }catch(err){
@@ -51,6 +53,7 @@ export const updateSubCategory = createAsyncThunk(
     async ({id, payload}, {dispatch, rejectWithValue}) => {
         try{
             const res = await axios.patch(`${apiEndPoints.configuration.addSubCategory}/${id}`, payload);
+            dispatch(getFormConfig())
             dispatch(getSubCategories());
             return res.data;
         }catch(err){
@@ -68,6 +71,7 @@ export const deleteSubCategory = createAsyncThunk(
     async (id, {dispatch, rejectWithValue}) => {
         try{
             const res = await axios.delete(`${apiEndPoints.configuration.addSubCategory}/${id}`);
+            dispatch(getFormConfig())
             dispatch(getSubCategories());
             return res.data;
         }catch(err){

@@ -2,6 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { apiEndPoints } from "utils/api-endpoints";
 import { handlePending, handleRejected } from "utils/sliceHelper";
+import { getFormConfig } from "../formConfigSlice";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -15,12 +16,12 @@ const initialState = {
 
 export const getBrands = createAsyncThunk(
     'brands',
-    async (_, thunkAPI) => {
+    async (_, {rejectWithValue}) => {
         try {
             const res = await axios.get(apiEndPoints.configuration.getBrands);
             return res.data;
         } catch(err) {
-            return thunkAPI.rejectWithValue({
+            return rejectWithValue({
                 message: err.response?.data?.message || "Failed to fetch brands",
                 errors: err.response?.data?.errors || null
             });
@@ -33,6 +34,7 @@ export const addNewBrand = createAsyncThunk(
     async (payload, { dispatch, rejectWithValue }) => {
         try {
             const res = await axios.post(apiEndPoints.configuration.addBrand, payload);
+            dispatch(getFormConfig())
             dispatch(getBrands());
             return res.data;
         } catch(err) {
@@ -49,6 +51,7 @@ export const updateBrand = createAsyncThunk(
     async ({ id, payload }, { dispatch, rejectWithValue }) => {
         try {
             const res = await axios.patch(`${apiEndPoints.configuration.updateBrand}/${id}`, payload);
+            dispatch(getFormConfig())
             dispatch(getBrands());
             return res.data;
         } catch(err) {
@@ -65,6 +68,7 @@ export const deleteBrand = createAsyncThunk(
     async (id, { dispatch, rejectWithValue }) => {
         try {
             const res = await axios.delete(`${apiEndPoints.configuration.deleteBrand}/${id}`);
+            dispatch(getFormConfig())
             dispatch(getBrands());
             return res.data;
         } catch(err) {
