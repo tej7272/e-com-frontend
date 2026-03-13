@@ -22,5 +22,10 @@ export const apiEndPoints = {
         addSubCategory: `${baseUrl}/configuration/sub-category`,
         updateSubCategory: `${baseUrl}/configuration/sub-category`,
         deleteSubCategory: `${baseUrl}/configuration/sub-category`,
+
+        getBrands: `${baseUrl}/configuration/brand`,
+        addBrand: `${baseUrl}/configuration/brand`,
+        updateBrand: `${baseUrl}/configuration/brand`,
+        deleteBrand: `${baseUrl}/configuration/brand`,
     },
 }

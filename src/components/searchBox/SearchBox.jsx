@@ -3,14 +3,14 @@ import Iconify from "components/base/Iconify";
 
 
 
-const SearchBox = ({name, searchValue, onSearch}) => {
+const SearchBox = ({searchValue, onSearch}) => {
     return (
         <Box sx={{}}>
             <ClickAwayListener onClickAway={() => {}}>
                 <TextField
                     value={searchValue}
                     onChange={(e) => onSearch(e.target.value)}
-                    placeholder={name}
+                    placeholder="Search"
                     fullWidth
                     sx={{
                         width: { xs: 1, md: 250 },

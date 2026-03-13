@@ -55,29 +55,35 @@ const SubCategoryView = () => {
   });
 
   const columns = [
-    { field: "name", headerName: "Name", width: 160 },
+    { field: "name", headerName: "Name", minWidth: 100, flex: 1 },
     { 
       field: "category", 
       headerName: "Category", 
-      width: 180,
-      valueGetter: (value) => value?.name ?? ''
+      minWidth: 100,
+      flex: 1,
+      valueGetter: (value) => value?.name ?? '-'
     },
     { 
       field: "sizeGroup", 
       headerName: "Size Group", 
-      flex: 1, 
-      valueGetter: (value) => value.sizes.join(', ') ?? ''
+      minWidth: 100,
+      flex: 2,
+      valueGetter: (value) => {
+        if (!value) return '-';
+        return `${value.name} (${value.sizes?.join(', ') || 'No sizes'})`;
+      }
     },
     { 
       field: "description", 
       headerName: "Description", 
-      flex: 1, 
+      minWidth: 100,
+      flex: 2,
       valueGetter: (value) => value || '-'
     },
     {
       field: "isActive",
       headerName: "Active",
-      width: 120,
+      minWidth: 100,
       renderCell: (params) => (
         <Label>{params.value ? 'Yes' : 'No'}</Label>
       ),
@@ -85,7 +91,7 @@ const SubCategoryView = () => {
     {
       field: "actions",
       headerName: "Actions",
-      width: 100,
+      minWidth: 80,
       renderCell: (params) => (
         <Tooltip title="Actions">
           <IconButton onClick={(e) => { setSelectedData(params.row); popover.onOpen(e); }}>
@@ -145,7 +151,6 @@ const SubCategoryView = () => {
               toolbar: {
                   searchValue,
                   onSearch:       (val) => setSearchValue(val),
-                  searchName:     "Search sub category",
                   exportData:     filteredList,
                   exportFileName: "sub-category",
                   title:  "Add sub-category",
