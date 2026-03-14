@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Form, Formik } from 'formik';
 import Iconify from 'components/base/Iconify';
 import RenderTextField from 'components/textField/RenderTextField';
-import { addNewBrand, updateBrand } from 'store/slices/admin/configuration/brand';
+import { addNewBrand, updateBrand } from 'store/slices/admin/configuration/brandSlice';
 
 const validationSchema = yup.object({
   name: yup.string().required('Name is required'),
@@ -13,7 +13,7 @@ const validationSchema = yup.object({
   description: yup.string(),
 });
 
-function AddUpdateModel({ open, onClose, selectedData }) {
+function AddUpdateModal({ open, onClose, selectedData }) {
 
     const dispatch = useDispatch();
   
@@ -48,7 +48,7 @@ function AddUpdateModel({ open, onClose, selectedData }) {
             <Stack direction='row' alignItems='center' gap={1}>
                 <Iconify icon="solar:add-circle-broken" />
                 <Typography variant="h6" fontWeight='600' >
-                  {selectedData?.id ? 'Update category' : 'Add new category'}
+                  {selectedData?._id ? 'Update' : 'Add'} brand
                 </Typography>
             </Stack>
             <IconButton onClick={onClose} sx={{position: 'absolute', top: 17, right: 13}}>
@@ -114,4 +114,4 @@ function AddUpdateModel({ open, onClose, selectedData }) {
   )
 }
 
-export default AddUpdateModel;
+export default AddUpdateModal;
