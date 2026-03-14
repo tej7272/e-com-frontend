@@ -13,7 +13,7 @@ const validationSchema = yup.object({
   description: yup.string(),
 });
 
-function AddUpdateModel({ open, onClose, selectedData }) {
+function AddUpdateModal({ open, onClose, selectedData }) {
 
     const dispatch = useDispatch();
   
@@ -126,4 +126,4 @@ function AddUpdateModel({ open, onClose, selectedData }) {
   )
 }
 
-export default AddUpdateModel;
+export default AddUpdateModal;

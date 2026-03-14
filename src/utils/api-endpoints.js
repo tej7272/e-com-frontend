@@ -27,5 +27,10 @@ export const apiEndPoints = {
         addBrand: `${baseUrl}/configuration/brand`,
         updateBrand: `${baseUrl}/configuration/brand`,
         deleteBrand: `${baseUrl}/configuration/brand`,
+
+        getColors: `${baseUrl}/configuration/color`,
+        addColor: `${baseUrl}/configuration/color`,
+        updateColor: `${baseUrl}/configuration/color`,
+        deleteColor: `${baseUrl}/configuration/color`,
     },
 }

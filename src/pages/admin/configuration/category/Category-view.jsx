@@ -10,7 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from 'react-redux';
-import AddUpdateModel from "./Add-update-modal";
+import AddUpdateModal from "./Add-update-modal";
 import Iconify from "components/base/Iconify";
 import ConfirmDialog from "components/confirm-dialog/ConfirmDialog";
 import usePopover from "components/custom-popover/usePopover";
@@ -122,7 +122,7 @@ const CategoryView = () => {
         </MenuList>
       </CustomPropover>
 
-      <AddUpdateModel open={open} onClose={handleClose} selectedData={selectedData} />
+      <AddUpdateModal open={open} onClose={handleClose} selectedData={selectedData} />
 
       <Box sx={{ mt: 3 }}>
         <Paper sx={{ width: "100%", minHeight: 400 }}>

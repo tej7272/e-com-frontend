@@ -64,7 +64,7 @@ export const updateBrand = createAsyncThunk(
 )
 
 export const deleteBrand = createAsyncThunk(
-    'delete-category',
+    'delete-brand',
     async (id, { dispatch, rejectWithValue }) => {
         try {
             const res = await axios.delete(`${apiEndPoints.configuration.deleteBrand}/${id}`);
@@ -82,7 +82,7 @@ export const deleteBrand = createAsyncThunk(
 )
 
 
-const categorySlice = createSlice({
+const brandSlice = createSlice({
     name: 'brand',
     initialState,
     reducers: {},
@@ -122,4 +122,4 @@ const categorySlice = createSlice({
     }
 })
 
-export default categorySlice.reducer;
+export default brandSlice.reducer;

@@ -6,6 +6,8 @@ import {
   MenuItem,
   MenuList,
   IconButton,
+  Typography,
+  Stack,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
@@ -14,10 +16,9 @@ import AddUpdateModel from "./Add-update-modal";
 import Iconify from "components/base/Iconify";
 import ConfirmDialog from "components/confirm-dialog/ConfirmDialog";
 import usePopover from "components/custom-popover/usePopover";
-import { getCategories } from "store/slices/admin/configuration/categorySlice";
-import { deleteCategory } from "store/slices/admin/configuration/categorySlice";
 import Label from "components/label/Label";
 import CustomPropover from "components/custom-popover/CustomPopover";
+import { deleteColor, getColors } from "store/slices/admin/configuration/colorSlice";
 
 
 const ColorView = () => {
@@ -29,18 +30,18 @@ const ColorView = () => {
   const popover  = usePopover();
   const dispatch = useDispatch();
 
-  const loading  = useSelector((state) => state.configuration.category.loading);
-  const category = useSelector((state) => state.configuration.category.data);
+  const loading  = useSelector((state) => state.configuration.color.loading);
+  const color = useSelector((state) => state.configuration.color.data);
 
   useEffect(() => {
-    dispatch(getCategories());
+    dispatch(getColors());
   }, [dispatch]);
 
   const handleClose = () => setOpen(false);
 
   const handleDelete = async () => {
     try{
-      const res = await dispatch(deleteCategory(selectedData._id)).unwrap();
+      const res = await dispatch(deleteColor(selectedData._id)).unwrap();
       if (res.status) {
         setOpenConfirm(false);
       }
@@ -49,28 +50,67 @@ const ColorView = () => {
     }
   };
 
-  const filteredList = (category ?? []).filter((v) => { // ✅ safe fallback
+  const filteredList = (color ?? []).filter((v) => {
     const normalizedSearch = searchValue.replace(/\s+/g, '').toLowerCase();
-    const normalizedName   = v.name.replace(/\s+/g, '').toLowerCase();
+    const normalizedName = v.name.replace(/\s+/g, '').toLowerCase();
     return normalizedSearch ? normalizedName.includes(normalizedSearch) : true;
   });
 
   const columns = [
-    { field: "name",        headerName: "Name",        width: 200 },
-    { field: "description", headerName: "Description", width: 200 },
+    {
+      field: "name",
+      headerName: "Name",
+      flex: 1,
+      minWidth: 100,
+    },
+    {
+      field: "hex",
+      headerName: "Color",
+      flex: 1,
+      minWidth: 100,
+      renderCell: (params) => (
+        <Stack 
+          direction='row' 
+          spacing={1} 
+          alignItems='center'
+          sx={{
+              width:  '100%',
+              height: '100%',
+          }}
+        >
+          <Box
+              sx={{
+                  width:        24,
+                  height:       24,
+                  borderRadius: '50%',
+                  bgcolor:      params.row.hex,
+                  border:       '1px solid',
+                  borderColor:  'divider',
+                  flexShrink:   0,
+              }}
+          />
+          <Typography variant="body2">{params.value}</Typography>
+        </Stack>
+      )
+    },
+    {
+      field: "description",
+      headerName: "Description",
+      flex: 4,
+      minWidth: 150,
+    },
     {
       field: "isActive",
       headerName: "Active",
-      // width: 120,
-      flex: 1,
+      width: 100,
       renderCell: (params) => (
-        <Label>{params.value ? 'Yes' : 'No'}</Label>
+          <Label>{params.value ? 'Yes' : 'No'}</Label>
       ),
     },
     {
       field: "actions",
       headerName: "Actions",
-      width: 100,
+      width: 80,
       renderCell: (params) => (
         <Tooltip title="Actions">
           <IconButton onClick={(e) => { setSelectedData(params.row); popover.onOpen(e); }}>
@@ -90,7 +130,7 @@ const ColorView = () => {
         content="Are you sure you want to delete? This action cannot be undone!"
         action={
           <Button variant="contained" color="success" size="large" onClick={handleDelete}>
-            <Iconify icon="solar:plain-linear" sx={{ mr: 1 }} />
+            <Iconify icon="solar:plain-linear" sx={{ mr: 1 }}/>
             Confirm
           </Button>
         }
@@ -130,11 +170,10 @@ const ColorView = () => {
             slotProps={{
               toolbar: {
                   searchValue,
-                  onSearch:       (val) => setSearchValue(val),
-                  searchName:     "Search category",
-                  exportData:     filteredList,
-                  exportFileName: "categories",
-                  title:  "Add category",
+                  onSearch: (val) => setSearchValue(val),
+                  exportData: filteredList,
+                  exportFileName: "colors",
+                  title: "Add color",
                   handleOpen : () => {setOpen(true); setSelectedData(null)},
               }
             }}
