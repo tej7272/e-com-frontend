@@ -101,9 +101,21 @@ function AddUpdateModal({ open, onClose, selectedData }) {
   
     
                         <DialogActions>
-                          <Stack direction='row' spacing= {1} justifyContent= 'flex-end'>
-                            <Button type="button" variant="outlined" onClick={onClose}>Cancel</Button>
-                            <Button type="submit" variant="contained" loading={isSubmitting} disabled={isSubmitting} sx={{mr: 2}}>{selectedData?._id ? 'Update':'Save'}</Button>
+                          <Stack direction='row' spacing={1} justifyContent='flex-end'>
+                            <Button variant="outlined" onClick={onClose}>
+                              <Iconify icon='solar:undo-left-round-linear' sx={{ mr: .5 }} />
+                              Cancel
+                            </Button>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                loading={isSubmitting}
+                                disabled={isSubmitting}
+                                sx={{ mr: 2 }}
+                            >
+                              <Iconify icon='eva:save-outline' sx={{mr: .5}}/>
+                                {selectedData?._id ? 'Update' : 'Save'}
+                            </Button>
                           </Stack>
                         </DialogActions>
                     </Form>
