@@ -23,7 +23,7 @@ function AddUpdateModal({ open, onClose, selectedData }) {
         const res = selectedData 
           ? await dispatch(updateCategory({id: selectedData?._id, payload: values})).unwrap()
           : await dispatch(addNewCategory(values)).unwrap();
-        if(res.status) onClose();
+        if(res.success) onClose();
       } catch(err) {
         if(err.errors) {
           const serverErrors = Object.fromEntries(

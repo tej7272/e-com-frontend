@@ -6,28 +6,36 @@ import {
   IconButton,
   Stack,
   Typography,
-} from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
-import Iconify from 'components/base/Iconify'
-import { useTheme } from '@emotion/react'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+} from '@mui/material';
+import React, { useEffect, useRef, useState } from 'react';
+import Iconify from 'components/base/Iconify';
+import { useTheme } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { validateOtp } from 'store/slices/auth/adminAuthSlice';
+import { PATHS } from 'routes/paths';
 
 const OTP_LENGTH = 6
 
 const ValidateOtp = () => {
   const theme = useTheme()
-  const navigate = useNavigate()
   const [otp, setOtp] = useState(Array(OTP_LENGTH).fill(''))
   const [timer, setTimer] = useState(300)
   const [isSubmitting, setIsSubmitting] = useState(false) 
   const inputRefs = useRef([])
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const otpEmail = useSelector((state) => state.adminAuth.otpEmail);
 
   useEffect(() => {
     if (timer <= 0) return
     const interval = setInterval(() => setTimer((t) => t - 1), 1000)
     return () => clearInterval(interval)
   }, [timer])
+
+   useEffect(() => {
+    if (!otpEmail) navigate(PATHS.admin.auth.login)
+  }, [otpEmail, navigate])
 
   const formatTimer = (seconds) => {
     const m = String(Math.floor(seconds / 60)).padStart(2, '0')
@@ -72,12 +80,10 @@ const ValidateOtp = () => {
     try {
       setIsSubmitting(true)
       const otpValue = otp.join('');
-      const payload = {
-        email: "tej7272@gmail.com",
-        otp: otpValue
+      const res = await dispatch(validateOtp({email: otpEmail, otp: otpValue})).unwrap();
+      if(res.success){
+        navigate(PATHS.admin.root)
       }
-      const res = await axios.post("http://192.168.1.15:8080/api/v1/admin/auth/validate", payload);
-      console.log("res otp", res.data)
     } catch (error) {
       console.error(error)
     } finally {
@@ -88,9 +94,25 @@ const ValidateOtp = () => {
   const otpValue = otp.join('')
 
   return (
-    <Box className="animate-fadeSlideUp" sx={{ width: '100%', maxWidth: 420, mx: 'auto' }}>
-      <Card elevation={0}>
-        <Box sx={{ p: { xs: 3, sm: 4.5 } }}>
+    <Box className="animate-fadeSlideUp" sx={{ width: '100%', maxWidth: 380, mx: 'auto' }}>
+      <Card elevation={0} sx={{
+          p: { xs: 3, sm: 4.5 },
+          borderRadius: 4,
+          backdropFilter: 'blur(20px)',
+          boxShadow: '0 8px 40px rgba(99,102,241,0.10), 0 1.5px 8px rgba(0,0,0,0.04)',
+          position: 'relative',
+          overflow: 'visible',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: -1,
+            left: '15%',
+            right: '15%',
+            height: '3px',
+            borderRadius: '0 0 8px 8px',
+            background: 'linear-gradient(90deg, #6366f1, #a855f7)',
+          },
+        }}>
 
           {/* Back button */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 3 }}>
@@ -125,7 +147,7 @@ const ValidateOtp = () => {
             <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
               We sent a 6-digit code to{' '}
               <Typography component="span" variant="body2" fontWeight={500} color="text.primary">
-                tej7272@gmail.com
+                {otpEmail}
               </Typography>
             </Typography>
           </Box>
@@ -221,8 +243,6 @@ const ValidateOtp = () => {
               Resend code
             </Typography>
           </Box>
-
-        </Box>
       </Card>
     </Box>
   )

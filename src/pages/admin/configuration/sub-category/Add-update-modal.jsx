@@ -30,7 +30,7 @@ function AddUpdateModal({ open, onClose, selectedData }) {
                 ? await dispatch(updateSubCategory({ id: selectedData._id, payload: values })).unwrap()
                 : await dispatch(addSubCategory(values)).unwrap();
 
-            if (res.status) onClose();
+            if (res.success) onClose();
         } catch(err) {
             if (err.errors) {
                 setErrors(

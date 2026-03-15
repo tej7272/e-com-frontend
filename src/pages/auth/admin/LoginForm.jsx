@@ -8,26 +8,39 @@ import {
   InputAdornment,
   IconButton,
   TextField,
-} from '@mui/material'
-import { Field, Form, Formik } from 'formik'
-import React, { useState } from 'react'
-import Iconify from 'components/base/Iconify'
-import axios from 'axios'
+} from '@mui/material';
+import * as Yup from 'yup'
+import { Field, Form, Formik } from 'formik';
+import React, { useState } from 'react';
+import Iconify from 'components/base/Iconify';
+import { useDispatch } from 'react-redux';
+import { adminUserLogin } from 'store/slices/auth/adminAuthSlice';
+import { useNavigate } from 'react-router-dom';
+import { PATHS } from 'routes/paths';
+import { Link } from 'react-router-dom';
+
+const validationSchema = Yup.object({
+  email:    Yup.string().email('Invalid email').required('Email is required'),
+  password: Yup.string().required('Password is required'),
+})
 
 const LoginForm = () => {
-  const [showPassword, setShowPassword] = useState(false)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (values, {isSubmitting}) => {
-    const res = await axios.post("http://192.168.1.15:8080/api/v1/admin/auth/login", values);
-
-    console.log("res", res);
+    const res = await dispatch(adminUserLogin(values)).unwrap();
+    if(res.success){
+      navigate(PATHS.admin.auth.validate);
+    }
   }
 
   return (
     <Box
       sx={{
         width: '100%',
-        maxWidth: 420,
+        maxWidth: 380,
         mx: 'auto',
         animation: 'fadeSlideUp 0.5s ease both',
         '@keyframes fadeSlideUp': {
@@ -90,7 +103,7 @@ const LoginForm = () => {
 
         <Formik
           initialValues={{ email: '', password: '' }}
-          validationSchema={null}
+          validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (
@@ -170,7 +183,9 @@ const LoginForm = () => {
                     '&:hover': { textDecoration: 'underline' },
                   }}
                 >
-                  Forgot password?
+                  <Link to={PATHS.admin.auth.forgotPassword}>
+                    Forgot password?
+                  </Link>
                 </Typography>
               </Box>
 

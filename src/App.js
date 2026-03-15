@@ -6,6 +6,8 @@ import { ThemeProvider } from 'providers/ThemeProvider';
 import { ReduxProvider } from 'providers/ReduxProvider';
 
 function App() {
+
+
   return (
     <ReduxProvider>
       <ThemeProvider>

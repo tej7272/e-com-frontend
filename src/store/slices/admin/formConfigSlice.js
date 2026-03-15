@@ -1,28 +1,25 @@
-import axios from "axios";
+import adminAxios from "utils/adminAxios";
 import { apiEndPoints } from "utils/api-endpoints";
-import { handlePending, handleRejected } from "utils/sliceHelper"; // ✅ fixed name
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 const initialState = {
     data:    null,
-    loading: false,
-    error:   null  // ✅ null not ""
+    status: 'idle',
+    error:   null
 }
 
 export const getFormConfig = createAsyncThunk(
-    'form-config',
-    async (_, { rejectWithValue }) => {
-        try {
-            const res = await axios.get(apiEndPoints.getFormConfig);
-            return res.data;
-        } catch(err) {
-            return rejectWithValue({
-                message: err.response?.data?.message || "Failed to fetch master data",
-                errors:  err.response?.data?.errors  || null
-            });
-        }
+  'formConfig/get',
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await adminAxios.get(apiEndPoints.admin.getFormConfig)
+      return res.data
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message)
     }
+  }
+  
 )
 
 const formConfigSlice = createSlice({
@@ -31,10 +28,15 @@ const formConfigSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-        .addCase(getFormConfig.pending,   handlePending)
-        .addCase(getFormConfig.rejected,  handleRejected)  // ✅ fixed name
+        .addCase(getFormConfig.pending, (state) => {
+            state.status = 'loading';
+        })
+        .addCase(getFormConfig.rejected,  (state, action) => {
+            state.status = 'failed';
+            state.error = action.payload?.message
+        })
         .addCase(getFormConfig.fulfilled, (state, action) => {
-            state.loading = false;
+            state.status = 'success';
             state.data    = action.payload.data;
         })
     }

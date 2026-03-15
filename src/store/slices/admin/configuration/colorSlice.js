@@ -1,8 +1,8 @@
-import axios from "axios";
 import { toast } from "react-toastify";
 import { apiEndPoints } from "utils/api-endpoints";
 import { handlePending, handleRejected } from "utils/sliceHelper";
 import { getFormConfig } from "../formConfigSlice";
+import adminAxios from "utils/adminAxios";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -18,7 +18,7 @@ export const getColors = createAsyncThunk(
     'get-colors',
     async (_, {rejectWithValue}) => {
         try {
-            const res = await axios.get(apiEndPoints.configuration.getColors);
+            const res = await adminAxios.get(apiEndPoints.admin.configuration.getColors);
             return res.data;
         } catch(err) {
             return rejectWithValue({
@@ -33,7 +33,7 @@ export const addNewColor = createAsyncThunk(
     'add-color',
     async (payload, { dispatch, rejectWithValue }) => {
         try {
-            const res = await axios.post(apiEndPoints.configuration.addColor, payload);
+            const res = await adminAxios.post(apiEndPoints.admin.configuration.addColor, payload);
             dispatch(getFormConfig())
             dispatch(getColors());
             return res.data;
@@ -50,7 +50,7 @@ export const updateColor = createAsyncThunk(
     'update-color',
     async ({ id, payload }, { dispatch, rejectWithValue }) => {
         try {
-            const res = await axios.patch(`${apiEndPoints.configuration.updateColor}/${id}`, payload);
+            const res = await adminAxios.patch(`${apiEndPoints.admin.configuration.updateColor}/${id}`, payload);
             dispatch(getFormConfig())
             dispatch(getColors());
             return res.data;
@@ -67,7 +67,7 @@ export const deleteColor = createAsyncThunk(
     'delete-color',
     async (id, { dispatch, rejectWithValue }) => {
         try {
-            const res = await axios.delete(`${apiEndPoints.configuration.deleteColor}/${id}`);
+            const res = await adminAxios.delete(`${apiEndPoints.admin.configuration.deleteColor}/${id}`);
             dispatch(getFormConfig())
             dispatch(getColors());
             return res.data;

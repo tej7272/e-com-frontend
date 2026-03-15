@@ -1,8 +1,8 @@
-import axios from "axios";
 import { toast } from "react-toastify";
 import { apiEndPoints } from "utils/api-endpoints";
 import { handlePending, handleRejected } from "utils/sliceHelper";
 import { getFormConfig } from "../formConfigSlice";
+import adminAxios from "utils/adminAxios";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -18,7 +18,7 @@ export const getCategories = createAsyncThunk(
     'category',
     async (_, thunkAPI) => {
         try {
-            const res = await axios.get(apiEndPoints.configuration.getCategories);
+            const res = await adminAxios.get(apiEndPoints.admin.configuration.getCategories);
             return res.data;
         } catch(err) {
             return thunkAPI.rejectWithValue({
@@ -33,7 +33,7 @@ export const addNewCategory = createAsyncThunk(
     'add-category',
     async (payload, { dispatch, rejectWithValue }) => {
         try {
-            const res = await axios.post(apiEndPoints.configuration.addCategory, payload);
+            const res = await adminAxios.post(apiEndPoints.admin.configuration.addCategory, payload);
             dispatch(getFormConfig())
             dispatch(getCategories());
             return res.data;
@@ -50,7 +50,7 @@ export const updateCategory = createAsyncThunk(
     'update-category',
     async ({ id, payload }, { dispatch, rejectWithValue }) => {
         try {
-            const res = await axios.patch(`${apiEndPoints.configuration.updateCategory}/${id}`, payload);
+            const res = await adminAxios.patch(`${apiEndPoints.admin.configuration.updateCategory}/${id}`, payload);
             dispatch(getFormConfig())
             dispatch(getCategories());
             return res.data;
@@ -67,7 +67,7 @@ export const deleteCategory = createAsyncThunk(
     'delete-category',
     async (id, { dispatch, rejectWithValue }) => {
         try {
-            const res = await axios.delete(`${apiEndPoints.configuration.deleteCategory}/${id}`);
+            const res = await adminAxios.delete(`${apiEndPoints.admin.configuration.deleteCategory}/${id}`);
             dispatch(getFormConfig())
             dispatch(getCategories());
             return res.data;

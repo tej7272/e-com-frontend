@@ -11,7 +11,7 @@ import Navbar from "components/layouts/admin/Navbar";
 import HeaderBar from "components/common/HeaderBar";
 import { Outlet } from "react-router-dom";
 import PageLoader from "components/loading/PageLoader";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getFormConfig } from "store/slices/admin/formConfigSlice";
 
 const DRAWER_WIDTH = 240;
@@ -35,9 +35,13 @@ const AdminLayout = () => {
   const sidebarWidth = collapsed ? COLLAPSED_WIDTH : DRAWER_WIDTH;
 
   const dispatch = useDispatch();
+  const { status }   = useSelector((state) => state.formConfig)
+
 
   useEffect(() => {
-    dispatch(getFormConfig())
+   if (status === 'idle') {
+      dispatch(getFormConfig())
+    }
   },[dispatch])
 
   return (
@@ -96,11 +100,6 @@ const AdminLayout = () => {
           display: "flex",
           flexDirection: "column",
           transition: theme.transitions.create("flex", { duration: 200 }),
-          background: `
-          radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.08) 0%, transparent 60%),
-          radial-gradient(ellipse at 80% 20%, rgba(168,85,247,0.06) 0%, transparent 60%),
-          #f8f9ff
-        `,
         }}
       >
         <HeaderBar isMobile={isMobile} scrollTarget={scrollTarget} />
