@@ -1,9 +1,9 @@
-import axios from "axios";
 import { toast } from "react-toastify";
 import { apiEndPoints } from "utils/api-endpoints";
 import { handleRejected } from "utils/sliceHelper";
 import { handlePending } from "utils/sliceHelper";
 import { getFormConfig } from "../formConfigSlice";
+import adminAxios from "utils/adminAxios";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -13,7 +13,7 @@ export const getSizeGroups = createAsyncThunk(
     'get-sizeGroups',
     async (_, {rejectWithValue}) => {
         try{
-            const res = await axios.get(apiEndPoints.configuration.getSizeGroups)
+            const res = await adminAxios.get(apiEndPoints.admin.configuration.getSizeGroups)
             return res.data;
         }catch(err){
             return rejectWithValue({
@@ -28,7 +28,7 @@ export const addSizeGroup = createAsyncThunk(
     'add-sizeGroup',
     async (payload, {dispatch, rejectWithValue}) => {
         try{
-            const res = await axios.post(apiEndPoints.configuration.addSizeGroup, payload);
+            const res = await adminAxios.post(apiEndPoints.admin.configuration.addSizeGroup, payload);
             dispatch(getFormConfig())
             dispatch(getSizeGroups())
             return res.data;
@@ -47,7 +47,7 @@ export const updateSizeGroup = createAsyncThunk(
     'update-sizeGroup',
     async ({id, payload}, {dispatch, rejectWithValue}) => {
         try{
-            const res = await axios.patch(`${apiEndPoints.configuration.updateSizeGroup}/${id}`, payload);
+            const res = await adminAxios.patch(`${apiEndPoints.admin.configuration.updateSizeGroup}/${id}`, payload);
             dispatch(getFormConfig())
             dispatch(getSizeGroups())
             return res.data;
@@ -66,7 +66,7 @@ export const deleteSizeGroup = createAsyncThunk(
     'delete-sizeGroup',
     async (id, {dispatch, rejectWithValue}) => {
         try{
-            const res = await axios.delete(`${apiEndPoints.configuration.addSizeGroup}/${id}`);
+            const res = await adminAxios.delete(`${apiEndPoints.admin.configuration.addSizeGroup}/${id}`);
             dispatch(getFormConfig())
             dispatch(getSizeGroups())
             return res.data;

@@ -16,7 +16,7 @@ const InputBase = {
             fontSize: theme.typography.pxToRem(15),
             borderWidth: 2,
             '&::placeholder': {
-                color: theme.vars.palette.text.disabled,
+                color: theme.vars.palette.text.primary,
             },
             
         })

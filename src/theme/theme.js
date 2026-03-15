@@ -9,6 +9,7 @@ import Chip from './components/Chip';
 import CssBaseline from './components/CssBaseline';
 import DataGrid from './components/DataGrid';
 import Dialog, { DialogActions, DialogContent, DialogTitle }from './components/Dialog';
+import Divider from './components/Divider';
 import Drawer from './components/Drawer';
 import Link from './components/Link';
 import List, { ListItemButton, ListItemIcon, ListItemText } from './components/List';
@@ -29,12 +30,12 @@ import ToggleButton, { ToggleButtonGroup } from './components/ToggleButton';
 import Toolbar from './components/Toolbar';
 import Tooltip from './components/Tooltip';
 import Typography from './components/Typography';
-import FilledInput from './components/text-fields/FilledInput';
+// import FilledInput from './components/text-fields/FilledInput';
 import FormControl from './components/text-fields/FormControl';
 import FormControlLabel from './components/text-fields/FormControlLabel';
 import FormHelperText from './components/text-fields/FormHelperText';
 import Input from './components/text-fields/Input';
-import InputAdornment from './components/text-fields/InputAdornment';
+// import InputAdornment from './components/text-fields/InputAdornment';
 import InputBase from './components/text-fields/InputBase';
 import InputLabel from './components/text-fields/InputLabel';
 import OutlinedInput from './components/text-fields/OutlinedInput';
@@ -114,6 +115,7 @@ export const themeOverrides = {
     MuiPopover: Popover,
     MuiPopper: Popper,
     MuiDrawer: Drawer,
+    MuiDivider: Divider,
     MuiSnackbarContent: SnackbarContent,
   },
 };

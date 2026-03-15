@@ -11,7 +11,7 @@ import Navbar from "components/layouts/admin/Navbar";
 import HeaderBar from "components/common/HeaderBar";
 import { Outlet } from "react-router-dom";
 import PageLoader from "components/loading/PageLoader";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getFormConfig } from "store/slices/admin/formConfigSlice";
 
 const DRAWER_WIDTH = 240;
@@ -35,9 +35,13 @@ const AdminLayout = () => {
   const sidebarWidth = collapsed ? COLLAPSED_WIDTH : DRAWER_WIDTH;
 
   const dispatch = useDispatch();
+  const { status }   = useSelector((state) => state.formConfig)
+
 
   useEffect(() => {
-    dispatch(getFormConfig())
+   if (status === 'idle') {
+      dispatch(getFormConfig())
+    }
   },[dispatch])
 
   return (

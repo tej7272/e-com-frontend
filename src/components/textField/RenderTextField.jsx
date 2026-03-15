@@ -1,63 +1,74 @@
 import { Grid, TextField } from "@mui/material";
 import { FastField } from "formik";
+import { useState } from "react";
 
 const RenderTextField = ({
     name, 
-    type= 'text',
-    size= 12,
+    type = 'text',
+    size = 12,
     rows = '1',
     disabled,
     required,
     onChange,
-    readOnly,
+    InputProps,
     label
 }) => {
+    const [isFocused, setIsFocused] = useState(false);
 
-    
     return (
-        <Grid size={size} >
+        <Grid size={size}>
             <FastField name={name}>
                 {({ field, form, meta }) => {
                     const handleChange = (e) => {
                         let value = e.target.value;
-
                         if (type === "number") {
                             value = value.replace(/\D/g, "");
                         }
-
-                        // Avoid redundant writes; writing the same value repeatedly can cause render loops.
                         if (field.value === value) return;
-
-                        // If caller provides custom onChange, delegate to it; otherwise update Formik directly.
                         if (onChange) {
                             onChange(e);
                             return;
                         }
                         form.setFieldValue(name, value, false);
                     };
+
+                    const resolvedInputProps = InputProps
+                        ? {
+                            ...InputProps,
+                            startAdornment: isFocused
+                                ? InputProps.startAdornment
+                                : null,
+                            endAdornment: isFocused
+                                ? InputProps.endAdornment
+                                : null,
+                          }
+                        : undefined;
+
                     return (
                         <TextField 
                             {...field}
                             fullWidth
-                            name= {name}
+                            name={name}
                             value={field.value ?? ""}
-                            multiline = {rows > 1}
-                            rows = {rows}
-                            type= {type}
-                            label= {label}
-                            // size="medium"
+                            multiline={rows > 1}
+                            rows={rows}
+                            type={type}
+                            label={label}
                             disabled={disabled}
                             error={Boolean(meta.touched && meta.error)}
                             helperText={meta.touched && meta.error}
-                            onChange = {handleChange}
-                            onBlur={field.onBlur}
+                            onChange={handleChange}
+                            onBlur={(e) => {
+                                field.onBlur(e);
+                                setIsFocused(false);
+                            }}
+                            onFocus={() => setIsFocused(true)}
                             variant="outlined"
-                            required= {required}
-                            InputProps={{readOnly}}
+                            required={required}
+                            InputProps={resolvedInputProps}
                         />
                     )
                 }}
-
             </FastField>
         </Grid>
     )
