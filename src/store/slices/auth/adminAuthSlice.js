@@ -89,7 +89,6 @@ export const refreshAdminToken = createAsyncThunk(
   async (_, { dispatch, rejectWithValue }) => {
     try {
       const { data } = await adminAxios.post(apiEndPoints.admin.auth.refresh)
-      dispatch(setAccessToken(data.accessToken))
       dispatch(fetchAdminInfo())
       return data
     } catch (err) {
@@ -190,8 +189,11 @@ const adminAuthSlice = createSlice({
 
 
         .addCase(refreshAdminToken.pending, handlePending)
-        .addCase(refreshAdminToken.fulfilled, (state) => {
+        .addCase(refreshAdminToken.fulfilled, (state, action) => {
+            const {accessToken} = action.payload;
             state.loading = false
+            state.accessToken= accessToken;
+            state.isAuthenticated = true 
         })
         .addCase(refreshAdminToken.rejected, (state) => {
             state.admin           = null
