@@ -41,9 +41,9 @@ const AdminLayout = () => {
 
   useEffect(() => {
    if (status === 'idle') {
-      dispatch(getFormConfig())
+      dispatch(getFormConfig());
     }
-  },[dispatch])
+  },[dispatch, status])
 
   const auth = useAdminAuth();
 
