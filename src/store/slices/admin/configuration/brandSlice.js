@@ -1,8 +1,7 @@
 import { toast } from "react-toastify";
-import { apiEndPoints } from "utils/api-endpoints";
+import { adminAxios, apiEndPoints } from "utils/adminAxios";
 import { handlePending, handleRejected } from "utils/sliceHelper";
 import { getFormConfig } from "../formConfigSlice";
-import adminAxios from "utils/adminAxios";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -18,7 +17,7 @@ export const getBrands = createAsyncThunk(
     'brands',
     async (_, {rejectWithValue}) => {
         try {
-            const res = await adminAxios.get(apiEndPoints.admin.configuration.getBrands);
+            const res = await adminAxios.get(apiEndPoints.admin.configuration.brand);
             return res.data;
         } catch(err) {
             return rejectWithValue({
@@ -33,7 +32,7 @@ export const addNewBrand = createAsyncThunk(
     'add-brand',
     async (payload, { dispatch, rejectWithValue }) => {
         try {
-            const res = await adminAxios.post(apiEndPoints.admin.configuration.addBrand, payload);
+            const res = await adminAxios.post(apiEndPoints.admin.configuration.brand, payload);
             dispatch(getFormConfig())
             dispatch(getBrands());
             return res.data;
@@ -50,7 +49,7 @@ export const updateBrand = createAsyncThunk(
     'update-brand',
     async ({ id, payload }, { dispatch, rejectWithValue }) => {
         try {
-            const res = await adminAxios.patch(`${apiEndPoints.admin.configuration.updateBrand}/${id}`, payload);
+            const res = await adminAxios.patch(`${apiEndPoints.admin.configuration.brand}/${id}`, payload);
             dispatch(getFormConfig())
             dispatch(getBrands());
             return res.data;
@@ -67,7 +66,7 @@ export const deleteBrand = createAsyncThunk(
     'delete-brand',
     async (id, { dispatch, rejectWithValue }) => {
         try {
-            const res = await adminAxios.delete(`${apiEndPoints.admin.configuration.deleteBrand}/${id}`);
+            const res = await adminAxios.delete(`${apiEndPoints.admin.configuration.brand}/${id}`);
             dispatch(getFormConfig())
             dispatch(getBrands());
             return res.data;

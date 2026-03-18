@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useState } from "react";
 import {
   Box,
   Drawer,
@@ -11,14 +11,11 @@ import Navbar from "components/layouts/admin/Navbar";
 import HeaderBar from "components/common/HeaderBar";
 import { Outlet } from "react-router-dom";
 import PageLoader from "components/loading/PageLoader";
-import { useDispatch, useSelector } from "react-redux";
-import { getFormConfig } from "store/slices/admin/formConfigSlice";
-import { useAdminAuth } from "context/useContext";
 
 const DRAWER_WIDTH = 240;
 const COLLAPSED_WIDTH = 80;
 
-const AdminLayout = () => {
+const CustomerLayout = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [scrollTarget, setScrollTarget] = useState(null);
@@ -34,20 +31,6 @@ const AdminLayout = () => {
   const handleCollapsed = () => setCollapsed(!collapsed);
 
   const sidebarWidth = collapsed ? COLLAPSED_WIDTH : DRAWER_WIDTH;
-
-  const dispatch = useDispatch();
-  const { status }   = useSelector((state) => state.formConfig)
-
-
-  useEffect(() => {
-   if (status === 'idle') {
-      dispatch(getFormConfig())
-    }
-  },[dispatch])
-
-  const auth = useAdminAuth();
-
-  console.log("layout", auth?.admin)
 
   return (
     <>
@@ -118,4 +101,4 @@ const AdminLayout = () => {
   );
 };
 
-export default AdminLayout;
+export default CustomerLayout;

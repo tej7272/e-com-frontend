@@ -14,7 +14,7 @@ import Menu from '@mui/material/Menu';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import { useTheme } from "@mui/material";
 import { useDispatch } from 'react-redux';
-import { adminLogout } from 'store/slices/auth/adminAuthSlice';
+import { logoutAdminAccount } from 'store/slices/auth/adminAuthSlice';
 import { useNavigate } from 'react-router-dom';
 import { PATHS } from 'routes/paths';
 
@@ -22,6 +22,7 @@ export default function HeaderBar({ isMobile, scrollTarget }) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // const { admin } = useAdminAuth();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const triggered = useScrollTrigger({
@@ -33,9 +34,11 @@ export default function HeaderBar({ isMobile, scrollTarget }) {
   const handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
   const handleLogout = () => {
-    dispatch(adminLogout());
+    dispatch(logoutAdminAccount());
     navigate(PATHS.admin.auth.login);
   }
+
+  // console.log("admin", admin);
 
   return (
     <AppBar
@@ -88,6 +91,7 @@ export default function HeaderBar({ isMobile, scrollTarget }) {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
       >
+        {/* <MenuItem disabled>Signed in as {admin?.name}</MenuItem> */}
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
