@@ -122,7 +122,7 @@ const adminAuthSlice = createSlice({
     admin: null,
     accessToken: null,
     isAuthenticated: false,
-    loading: false,
+    loading: true,
   },
   reducers: {
     adminSetCredentials: (state, action) => {
