@@ -88,9 +88,8 @@ export const refreshAdminToken = createAsyncThunk(
   'auth/refresh-access-token',
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await adminAxios.post(apiEndPoints.admin.auth.refresh)
-      dispatch(fetchAdminInfo())
-      return data
+      const res = await adminAxios.post(apiEndPoints.admin.auth.refresh)
+      return res.data
     } catch (err) {
       return rejectWithValue(err.response?.data)
     }
