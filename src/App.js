@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import BreakpointsProvider from 'providers/BreakPointProvider';
 import { ThemeProvider } from 'providers/ThemeProvider';
 import { ReduxProvider } from 'providers/ReduxProvider';
+import AuthInitializer from 'providers/AuthInitializer';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
       <ThemeProvider>
         <BreakpointsProvider>
           <ToastContainer />
+          <AuthInitializer />
           <AllRoutes />
 
         </BreakpointsProvider>

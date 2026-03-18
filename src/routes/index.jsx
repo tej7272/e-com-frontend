@@ -21,11 +21,19 @@ const adminRoutes = [
     { path: PATHS.admin.reviews,       element: <Reviews /> },
 ];
 
-const authRoutes = [
+const adminAuthRoutes = [
     { path: PATHS.admin.auth.login, element: <AdminLogin /> },
     { path: PATHS.admin.auth.validate, element: <ValidateOtp /> },
     { path: PATHS.admin.auth.forgotPassword, element: <ForgotPassword /> },
     { path: PATHS.admin.auth.resetPassword, element: <ResetPassword /> }
 ]
 
-export { adminRoutes, authRoutes };
+const customerRoutes = [
+    
+];
+
+const customerAuthRoutes = [
+    
+]
+
+export { adminRoutes, adminAuthRoutes, customerRoutes, customerAuthRoutes };

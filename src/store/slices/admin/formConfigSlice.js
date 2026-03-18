@@ -1,5 +1,4 @@
-import adminAxios from "utils/adminAxios";
-import { apiEndPoints } from "utils/api-endpoints";
+import { adminAxios, apiEndPoints } from "utils/adminAxios";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 

@@ -1,9 +1,8 @@
 import { toast } from "react-toastify";
-import { apiEndPoints } from "utils/api-endpoints";
+import { adminAxios, apiEndPoints } from "utils/adminAxios";
 import { handleRejected } from "utils/sliceHelper";
 import { handlePending } from "utils/sliceHelper";
 import { getFormConfig } from "../formConfigSlice";
-import adminAxios from "utils/adminAxios";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -18,7 +17,7 @@ export const getSubCategories = createAsyncThunk(
     'get-subCategory',
     async (_, {rejectWithValue}) => {
         try{
-            const res = await adminAxios.get(apiEndPoints.admin.configuration.getSubCategories);
+            const res = await adminAxios.get(apiEndPoints.admin.configuration.subCategory);
             return res.data;
         }catch(err){
             const data = err.response?.data
@@ -34,7 +33,7 @@ export const addSubCategory = createAsyncThunk(
     'add-subCategory',
     async (payload, {dispatch, rejectWithValue}) => {
         try{
-            const res = await adminAxios.post(apiEndPoints.admin.configuration.addSubCategory, payload);
+            const res = await adminAxios.post(apiEndPoints.admin.configuration.subCategory, payload);
             dispatch(getFormConfig())
             dispatch(getSubCategories());
             return res.data;
@@ -52,7 +51,7 @@ export const updateSubCategory = createAsyncThunk(
     'update-subCategory',
     async ({id, payload}, {dispatch, rejectWithValue}) => {
         try{
-            const res = await adminAxios.patch(`${apiEndPoints.admin.configuration.addSubCategory}/${id}`, payload);
+            const res = await adminAxios.patch(`${apiEndPoints.admin.configuration.subCategory}/${id}`, payload);
             dispatch(getFormConfig())
             dispatch(getSubCategories());
             return res.data;
@@ -70,7 +69,7 @@ export const deleteSubCategory = createAsyncThunk(
     'delete-subCategory',
     async (id, {dispatch, rejectWithValue}) => {
         try{
-            const res = await adminAxios.delete(`${apiEndPoints.admin.configuration.addSubCategory}/${id}`);
+            const res = await adminAxios.delete(`${apiEndPoints.admin.configuration.subCategory}/${id}`);
             dispatch(getFormConfig())
             dispatch(getSubCategories());
             return res.data;

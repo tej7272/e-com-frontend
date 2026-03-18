@@ -2,23 +2,23 @@ import {
   Box, Button, Card, Divider,
   IconButton, InputAdornment,
   TextField, Typography,
-} from '@mui/material'
-import { useState } from 'react'
-import Iconify from 'components/base/Iconify'
-import { useTheme } from '@emotion/react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { PATHS } from 'routes/paths'
-import ResetPasswordSuccess from './ResetPasswordSuccess'
-import { useDispatch } from 'react-redux'
-import { resetAdminPassword } from 'store/slices/auth/adminAuthSlice'
+} from '@mui/material';
+import { useState } from 'react';
+import Iconify from 'components/base/Iconify';
+import { useTheme } from '@emotion/react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { PATHS } from 'routes/paths';
+import ResetPasswordSuccess from './ResetPasswordSuccess';
+import { useDispatch } from 'react-redux';
+import { resetAdminPassword } from 'store/slices/auth/adminAuthSlice';
 
 const ResetPassword = () => {
   const theme = useTheme()
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [searchParams] = useSearchParams()
-  const token = searchParams.get('token')
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token');
 
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
