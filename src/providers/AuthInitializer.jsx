@@ -1,21 +1,31 @@
-// providers/AuthInitializer.jsx
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { useLocation } from 'react-router-dom'
-import { refreshAdminToken } from 'store/slices/auth/adminAuthSlice'
-import { refreshCustomerToken } from 'store/slices/auth/customerAuthSlice'
+import { useEffect, useRef }  from 'react'
+import { useDispatch }        from 'react-redux'
+import { useLocation }        from 'react-router-dom'
+import { fetchAdminInfo, refreshAdminToken }  from 'store/slices/auth/adminAuthSlice'
+import { refreshCustomerToken }              from 'store/slices/auth/customerAuthSlice'
 
 const AuthInitializer = () => {
-  const dispatch = useDispatch()
+  const dispatch     = useDispatch()
   const { pathname } = useLocation()
+  const initialized  = useRef(false)
 
   useEffect(() => {
-    if (pathname.startsWith('/admin')) {
-      dispatch(refreshAdminToken())
-    } else {
-      dispatch(refreshCustomerToken())
+    if (initialized.current) return
+    initialized.current = true
+
+    const init = async () => {
+      if (pathname.startsWith('/admin')) {
+        const result = await dispatch(refreshAdminToken())
+        if (refreshAdminToken.fulfilled.match(result)) {
+          dispatch(fetchAdminInfo())
+        }
+      } else {
+        dispatch(refreshCustomerToken())
+      }
     }
-  }, [])
+
+    init()
+  }, [dispatch, pathname])
 
   return null
 }
