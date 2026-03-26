@@ -1,6 +1,6 @@
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { Typography, Link, Stack, Box } from '@mui/material';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import Iconify from 'components/base/Iconify';
 
 const CustomBreadcrumbs = ({breadcrumb}) => {
 
@@ -11,20 +11,20 @@ const CustomBreadcrumbs = ({breadcrumb}) => {
   
     return (
         <Box display="flex" flexDirection="column" alignItems="flex-start" mb={2}>
-            <Typography variant='h6' mb={1}>{heading}</Typography>
+            <Typography variant='h5' color='text.primary'>{heading}</Typography>
             <Stack spacing={2}>
-                <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb" >
+                <Breadcrumbs separator={<Iconify icon="lucide:dot" width={30}/>} >
                     {
                         links.map((item, idx) =>
-                        idx === lastIdx ? (
-                            <Typography key={idx} color="text.primary" aria-current="page">
-                            {item.title}
-                            </Typography>
-                        ) : (
-                            <Link key={idx} underline="hover" color="inherit" href={item.path}>
-                            {item.title}
-                            </Link>
-                        )
+                            idx === lastIdx ? (
+                                <Typography variant='body2' key={idx} color="text.disabled" sx={{cursor: 'default'}}>
+                                    {item.title}
+                                </Typography>
+                            ) : (
+                                <Link key={idx} underline="hover" color="text.secondary" href={item.path}>
+                                    {item.title}
+                                </Link>
+                            )
                         )
                     }
                 </Breadcrumbs>

@@ -20,7 +20,7 @@ import { deleteCategory, getCategories } from "store/slices/admin/configuration/
 
 
 const CategoryView = () => {
-  const [open, setOpen]               = useState(false);
+  const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [selectedData, setSelectedData] = useState(null);
   const [openConfirm, setOpenConfirm] = useState(false);
@@ -40,7 +40,7 @@ const CategoryView = () => {
   const handleDelete = async () => {
     try{
       const res = await dispatch(deleteCategory(selectedData._id)).unwrap();
-      if (res.status) {
+      if (res.success) {
         setOpenConfirm(false);
       }
     }catch(err){
@@ -54,13 +54,13 @@ const CategoryView = () => {
     return normalizedSearch ? normalizedName.includes(normalizedSearch) : true;
   });
 
+
   const columns = [
     { 
       field: "name", 
       headerName: "Name", 
       minWidth: 100,
       flex: 1
-
     },
     { 
       field: "description", 
@@ -112,7 +112,7 @@ const CategoryView = () => {
       >
         <MenuList>
           <MenuItem onClick={() => popover.onCloseWithCallback(() => setOpen(true))}>
-            <Iconify icon="solar:pen-new-square-outline" sx={{ mr: 1, color: 'primary.main' }} />
+            <Iconify icon="solar:pen-new-square-outline" sx={{ mr: 1, color: 'info.main' }} />
             Edit
           </MenuItem>
           <MenuItem onClick={() => popover.onCloseWithCallback(() => setOpenConfirm(true))}>
@@ -125,7 +125,7 @@ const CategoryView = () => {
       <AddUpdateModal open={open} onClose={handleClose} selectedData={selectedData} />
 
       <Box sx={{ mt: 3 }}>
-        <Paper sx={{ width: "100%", minHeight: 400 }}>
+        <Paper sx={{ display: 'flex',flexDirection: 'column', width: "100%" }}>
           <DataGrid
             rows={filteredList}
             getRowId={(row) => row._id}
@@ -138,10 +138,10 @@ const CategoryView = () => {
             slotProps={{
               toolbar: {
                   searchValue,
-                  onSearch:       (val) => setSearchValue(val),
-                  exportData:     filteredList,
+                  onSearch: (val) => setSearchValue(val),
+                  exportData: filteredList,
                   exportFileName: "categories",
-                  title:  "Add category",
+                  title: "Add category",
                   handleOpen : () => {setOpen(true); setSelectedData(null)},
               }
             }}

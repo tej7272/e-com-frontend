@@ -13,7 +13,7 @@ import Divider from './components/Divider';
 import Drawer from './components/Drawer';
 import Link from './components/Link';
 import List, { ListItemButton, ListItemIcon, ListItemText } from './components/List';
-import { MenuItem } from './components/Menu';
+import { Menu, MenuItem } from './components/Menu';
 import Pagination, { PaginationItem } from './components/Pagination';
 import Paper from './components/Paper';
 import Popover from './components/Popover';
@@ -45,7 +45,7 @@ import { shadows } from './shadows';
 import { sxConfig } from './sxConfig';
 
 export const themeOverrides = {
-  cssVariables: { colorSchemeSelector: 'data-aurora-color-scheme', cssVarPrefix: 'aurora' },
+  cssVariables: { cssVarPrefix: 'nexora', colorSchemeSelector: 'b-nexora-color-scheme' },
   shadows: ['none', ...shadows],
   shape: { borderRadius: 8 },
   colorSchemes: {
@@ -97,6 +97,7 @@ export const themeOverrides = {
     MuiListItemButton: ListItemButton,
     MuiListItemIcon: ListItemIcon,
     MuiListItemText: ListItemText,
+    MuiMenu: Menu,
     MuiMenuItem: MenuItem,
     MuiToolbar: Toolbar,
     MuiTooltip: Tooltip,

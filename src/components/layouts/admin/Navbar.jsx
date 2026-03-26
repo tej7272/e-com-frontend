@@ -1,39 +1,29 @@
 import React from "react";
-import {
-  Box,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-  Tooltip,
-  IconButton,
-  useTheme,
-} from "@mui/material";
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {
-  DashboardOutlined,
-  Inventory2Outlined,
-  ProductionQuantityLimitsOutlined,
-  PeopleAltOutlined,
-  StarBorderPurple500Outlined,
-  SettingsOutlined,
-} from "@mui/icons-material";
+import { Box, Divider, Tooltip, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { ChevronLeftIcon } from "lucide-react";
+import { PATHS } from "routes/paths";
+import Iconify from "components/base/Iconify";
 
-const navItems = [
-  { path: "/admin", label: "Dashboard", icon: <DashboardOutlined /> },
-  { path: "/admin/configuration", label: "Configuration", icon: <SettingsOutlined /> },
-  { path: "/admin/products", label: "Products", icon: <Inventory2Outlined /> },
-  { path: "/admin/orders", label: "Orders", icon: <ProductionQuantityLimitsOutlined /> },
-  { path: "/admin/customers", label: "Customers", icon: <PeopleAltOutlined /> },
-  { path: "/admin/reviews", label: "Reviews", icon: <StarBorderPurple500Outlined /> },
+const NAV_SECTIONS = [
+  {
+    label: "Main",
+    items: [
+      { path: PATHS.admin.root, label: "Dashboard", icon: "solar:widget-2-bold-duotone", badge: null },
+      { path: PATHS.admin.products, label: "Products", icon: "solar:box-bold-duotone", badge: null },
+      { path: PATHS.admin.orders, label: "Orders", icon: "solar:bag-bold-duotone", badge: 12   },
+      { path: PATHS.admin.customers, label: "Customers", icon: "solar:users-group-rounded-bold-duotone", badge: null },
+      { path: PATHS.admin.reviews, label: "Reviews", icon: "solar:star-bold-duotone", badge: null },
+    ],
+  },
+  {
+    label: "System",
+    items: [
+      { path: PATHS.admin.configuration, label: "Configuration", icon: "solar:settings-bold-duotone", badge: null },
+    ],
+  },
 ];
 
-const Navbar = ({ collapsed, onCollapse }) => {
-  const theme = useTheme();
-
+const Navbar = ({ collapsed, onCollapse, user }) => {
   return (
     <Box
       sx={{
@@ -41,103 +31,195 @@ const Navbar = ({ collapsed, onCollapse }) => {
         display: "flex",
         flexDirection: "column",
         width: "100%",
+        transition: "width 0.22s cubic-bezier(.4,0,.2,1)",
+        flexShrink: 0,
       }}
     >
-      {/* Header */}
       <Box
         sx={{
-          px: 2,
-          py: 2,
+          px: 1.5,
+          py: 2.5,
           display: "flex",
           alignItems: "center",
-           position: "relative",
-          justifyContent: collapsed ? "center" : "space-between",
+          justifyContent: "space-between",
+          flexShrink: 0,
         }}
       >
-        {/* {!collapsed && ( */}
-          <Typography variant="h6" fontWeight={600}>
-            Admin
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1.25, overflow: "hidden" }}>
+          <Iconify icon="solar:layers-bold-duotone" width={28}/>
+          <Typography
+            variant="body1"
+            fontWeight={600}
+            noWrap
+            sx={{
+              opacity: collapsed ? 0 : 1,
+              width: collapsed ? 0 : "auto",
+              transition: "opacity 0.15s",
+              letterSpacing: "-0.01em",
+            }}
+          >
+            B-nexora
           </Typography>
-        {/* )} */}
+        </Box>
 
+        {/* Collapse toggle */}
         {onCollapse && (
-          
-            <IconButton 
-              onClick={onCollapse} 
-              sx={{
-                position: "absolute",
-                right: -16,          // ✅ half outside the sidebar border
-                top: "50%",
-                transform: "translateY(-30%)",
-                zIndex: theme.zIndex.drawer + 1,
-                width: 28,
-                height: 28,
-                backgroundColor: theme.palette.grey[50],
-                border: `1px solid ${theme.palette.divider}`,
-                boxShadow: 2,
-                "&:hover": {
-                  backgroundColor: "background.paper",
-                },
-              }}
-            >
-              {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
+          <Box
+            onClick={onCollapse}
+            sx={{
+              p: '3px',
+              borderRadius: "6px",
+              border: "1px solid",
+              borderColor: "divider",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              cursor: "pointer",
+              flexShrink: 0,
+              "&:hover": { bgcolor: "action.hover" },
+            }}
+          >
+            {collapsed
+              ? <Iconify icon="solar:alt-arrow-right-bold-duotone" width={18} />
+              : <Iconify icon="solar:alt-arrow-left-bold-duotone"  width={18} />
+            }
+          </Box>
         )}
       </Box>
 
-      {/* <Divider /> */}
+      <Divider />
 
-      {/* Scrollable Nav Items */}
-      <Box
-        sx={{
-          flexGrow: 1,
-          overflowY: "auto",
-          overflowX: "hidden",
-          px: 1,
-          py: 2,
-        }}
-      >
-        <List disablePadding>
-          {navItems.map((item) => (
-            <Tooltip
-              key={item.path}
-              title={collapsed ? item.label : ""}
-              placement="right"
+      <Box sx={{ flex: 1, overflowY: "auto", overflowX: "hidden", px: 1, py: 1 }}>
+        {NAV_SECTIONS.map((section) => (
+          <Box key={section.label} sx={{ mb: 1 }}>
+            <Typography
+              sx={{
+                fontSize: 10,
+                fontWeight: 600,
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                color: "text.disabled",
+                px: 1, py: 0.5,
+                opacity: collapsed ? 0 : 1,
+                transition: "opacity 0.15s",
+                whiteSpace: "nowrap",
+              }}
             >
-              <ListItemButton
-                component={NavLink}
-                to={item.path}
-                sx={{
-                  borderRadius: 2,
-                  mb: 1,
-                  justifyContent: collapsed ? "center" : "flex-start",
-                  "&.active": {
-                    backgroundColor: theme.palette.action.selected,
-                    color: theme.palette.primary.main,
-                  },
-                }}
+              {section.label}
+            </Typography>
+
+            {section.items.map((item) => (
+              <Tooltip
+                key={item.path}
+                title={collapsed ? item.label : ""}
+                placement="right"
+                arrow
               >
-                <ListItemIcon
+                <Box
+                  component={NavLink}
+                  to={item.path}
+                  end={item.path === PATHS.admin.root}
                   sx={{
-                    minWidth: 0,
-                    mr: collapsed ? 0 : 2,
-                    justifyContent: "center",
-                    color: "inherit",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1.25,
+                    px: 1, py: 1,
+                    borderRadius: "7px",
+                    mb: "2px",
+                    textDecoration: "none",
+                    position: "relative",
+                    color: "text.secondary",
+                    "&:hover": { bgcolor: "action.hover" },
+                    "&.active": {
+                      bgcolor: "primary.lighter", // or cssVarRgba(primary.lightChannel, 0.08)
+                      color: "primary.main",
+                      "& .nav-icon-wrap": { bgcolor: "primary.soft" },
+                      "&::before": {
+                        content: '""',
+                        position: "absolute",
+                        left: 0, top: "50%",
+                        transform: "translateY(-50%)",
+                        width: 3, height: 18,
+                        bgcolor: "primary.main",
+                        borderRadius: "0 3px 3px 0",
+                      },
+                    },
                   }}
                 >
-                  {item.icon}
-                </ListItemIcon>
+                  <Iconify icon={item.icon} />
 
-                {!collapsed && (
-                  <ListItemText
-                    primary={item.label}
-                    primaryTypographyProps={{ variant: "body2" }}
-                  />
-                )}
-              </ListItemButton>
-            </Tooltip>
-          ))}
-        </List>
+                  {/* Label */}
+                  <Typography
+                    variant="body2"
+                    noWrap
+                    sx={{
+                      opacity: collapsed ? 0 : 1,
+                      width: collapsed ? 0 : "auto",
+                      transition: "opacity 0.15s",
+                    }}
+                  >
+                    {item.label}
+                  </Typography>
+
+                  {/* Badge */}
+                  {item.badge && !collapsed && (
+                    <Box
+                      sx={{
+                        ml: "auto",
+                        fontSize: 10, fontWeight: 600,
+                        bgcolor: "error.main", color: "white",
+                        borderRadius: "10px",
+                        px: 0.75, py: "1px",
+                        lineHeight: 1.6,
+                        flexShrink: 0,
+                      }}
+                    >
+                      {item.badge}
+                    </Box>
+                  )}
+                </Box>
+              </Tooltip>
+            ))}
+          </Box>
+        ))}
+      </Box>
+
+      {/* ── User footer ── */}
+      <Box sx={{ p: 1, borderTop: "1px solid", borderColor: "divider" }}>
+        <Box
+          sx={{
+            display: "flex", alignItems: "center", gap: 1.25,
+            px: 1, py: 0.75,
+            borderRadius: "7px",
+            cursor: "pointer",
+            "&:hover": { bgcolor: "action.hover" },
+          }}
+        >
+          <Box
+            sx={{
+              width: 28, height: 28, borderRadius: "50%",
+              bgcolor: "primary.lighter",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              fontSize: 11, fontWeight: 600, color: "primary.main",
+              flexShrink: 0,
+            }}
+          >
+            {user?.name?.slice(0, 2).toUpperCase() ?? "AD"}
+          </Box>
+          <Box
+            sx={{
+              overflow: "hidden",
+              opacity: collapsed ? 0 : 1,
+              width: collapsed ? 0 : "auto",
+              transition: "opacity 0.15s",
+            }}
+          >
+            <Typography variant="caption" fontWeight={500} noWrap display="block">
+              {user?.name ?? "Admin"}
+            </Typography>
+            <Typography variant="caption" color="text.disabled" noWrap display="block">
+              {user?.role ?? "Super Admin"}
+            </Typography>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );

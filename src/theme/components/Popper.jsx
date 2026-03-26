@@ -5,6 +5,7 @@ const Popper = {
   styleOverrides: {
     root: ({ theme }) => ({
       zIndex: theme.zIndex.tooltip,
+      // background: theme.palette.gradients.cool,
     }),
   },
 };

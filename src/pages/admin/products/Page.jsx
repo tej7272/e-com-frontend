@@ -1,12 +1,11 @@
-import React from 'react'
-import {Box, Card, Grid, Typography} from '@mui/material'
-import CustomBreadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
+import React from 'react';
 import ProductTable from './ProductTable';
+import CustomBreadcrumbs from 'components/Breadcrumbs/Breadcrumbs';
 
 const ProductPage = () => {
 
     const breadcrumbs ={
-        heading: "Settings",
+        heading: "Products",
         links: [
             {
                 title: "Admin",
@@ -21,13 +20,10 @@ const ProductPage = () => {
 
 
     return (
-        <Box>
+        <>
             <CustomBreadcrumbs breadcrumb={breadcrumbs}/>
-
-            <Card component={Card} sx={{mt: 3}}>
-                <ProductTable />
-            </Card>
-        </Box>
+            <ProductTable />
+        </>
     )
 }
 

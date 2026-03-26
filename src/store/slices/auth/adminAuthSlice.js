@@ -9,11 +9,9 @@ export const fetchAdminInfo = createAsyncThunk(
   'adminAuth/fetchInfo',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await adminAxios.get(apiEndPoints.admin.auth.adminInfo)
-      return data.admin
+      const res  = await adminAxios.get(apiEndPoints.admin.auth.adminInfo)
+      return res.data
     } catch (err) {
-        console.log('BASE URL:', adminAxios.defaults.baseURL)
-    console.log('WITH CREDENTIALS:', adminAxios.defaults.withCredentials)
       return rejectWithValue(err.response?.data?.message)
     }
   }
@@ -86,7 +84,7 @@ export const resetAdminPassword = createAsyncThunk(
 
 export const refreshAdminToken = createAsyncThunk(
   'auth/refresh-access-token',
-  async (_, { dispatch, rejectWithValue }) => {
+  async (_, {  rejectWithValue }) => {
     try {
       const res = await adminAxios.post(apiEndPoints.admin.auth.refresh)
       return res.data
@@ -121,6 +119,7 @@ const adminAuthSlice = createSlice({
     accessToken: null,
     isAuthenticated: false,
     loading: true,
+    infoLoading: false
   },
   reducers: {
     adminSetCredentials: (state, action) => {
@@ -174,16 +173,17 @@ const adminAuthSlice = createSlice({
 
 
 
-        .addCase(fetchAdminInfo.pending, handlePending)
+        .addCase(fetchAdminInfo.pending, (state) => {
+            state.infoLoading = true;
+        })
         .addCase(fetchAdminInfo.fulfilled, (state, action) => {
-            state.admin = action.payload
-            state.isAuthenticated = true
-            state.loading = false
+            const {admin} = action.payload;
+            state.admin = admin;
+            state.infoLoading = false;
         })
         .addCase(fetchAdminInfo.rejected, (state) => {
             state.admin = null
-            state.isAuthenticated = false
-            state.loading = false
+            state.infoLoading = false
         })
 
 

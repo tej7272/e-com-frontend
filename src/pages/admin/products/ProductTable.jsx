@@ -1,36 +1,29 @@
 import {
   Box,
-  Button,
-  Grid,
-  Typography,
-  Stack,
   IconButton,
   Paper,
   Tooltip,
   MenuItem,
   MenuList,
 } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import NewAddProduct from "./NewAddProduct";
-import { EllipsisVertical } from  'lucide-react';
-// import CustomIcon from "../../../components/Icons/Icon";
-import SearchBox from "../../../components/searchBox/SearchBox";
 import usePopover from "../../../components/custom-popover/usePopover";
 import CustomPropover from "../../../components/custom-popover/CustomPopover";
-import { useDispatch, useSelector } from 'react-redux';
 import Label from "../../../components/label/Label";
-import AddProductModal from "./AddProductModal";
+import Iconify from "components/base/Iconify";
+import ProductFormModal from "./ProductFormModal";
+import NewAddProduct from "./NewAddProduct";
 
 const ProductTable = () => {
 
   const [open, setOpen] = useState(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [selectedData, setSelectedData] = useState(null);
 
   const popover = usePopover();
 
-  const dispatch = useDispatch()
 
 
 
@@ -43,14 +36,14 @@ const ProductTable = () => {
         const imgUrl = params.value[0]
         return (
           <img
-            src={imgUrl}
+            src= "https://www.kasandbox.org/programming-images/avatars/spunky-sam.png"
             alt="item"
             style={{ width: 40, height: 40, objectFit: "cover", borderRadius: 4 }}
           />
         );
       }
     },
-    { field: "title", headerName: "Title", width: 170},
+    { field: "name", headerName: "Product name", width: 200},
     {
       field: "brand",
       headerName: "Brand",
@@ -77,7 +70,7 @@ const ProductTable = () => {
         return (
           <Tooltip title="Actions">
             <IconButton onClick={(e) => {setSelectedData(params.row); popover.onOpen(e)}}>
-              {/* <CustomIcon icon={EllipsisVertical}/> */}X
+              <Iconify icon="formkit:reorder" />
             </IconButton>
           </Tooltip>
         )
@@ -88,7 +81,7 @@ const ProductTable = () => {
   const rows = [
   {
     id: 1,
-    title: "Running Shoes Pro",
+    name: "Running Shoes Pro",
     price: 3299,
     categoryId: "clothing",
     category: "Footwear",
@@ -109,7 +102,7 @@ const ProductTable = () => {
 
   {
     id: 2,
-    title: "Classic Cotton T-Shirt",
+    name: "Classic Cotton T-Shirt",
     price: 799,
     categoryId: "APPAREL",
     category: "Apparel",
@@ -130,7 +123,7 @@ const ProductTable = () => {
 
   {
     id: 3,
-    title: "Slim Fit Jeans",
+    name: "Slim Fit Jeans",
     price: 1899,
     categoryId: "APPAREL",
     category: "Apparel",
@@ -151,7 +144,7 @@ const ProductTable = () => {
 
   {
     id: 4,
-    title: "Leather Wallet",
+    name: "Leather Wallet",
     price: 1299,
     categoryId: "ACCESSORIES",
     category: "Accessories",
@@ -172,7 +165,7 @@ const ProductTable = () => {
 
   {
     id: 5,
-    title: "Sports Cap",
+    name: "Sports Cap",
     price: 499,
     categoryId: "ACCESSORIES",
     category: "Accessories",
@@ -193,7 +186,7 @@ const ProductTable = () => {
 
   {
     id: 6,
-    title: "Casual Sneakers",
+    name: "Casual Sneakers",
     price: 2499,
     categoryId: "FOOTWEAR",
     category: "Footwear",
@@ -215,12 +208,7 @@ const ProductTable = () => {
 
 
 
-  const paginationModel = { page: 0, pageSize: 5 };
-
-  const handleOpen = () => {
-    setSelectedData(null);
-    setOpen(true);
-  }
+  const paginationModel = { page: 0, pageSize: 10 };
 
   const handleClose = () => {
     setOpen(false);
@@ -228,7 +216,7 @@ const ProductTable = () => {
 
    const filteredList = rows.filter((v) => {
     const normalizedSearchValue = searchValue.replace(/\s+/g, '').toLowerCase();
-    const normalizedName = v.title.replace(/\s+/g, '').toLowerCase();
+    const normalizedName = v.name.replace(/\s+/g, '').toLowerCase();
 
     const searchMatch = normalizedSearchValue ? normalizedName.includes(normalizedSearchValue) : true;
     return searchMatch;
@@ -245,10 +233,12 @@ const ProductTable = () => {
         onClose={popover.onClose}
       >
         <MenuList sx={{ }}>
-          <MenuItem onClick={() => setOpen(true)}>
+          <MenuItem onClick={() => popover.onCloseWithCallback(() => setOpen(true))}>
+            <Iconify icon="solar:pen-new-square-outline" sx={{ mr: 1, color: 'primary.main' }} />
             Edit
           </MenuItem>
-          <MenuItem onClick={() => setOpen(true)}>
+          <MenuItem onClick={() => popover.onCloseWithCallback(() => setOpenConfirm(true))}>
+            <Iconify icon="solar:trash-bin-trash-outline" sx={{ mr: 1, color: 'error.main' }} />
             Delete
           </MenuItem>
         </MenuList>
@@ -256,23 +246,11 @@ const ProductTable = () => {
 
       {/* Keep only one product modal mounted; two open dialogs can fight over focus/state. */}
       {/* <NewAddProduct open ={open} onClose={handleClose} selectedData={selectedData}/> */}
-      <AddProductModal open ={open} onClose={handleClose} selectedData={selectedData}/>
-      <Grid container spacing={1} alignItems="center" sx={{ px: 2, mt: 2 }}>
-        <Grid size={6}>
-          
-        </Grid>
-        <Grid size={6}>
-          <Stack direction="row" spacing={1} justifyContent="flex-end">
-            <Button type="button" variant="contained" onClick={handleOpen}>
-              Add Product
-            </Button>
-            <SearchBox searchValue={searchValue} onSearch={(val) => setSearchValue(val)} name="Product"/>
-          </Stack>
-        </Grid>
-      </Grid>
+      <ProductFormModal open ={open} onClose={handleClose} selectedData={selectedData}/>
       <Box sx={{ mt: 3 }}>
-        <Paper sx={{ width: "100%"}}>
+        <Paper sx={{ width: "100%", pt: 2}}>
           <DataGrid
+            showToolbar
             rows={filteredList}
             getRowId={(row) => row.id}
             columns={columns}
@@ -280,7 +258,17 @@ const ProductTable = () => {
             pageSizeOptions={[10, 20, 50]}
             disableRowSelectionOnClick
             checkboxSelection={false}
-            sx={{ border: 0 }}
+            // sx={{ border: 0 }}
+            slotProps={{
+              toolbar: {
+                searchValue,
+                onSearch:  (val) => setSearchValue(val),
+                exportData:  filteredList,
+                exportFileName: "products",
+                title:  "Add Product",
+                handleOpen : () => {setOpen(true); setSelectedData(null)},
+              }
+            }}
           />
         </Paper>
       </Box>

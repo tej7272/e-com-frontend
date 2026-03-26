@@ -12,6 +12,7 @@ const Dialog = {
       fontSize: theme.typography.body2.fontSize,
       overflow: 'hidden',
       minHeight: 'fit-content',
+      borderRadius: theme.spacing(2)
     }),
   },
 };

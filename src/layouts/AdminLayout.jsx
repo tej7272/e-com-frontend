@@ -13,7 +13,6 @@ import { Outlet } from "react-router-dom";
 import PageLoader from "components/loading/PageLoader";
 import { useDispatch, useSelector } from "react-redux";
 import { getFormConfig } from "store/slices/admin/formConfigSlice";
-import { useAdminAuth } from "context/useContext";
 
 const DRAWER_WIDTH = 240;
 const COLLAPSED_WIDTH = 80;
@@ -44,10 +43,6 @@ const AdminLayout = () => {
       dispatch(getFormConfig());
     }
   },[dispatch, status])
-
-  const auth = useAdminAuth();
-
-  console.log("layout", auth?.admin)
 
   return (
     <>

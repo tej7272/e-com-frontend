@@ -31,14 +31,14 @@ const Paper = {
       props: { variant: 'default' },
       style: ({ theme }) => ({
         border: 'none',
-        borderRadius: theme.spacing(1),
+        borderRadius: theme.spacing(2),
       }),
     },
     ...backgroundVariants,
   ],
   defaultProps: {
     variant: 'default',
-    elevation: 3,
+    elevation: 6,
   },
   styleOverrides: {
     elevation: ({ theme }) => ({

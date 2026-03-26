@@ -1,8 +1,14 @@
 const createTypography = () => ({
-  fontFamily: ['Plus Jakarta Sans', 'sans-serif'].join(','),
+  fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
   
   // ─── Monospace (for code blocks etc) ──────────────────────
   monoFontFamily: ['Spline Sans Mono', 'monospace'].join(','),
+
+  fontSize: 14,
+  fontWeightLight: 300,
+  fontWeightRegular: 400,
+  fontWeightMedium: 500,
+  fontWeightBold: 700,
 
   h1: {
     fontWeight: 700,
@@ -36,14 +42,14 @@ const createTypography = () => ({
   },
   h6: {
     fontWeight: 600,
-    fontSize: '1.3125rem',   // 21px
+    fontSize: '1.3125rem',
     lineHeight: 1.55,
     letterSpacing: '0px',
   },
   subtitle1: {
     fontWeight: 400,
-    fontSize: '1rem',        // 16px
-    lineHeight: 1.65,        // ↑ more breathing room
+    fontSize: '1rem',        
+    lineHeight: 1.65,
     letterSpacing: '0.1px',
   },
   subtitle2: {
@@ -59,7 +65,7 @@ const createTypography = () => ({
     letterSpacing: '0.15px',
   },
   body2: {
-    fontWeight: 400,
+    fontWeight: 500,
     fontSize: '0.875rem',    // 14px
     lineHeight: 1.75,
     letterSpacing: '0.15px',

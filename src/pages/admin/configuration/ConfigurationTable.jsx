@@ -3,14 +3,6 @@ import {
   Box,
   Card,
 } from "@mui/material";
-// import GenderCard from "./cards/GenderCard";
-// import BrandCard from "./cards/BrandCard";
-// import CategoryCard from "./cards/CategoryCard";
-// import ColorCard from "./cards/ColorCard";
-// import StockStatusCard from "./cards/OrderStatusCard";
-// import SizeCard from "./cards/SizeCard";
-// import { useDispatch, useSelector } from 'react-redux';
-// import { fetchMaster } from '../../../redux/admin/configuration/masterSlice';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -23,7 +15,7 @@ import SubCategoryView from './sub-category/Sub-category-view';
 
 const SettingTable = () => {
 
-  const [value, setValue] = useState('1');
+  const [value, setValue] = useState('category');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -36,26 +28,26 @@ const SettingTable = () => {
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange}>
-              <Tab label="Category" value="1" />
-              <Tab label="Size-group" value="2" />
-              <Tab label="Sub-category" value="3" />
-              <Tab label="Brand" value="4" />
-              <Tab label="Color" value="5" />
+              <Tab label="Category" value="category" />
+              <Tab label="Size-group" value="size-group" />
+              <Tab label="Sub-category" value="sub-category" />
+              <Tab label="Brand" value="brand" />
+              <Tab label="Color" value="color" />
             </TabList>
           </Box>
-          <TabPanel value="1">
+          <TabPanel value="category">
             <CategoryView />
           </TabPanel>
-          <TabPanel value="2">
+          <TabPanel value="size-group">
             <SizeGroupView />
           </TabPanel>
-          <TabPanel value="3">
+          <TabPanel value="sub-category">
             <SubCategoryView />
           </TabPanel>
-          <TabPanel value="4">
+          <TabPanel value="brand">
             <BrandView />
           </TabPanel>
-          <TabPanel value="5">
+          <TabPanel value="color">
             <ColorView />
           </TabPanel>
         </TabContext>

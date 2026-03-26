@@ -9,6 +9,7 @@ const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 const initialState = {
     data: [],
+    status: 'idle',
     loading: false,
     error: null
 }
@@ -87,7 +88,9 @@ const categorySlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-        .addCase(getCategories.pending, handlePending)
+        .addCase(getCategories.pending, (state) => {
+            state.status = 'loading';
+        })
         .addCase(getCategories.rejected, handleRejected)
         .addCase(getCategories.fulfilled, (state, action) => {
             state.loading = false;

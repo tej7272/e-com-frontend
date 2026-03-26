@@ -17,11 +17,7 @@ const CssBaseline = {
       [`[id]`]: {
         scrollMarginTop: 82,
       },
-       background: `
-        radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 20%, rgba(168,85,247,0.06) 0%, transparent 60%),
-        #f8f9ff
-      `,
+      background: theme.palette.grey[100],
     },
     ...simplebar(theme),
     ...keyFrames(),

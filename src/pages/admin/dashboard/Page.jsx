@@ -1,12 +1,8 @@
 import React from 'react'
-import {Box} from '@mui/material'
-import { useAdminAuth } from 'context/useContext';
+import {Box} from '@mui/material';
 
 const DashboardPage = () => {
 
-    const { admin } = useAdminAuth();
-
-    console.log("dashboard", admin);
     return (
         <Box>Dashboard</Box>
     )

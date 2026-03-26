@@ -87,7 +87,7 @@ const Button = {
       style: (style) => {
         const theme = style.theme;
         return {
-          borderColor: theme.vars.palette.background.elevation4,
+          borderColor: theme.vars.palette.borderLight,
           '&:hover': {
             backgroundColor: theme.vars.palette.background.elevation2,
           },
@@ -113,6 +113,7 @@ const Button = {
   ],
   defaultProps: {
     disableElevation: true,
+    disableRipple: true,
   },
   styleOverrides: {
     root: ({ theme }) => ({

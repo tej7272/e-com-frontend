@@ -179,7 +179,7 @@ const Chip = {
     }),
     label: ({ theme }) => ({
       ...theme.typography.subtitle2,
-      fontWeight: 600,
+      // fontWeight: 600,
       lineHeight: 1,
       overflow: 'unset',
     }),
